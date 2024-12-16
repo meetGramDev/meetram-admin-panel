@@ -10,7 +10,8 @@
     "lint": "eslint \"**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix {src,app}/**/*.{tsx,ts,jsx,js} --no-error-on-unmatched-pattern && stylelint --fix {src,app}/{,*/}*.{scss,css} --allow-empty-input",
     "lint:scss": "npx stylelint \"**/*.scss\"",
-    "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix"
+    "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
+    "prepare": "husky"
   },
   "dependencies": {
     "@apollo/client": "^3.12.3",
