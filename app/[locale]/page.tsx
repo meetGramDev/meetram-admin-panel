@@ -1,9 +1,14 @@
 import { type Locale, LocaleSwitcher, getDictionary } from '@/src/app/i18n'
+import { sleep } from '@meetgram/utils/functions'
 import Image from 'next/image'
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params
   const dict = await getDictionary(locale)
+
+  console.log('Before sleep')
+  await sleep(2000)
+  console.log('After sleep')
 
   return (
     <div
