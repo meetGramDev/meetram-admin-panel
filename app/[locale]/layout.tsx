@@ -6,7 +6,7 @@ import { Locale, i18nConfig } from '@/src/app/i18n'
 import { Inter } from 'next/font/google'
 
 import '@/src/app/styles/globals.scss'
-
+import '@meetgram/ui-kit/styles.css'
 const interFont = Inter({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-inter-sans',
