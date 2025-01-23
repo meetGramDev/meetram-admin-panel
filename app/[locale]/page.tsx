@@ -1,4 +1,5 @@
 import { type Locale, LocaleSwitcher, getDictionary } from '@/src/app/i18n'
+import { Button, Input } from '@meetgram/ui-kit'
 import { sleep } from '@meetgram/utils/functions'
 import Image from 'next/image'
 
@@ -17,6 +18,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       }
     >
       <LocaleSwitcher />
+      <Input />
+      <Button variant={'primary'}>Это кнопка</Button>
       <main className={'row-start-2 flex flex-col items-center gap-8 sm:items-start'}>
         <Image
           alt={'Next.js logo'}

@@ -19,7 +19,7 @@
     "@formatjs/intl-localematcher": "^0.5.9",
     "@hookform/resolvers": "^3.9.1",
     "@meetgram/tailwind-config": "^1.0.1",
-    "@meetgram/ui-kit": "^0.1.2",
+    "@meetgram/ui-kit": "^0.1.6",
     "@meetgram/utils": "^0.2.3",
     "graphql": "^16.10.0",
     "graphql-ws": "^5.16.0",
