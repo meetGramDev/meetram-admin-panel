@@ -1,6 +1,5 @@
 import { z } from 'zod'
 
-
 const maxChar = 'Maximum number of characters'
 const minChar = 'Minimum number of characters'
 const passContain = 'Password must contain'
