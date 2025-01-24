@@ -1,6 +1,5 @@
 import { z } from 'zod'
 
-// import { ErrorEmail, ErrorValidationFields } from '../../../dictionaries/en.json'
 
 const maxChar = 'Maximum number of characters'
 const minChar = 'Minimum number of characters'

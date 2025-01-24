@@ -1,0 +1,27 @@
+.signInCard {
+  padding: 1.5rem;
+  min-width: 23.7rem;
+  font-size: 16px;
+  line-height: 24px;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+}
+
+.header {
+  font-size: 20px;
+  line-height: 36px;
+  font-weight: 700;
+  margin-bottom: 2.31rem;
+  text-align: center;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem
+}
+
+.button {
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+}

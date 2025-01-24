@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react'
 import '../src/app/styles/globals.scss'
+import '@meetgram/ui-kit/styles.css'
 
 const preview: Preview = {
   parameters: {
