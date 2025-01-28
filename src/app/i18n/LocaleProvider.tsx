@@ -1,7 +1,7 @@
 'use client'
-import { PropsWithChildren, createContext, useContext } from 'react'
+import { type PropsWithChildren, createContext, useContext } from 'react'
 
-import { Locale } from './config'
+import { type Locale } from './config'
 
 const LocaleContext = createContext<Locale | null>(null)
 

@@ -1,6 +1,6 @@
-import { Locale } from '@/src/app/i18n/config'
-
 import 'server-only'
+
+import { type Locale } from './config'
 
 const dictionaries = {
   be: () => import('@/dictionaries/be.json').then(module => module.default),
