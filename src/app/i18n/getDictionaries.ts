@@ -1,5 +1,3 @@
-import 'server-only'
-
 import { type Locale } from './config'
 
 const dictionaries = {

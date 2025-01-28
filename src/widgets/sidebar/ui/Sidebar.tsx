@@ -1,17 +1,23 @@
-import { DesktopSidebar } from '@meetgram/ui-kit'
-import dynamic from 'next/dynamic'
+'use client'
+import { useLocale } from '@/src/app/i18n'
+import { DesktopSidebar, SidebarItem } from '@meetgram/ui-kit'
+import { usePathname } from 'next/navigation'
 
 import { sidebarItems } from '../const/sidebar-items'
 
-const SidebarItem = dynamic(() => import('@meetgram/ui-kit').then(mod => mod.SidebarItem), {
-  ssr: false,
-})
-
 export const Sidebar = () => {
+  const currentPathname = usePathname()
+  const locale = useLocale()
+
   return (
-    <DesktopSidebar className={'w-40'}>
+    <DesktopSidebar>
       {sidebarItems.map(item => (
-        <SidebarItem key={item.name} item={item} className={'font-semibold text-light-100'} />
+        <SidebarItem
+          key={item.name}
+          item={item}
+          isActiveLink={currentPathname === `/${locale}/${item.hrefPath}`}
+          className={'font-semibold text-light-100'}
+        />
       ))}
     </DesktopSidebar>
   )
