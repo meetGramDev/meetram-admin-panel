@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export const Header = () => {
   return (
-    <DesktopHeader>
+    <DesktopHeader className={'p-4 md:px-[3.75rem]'}>
       <Link href={HOME} className={'text-large font-semibold text-light-100'}>
         Meetgram
         <span className={'text-small font-light'}>

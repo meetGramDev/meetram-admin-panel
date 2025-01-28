@@ -1,24 +1,31 @@
 'use client'
-import { useLocale } from '@/src/app/i18n'
-import { DesktopSidebar, SidebarItem } from '@meetgram/ui-kit'
-import { usePathname } from 'next/navigation'
+import { Breakpoints } from '@/src/shared/const/breakpoints'
+import { useMediaQuery } from '@/src/shared/lib'
+import { DesktopSidebar, MobileSidebar } from '@meetgram/ui-kit'
 
-import { sidebarItems } from '../const/sidebar-items'
+import { SidebarItemList } from './SidebarItemList'
 
 export const Sidebar = () => {
-  const currentPathname = usePathname()
-  const locale = useLocale()
+  const { isMatches: isTablet, windowWidth } = useMediaQuery(`(max-width: ${Breakpoints.tablet})`)
 
   return (
-    <DesktopSidebar>
-      {sidebarItems.map(item => (
-        <SidebarItem
-          key={item.name}
-          item={item}
-          isActiveLink={currentPathname === `/${locale}/${item.hrefPath}`}
-          className={'font-semibold text-light-100'}
-        />
-      ))}
-    </DesktopSidebar>
+    <>
+      {windowWidth !== null ? (
+        <>
+          {!isTablet ? (
+            <DesktopSidebar>
+              <SidebarItemList />
+            </DesktopSidebar>
+          ) : (
+            <MobileSidebar containerClassName={'bg-dark-900'}>
+              <SidebarItemList isMobile={isTablet} />
+            </MobileSidebar>
+          )}
+        </>
+      ) : (
+        /* TODO: сделать красивый UI (скелетон или loader) */
+        <div></div>
+      )}
+    </>
   )
 }
