@@ -6,19 +6,19 @@ import { DesktopSidebar, MobileSidebar } from '@meetgram/ui-kit'
 import { SidebarItemList } from './SidebarItemList'
 
 export const Sidebar = () => {
-  const { isMatches: isTablet, windowWidth } = useMediaQuery(`(max-width: ${Breakpoints.tablet})`)
+  const { isMatches: isTablet, windowWidth } = useMediaQuery(`(min-width: ${Breakpoints.tablet})`)
 
   return (
     <>
       {windowWidth !== null ? (
         <>
-          {!isTablet ? (
+          {isTablet ? (
             <DesktopSidebar>
               <SidebarItemList />
             </DesktopSidebar>
           ) : (
             <MobileSidebar containerClassName={'bg-dark-900'}>
-              <SidebarItemList isMobile={isTablet} />
+              <SidebarItemList isMobile={!isTablet} />
             </MobileSidebar>
           )}
         </>
