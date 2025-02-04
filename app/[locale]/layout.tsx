@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 
-import { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 
-import { Locale, i18nConfig } from '@/src/app/i18n'
+import { type Locale, LocaleProvider, i18nConfig } from '@/src/app/i18n'
+import { Header } from '@/src/widgets/header'
 import { Inter } from 'next/font/google'
 
 import '@/src/app/styles/globals.scss'
 import '@meetgram/ui-kit/styles.css'
+
 const interFont = Inter({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-inter-sans',
@@ -14,7 +16,7 @@ const interFont = Inter({
 
 export const metadata: Metadata = {
   description: 'Meetgram Admin Panel',
-  title: 'Admin Meetgram',
+  title: 'Super Admin Meetgram',
 }
 
 export async function generateStaticParams() {
@@ -32,7 +34,12 @@ export default async function RootLayout({
 
   return (
     <html lang={lang}>
-      <body className={`${interFont.variable} antialiased`}>{children}</body>
+      <LocaleProvider langParam={lang}>
+        <body className={`${interFont.variable} relative antialiased`}>
+          <Header />
+          {children}
+        </body>
+      </LocaleProvider>
     </html>
   )
 }
