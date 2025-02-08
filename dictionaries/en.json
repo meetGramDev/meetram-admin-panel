@@ -1,14 +1,6 @@
 {
-  "home": {
-    "Get started by editing": "Get started by editing",
-    "Save and see your changes instantly.": "Save and see your changes instantly.",
-    "Deploy now": "Deploy now",
-    "Read our docs": "Read our docs",
-    "Learn": "Learn",
-    "Examples": "Examples",
-    "Go to": "Go to"
-  },
-  "all-posts": {
-    "All posts will be here!": "All posts will be here!"
+  "HomePage": {
+    "title": "Hello world! en",
+    "about": "Go to the about page en"
   }
 }
