@@ -1,7 +1,6 @@
 @forward 'reset';
 @forward 'colors';
 @forward 'typography';
-@forward 'toastify';
 @forward 'variables';
 
 @tailwind base;
@@ -18,4 +17,9 @@ body {
   font: var(--font-regular);
   color: var(--light-color-100);
   background: var(--dark-color-900);
+
+  //for select options TODO?
+  & div[data-radix-popper-content-wrapper=''] {
+    z-index: 100 !important;
+  }
 }
