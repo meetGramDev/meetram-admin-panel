@@ -63,12 +63,15 @@ export function middleware(req: NextRequest) {
   }
 
   if (isLogged && pathname.includes(SIGN_IN)) {
-    return NextResponse.redirect(new URL(ALL_POSTS, req.url))
+    return NextResponse.redirect(new URL(ALL_POSTS, req.url)) //(new URL(USERS_LIST, req.url))
   }
 
   return NextResponse.next()
 }
 
 export const config = {
+  // Skip all internal paths (_next)
   matcher: ['/((?!_next|[a-z]{2}(?:-[A-Z]{2})?/sign-in).*)'],
+  // Optional: only run on root (/) URL
+  // '/'
 }
