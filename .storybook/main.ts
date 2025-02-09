@@ -1,7 +1,8 @@
 import type { StorybookConfig } from '@storybook/nextjs'
 import path from "path";
+// @ts-ignore
 import Configuration = webpack.Configuration
-import { webpack } from 'next/dist/compiled/webpack/webpack'
+import type { webpack } from 'next/dist/compiled/webpack/webpack'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],

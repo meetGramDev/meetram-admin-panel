@@ -9,6 +9,8 @@ import { Inter } from 'next/font/google'
 import '@/src/app/styles/globals.scss'
 import '@meetgram/ui-kit/styles.css'
 
+import { Providers } from './providers'
+
 const interFont = Inter({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-inter-sans',
@@ -35,10 +37,12 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <LocaleProvider langParam={lang}>
-        <body className={`${interFont.variable} relative antialiased`}>
-          <Header />
-          {children}
-        </body>
+        <Providers>
+          <body className={`${interFont.variable} relative antialiased`}>
+            <Header />
+            {children}
+          </body>
+        </Providers>
       </LocaleProvider>
     </html>
   )
