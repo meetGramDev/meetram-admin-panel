@@ -34,6 +34,8 @@ function makeClient() {
     return {
       headers: {
         ...headers,
+        /* TODO: Хардкод */
+        Authorization: `Basic YWRtaW5AZ21haWwuY29tOmFkbWlu`,
       },
     }
   })
