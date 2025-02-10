@@ -2,12 +2,12 @@ import type { Metadata } from 'next'
 
 import { type ReactNode } from 'react'
 
-import { type Locale, LocaleProvider, i18nConfig } from '@/src/app/i18n'
-import { Providers } from '@/src/app/providers/Providers'
+import { type Locale, LocaleProvider, i18nConfig } from '@/src/app_layer/i18n'
+import { ApolloWrapper } from '@/src/app_layer/providers'
 import { Header } from '@/src/widgets/header'
 import { Inter } from 'next/font/google'
 
-import '@/src/app/styles/globals.scss'
+import '@/src/app_layer/styles/globals.scss'
 import '@meetgram/ui-kit/styles.css'
 
 const interFont = Inter({
@@ -36,12 +36,12 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <LocaleProvider langParam={lang}>
-        <Providers>
+        <ApolloWrapper>
           <body className={`${interFont.variable} relative antialiased`}>
             <Header />
             {children}
           </body>
-        </Providers>
+        </ApolloWrapper>
       </LocaleProvider>
     </html>
   )

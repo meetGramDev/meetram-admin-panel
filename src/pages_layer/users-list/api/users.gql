@@ -1,0 +1,24 @@
+query GetUsersList {
+  getUsers {
+    users {
+      id
+      userName
+      profile {
+        firstName
+        lastName
+      }
+      userBan {
+        reason
+        createdAt
+      }
+      createdAt
+    }
+    pagination {
+      page
+      pageSize
+      pagesCount
+      totalCount
+    }
+  }
+}
+

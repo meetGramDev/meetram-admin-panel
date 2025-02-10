@@ -1,2 +1,2 @@
 schema: https://inctagram.work/api/v1/graphql
-documents: '**/*.graphql'
+documents: '**/*.{graphql,gql,ts,tsx,js,jsx}'

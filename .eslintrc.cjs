@@ -5,5 +5,5 @@ module.exports = {
     'perfectionist/sort-jsx-props': [
       'off',
     ]
-  }
+  },
 }

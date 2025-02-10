@@ -1,3 +1,5 @@
+export * from './models.gen'
+
 export type ServerMessagesType = {
   field: string
   message: string

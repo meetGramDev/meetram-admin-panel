@@ -1,5 +1,5 @@
 'use client'
-import { useLocale } from '@/src/app/i18n'
+import { useLocale } from '@/src/app_layer/i18n'
 import { sidebarItems } from '@/src/widgets/sidebar/const/sidebar-items'
 import { SidebarItem } from '@meetgram/ui-kit'
 import { cn } from '@meetgram/utils'
