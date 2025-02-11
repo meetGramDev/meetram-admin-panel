@@ -17,11 +17,11 @@ import {
 } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils'
 import Link from 'next/link'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { useGetUsersListQuery } from '../api/users.generated'
+import { PAGE_PARAM_KEY, PAGE_SIZE_PARAM_KEY, paginationPageSize } from '../model/pagination-config'
 import { TableSkeleton } from './TableSkeleton'
-
-const paginationPageSize = [5, 10, 15, 20]
 
 type Props = {
   /**
@@ -41,16 +41,27 @@ type Props = {
 }
 
 export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) => {
+  const locale = useLocale()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const searchParams = useSearchParams()
+  const params = new URLSearchParams(searchParams)
+
+  const page = searchParams.get(PAGE_PARAM_KEY) || 1
+  const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
+
   const { data, error, loading, refetch } = useGetUsersListQuery({
     pollInterval: 300000, // 5 min
     variables: {
+      pageNumber: +page,
+      pageSize: +itemsPerPage,
       searchTerm: searchQuery,
       // сервер ожидает строковое значение из енамки,
       // типизация верная, но без as ts ругается.
       statusFilter: statusFilter as UserBlockStatus | undefined,
     },
   })
-  const locale = useLocale()
 
   useEffect(() => {
     if (!onError) {
@@ -77,9 +88,21 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
     )
   }
 
-  const handleOnPageChange = (page: number) => {}
+  if (data?.getUsers.users.length === 0) {
+    return <p className={'text-center text-h1 lg:text-large'}>Nothing found</p>
+  }
 
-  const handleItemsPerPageChange = (itemsPerPage: number) => {}
+  const handleOnPageChange = (page: number) => {
+    params.set(PAGE_PARAM_KEY, String(page))
+
+    router.replace(`${pathname}?${params.toString()}`)
+  }
+
+  const handleItemsPerPageChange = (itemsPerPage: number) => {
+    params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
+
+    router.replace(`${pathname}?${params.toString()}`)
+  }
 
   return (
     <>
