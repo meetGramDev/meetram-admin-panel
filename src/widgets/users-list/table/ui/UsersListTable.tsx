@@ -5,9 +5,9 @@ import { useEffect } from 'react'
 
 import { useLocale } from '@/src/app_layer/i18n'
 import { BannedIcon } from '@/src/shared/assets/icons'
+import { PROFILE } from '@/src/shared/routes'
 import {
   Button,
-  Loader,
   Pagination,
   Table,
   TableBody,
@@ -16,6 +16,7 @@ import {
   TableRow,
 } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils'
+import Link from 'next/link'
 
 import { useGetUsersListQuery } from '../api/users.generated'
 import { TableSkeleton } from './TableSkeleton'
@@ -41,6 +42,7 @@ type Props = {
 
 export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) => {
   const { data, error, loading, refetch } = useGetUsersListQuery({
+    pollInterval: 300000, // 5 min
     variables: {
       searchTerm: searchQuery,
       // сервер ожидает строковое значение из енамки,
@@ -104,7 +106,16 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
                     ? `${user.profile.firstName || ''} ${user.profile.lastName || ''}`
                     : '—'}
                 </TableCell>
-                <TableCell>{user.userName}</TableCell>
+                <TableCell>
+                  <Button
+                    as={Link}
+                    variant={'link'}
+                    className={'text-white'}
+                    href={{ pathname: `/${PROFILE}/${user.id}`, query: { from: 'users' } }}
+                  >
+                    {user.userName}
+                  </Button>
+                </TableCell>
                 <TableCell>{dateFormatting(user.createdAt, { locale })}</TableCell>
               </TableRow>
             ))}
