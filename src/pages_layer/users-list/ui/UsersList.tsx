@@ -24,7 +24,7 @@ export const UsersList = () => {
   }
 
   return (
-    <div className={'mb-12'}>
+    <div className={'pb-6 xl:mb-12'}>
       <div className={'flex flex-wrap sm:flex-nowrap sm:justify-between sm:gap-6 xl:gap-24'}>
         <div className={'flex-grow basis-full sm:basis-2/3 xl:basis-3/4'}>
           <SearchBar onValueQuery={handleOnSearchQuery} />
@@ -38,13 +38,12 @@ export const UsersList = () => {
           />
         </div>
       </div>
-      <div className={'mb-9'}>
-        <UsersListTable
-          onError={errMsg => setHasError(Boolean(errMsg))}
-          statusFilter={selectorValue}
-          searchQuery={searchQuery}
-        />
-      </div>
+
+      <UsersListTable
+        onError={errMsg => setHasError(Boolean(errMsg))}
+        statusFilter={selectorValue}
+        searchQuery={searchQuery}
+      />
     </div>
   )
 }

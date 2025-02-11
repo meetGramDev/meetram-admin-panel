@@ -8,6 +8,7 @@ import { BannedIcon } from '@/src/shared/assets/icons'
 import {
   Button,
   Loader,
+  Pagination,
   Table,
   TableBody,
   TableCell,
@@ -17,6 +18,8 @@ import {
 import { dateFormatting } from '@meetgram/utils'
 
 import { useGetUsersListQuery } from '../api/users.generated'
+
+const paginationPageSize = [5, 10, 15, 20]
 
 type Props = {
   /**
@@ -71,34 +74,54 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
     )
   }
 
+  const handleOnPageChange = (page: number) => {}
+
+  const handleItemsPerPageChange = (itemsPerPage: number) => {}
+
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableCell>User ID</TableCell>
-          <TableCell>Username</TableCell>
-          <TableCell>Profile link</TableCell>
-          <TableCell>Date created</TableCell>
-          <TableCell></TableCell>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {data?.getUsers.users.map(user => (
-          <TableRow key={user.id}>
-            <TableCell className={'flex items-center gap-3'}>
-              {user.userBan?.createdAt && <BannedIcon className={'text-light-100'} size={24} />}
-              <span>{user.id}</span>
-            </TableCell>
-            <TableCell>
-              {user.profile.firstName || user.profile.lastName
-                ? `${user.profile.firstName || ''} ${user.profile.lastName || ''}`
-                : '—'}
-            </TableCell>
-            <TableCell>{user.userName}</TableCell>
-            <TableCell>{dateFormatting(user.createdAt, { locale })}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <>
+      <div className={'mb-9'}>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableCell>User ID</TableCell>
+              <TableCell>Username</TableCell>
+              <TableCell>Profile link</TableCell>
+              <TableCell>Date created</TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data?.getUsers.users.map(user => (
+              <TableRow key={user.id}>
+                <TableCell className={'flex items-center gap-3'}>
+                  {user.userBan?.createdAt && <BannedIcon className={'text-light-100'} size={24} />}
+                  <span>{user.id}</span>
+                </TableCell>
+                <TableCell>
+                  {user.profile.firstName || user.profile.lastName
+                    ? `${user.profile.firstName || ''} ${user.profile.lastName || ''}`
+                    : '—'}
+                </TableCell>
+                <TableCell>{user.userName}</TableCell>
+                <TableCell>{dateFormatting(user.createdAt, { locale })}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
+      {data?.getUsers.pagination && (
+        <div className={'w-full md:w-1/2'}>
+          <Pagination
+            currentPage={data.getUsers.pagination.page}
+            pageCount={data.getUsers.pagination.pagesCount}
+            onPageChange={handleOnPageChange}
+            options={paginationPageSize}
+            onPerPageChange={handleItemsPerPageChange}
+          />
+        </div>
+      )}
+    </>
   )
 }
