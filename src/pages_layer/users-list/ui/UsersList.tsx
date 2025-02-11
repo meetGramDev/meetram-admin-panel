@@ -10,6 +10,8 @@ import { UsersListTable } from '@/src/widgets/users-list/table'
 export const UsersList = () => {
   const [selectorValue, setSelectorValue] = useState<`${UserBlockStatus}`>('ALL')
   const [searchQuery, setSearchQuery] = useState('')
+  // для дизейблинга UI
+  const [hasError, setHasError] = useState(false)
 
   const handleOnValueChange = (value: UserBlockStatus) => {
     setSelectorValue(value)
@@ -22,16 +24,27 @@ export const UsersList = () => {
   }
 
   return (
-    <div className={'mb-6'}>
-      <div className={'flex justify-between gap-3'}>
-        <div className={'flex-grow basis-3/4'}>
+    <div className={'mb-12'}>
+      <div className={'flex flex-wrap sm:flex-nowrap sm:justify-between sm:gap-6 xl:gap-24'}>
+        <div className={'flex-grow basis-full sm:basis-2/3 xl:basis-3/4'}>
           <SearchBar onValueQuery={handleOnSearchQuery} />
         </div>
-        <div className={'flex basis-1/4 items-start justify-end'}>
-          <BanSelector onValueChange={handleOnValueChange} value={selectorValue} />
+        <div className={'mb-6 flex basis-full items-start sm:basis-1/3 xl:basis-1/4'}>
+          <BanSelector
+            disabled={hasError}
+            onValueChange={handleOnValueChange}
+            value={selectorValue}
+            rootClassName={'w-full h-full'}
+          />
         </div>
       </div>
-      <UsersListTable statusFilter={selectorValue} searchQuery={searchQuery} />
+      <div className={'mb-9'}>
+        <UsersListTable
+          onError={errMsg => setHasError(Boolean(errMsg))}
+          statusFilter={selectorValue}
+          searchQuery={searchQuery}
+        />
+      </div>
     </div>
   )
 }
