@@ -18,6 +18,7 @@ import {
 import { dateFormatting } from '@meetgram/utils'
 
 import { useGetUsersListQuery } from '../api/users.generated'
+import { TableSkeleton } from './TableSkeleton'
 
 const paginationPageSize = [5, 10, 15, 20]
 
@@ -62,7 +63,7 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
   }, [error, onError])
 
   if (loading) {
-    return <Loader />
+    return <TableSkeleton />
   }
 
   if (error) {
