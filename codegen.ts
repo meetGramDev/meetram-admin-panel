@@ -1,6 +1,6 @@
 import type { CodegenConfig } from '@graphql-codegen/cli'
 
-import { BACKEND_GraphQL_BASE_URL } from './src/shared/config/index'
+import { BACKEND_GraphQL_BASE_URL } from './src/shared/config'
 
 const config: CodegenConfig = {
   documents: ['src/**/*.{graphql,gql,ts}'],

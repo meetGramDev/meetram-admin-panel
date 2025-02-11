@@ -1,9 +1,9 @@
 'use client'
 import type { PropsWithChildren } from 'react'
 
+import { authLink } from '@/src/shared/api/apollo-client/apollo-config'
 import { BACKEND_GraphQL_BASE_URL } from '@/src/shared/config'
 import { HttpLink } from '@apollo/client'
-import { setContext } from '@apollo/client/link/context'
 import {
   ApolloClient,
   ApolloNextAppProvider,
@@ -11,7 +11,9 @@ import {
 } from '@apollo/experimental-nextjs-app-support'
 
 /**
- * Функция, которая инициализирует Apollo клиент.
+ *
+ * Функция, которая инициализирует Apollo клиент для использования на клиенте (Client Components).
+ *
  * Гарантирует, что все клиентские компоненты будут иметь доступ к одному и тому же экземпляру клиента Apollo,
  * совместно используемому через ApolloNextAppProvider.
  */
@@ -20,24 +22,12 @@ function makeClient() {
   const httpLink = new HttpLink({
     // по желанию, здесь можно задизейблить кэш
     // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
-    fetchOptions: { cache: 'no-store' },
+    // fetchOptions: { cache: 'no-store' },
     // на каждый query запрос можно переопределить дефолтное значение `fetchOptions`
     // через свойство `context` в объекте параметров, передаваемый вторым аргументом
     // в хук Apollo Client`а для запроса за данными, например:
     // const { data } = useSuspenseQuery(MY_QUERY, { context: { fetchOptions: { cache: "force-cache" }}});
     uri: BACKEND_GraphQL_BASE_URL,
-  })
-
-  // Настройка headers запросов
-  const authLink = setContext((_, { headers }) => {
-    // return the headers to the context so httpLink can read them
-    return {
-      headers: {
-        ...headers,
-        /* TODO: Хардкод */
-        Authorization: `Basic YWRtaW5AZ21haWwuY29tOmFkbWlu`,
-      },
-    }
   })
 
   // Инициализация инстанса клиента Apollo
