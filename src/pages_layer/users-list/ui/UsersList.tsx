@@ -1,8 +1,7 @@
 'use client'
-import type { UserBlockStatus } from '@/src/shared/api'
-
 import { useState } from 'react'
 
+import { UserBlockStatus } from '@/src/shared/api'
 import { SearchBar } from '@/src/widgets/search-bar'
 import { BanSelector } from '@/src/widgets/users-list/ban-selector'
 import {
@@ -22,19 +21,21 @@ export const UsersList = () => {
   const searchQuery = searchParams.get(SEARCH_PARAM_KEY) ?? ''
   // сервер ожидает строковое значение из енамки,
   // типизация верная, но без as ts ругается.
-  const blockedFilter =
-    (searchParams.get(FILTER_PARAM_KEY)?.toString().toUpperCase() as `${UserBlockStatus}`) || 'ALL'
+  const blockedFilterParam = searchParams.get(FILTER_PARAM_KEY)
+  const blockedFilter = blockedFilterParam
+    ? (blockedFilterParam.toUpperCase() as UserBlockStatus)
+    : UserBlockStatus.All
 
   // для дизейблинга UI
   const [hasError, setHasError] = useState(false)
 
-  const handleOnValueChange = (value: `${UserBlockStatus}`) => {
+  const handleOnValueChange = (value: UserBlockStatus) => {
     switch (value) {
-      case 'ALL':
+      case UserBlockStatus.All:
         params.delete(FILTER_PARAM_KEY)
         break
-      case 'BLOCKED':
-      case 'UNBLOCKED':
+      case UserBlockStatus.Blocked:
+      case UserBlockStatus.Unblocked:
         params.set(FILTER_PARAM_KEY, value.toLowerCase())
         break
       default:
