@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 
-import * as Types from '../../types'
+import * as Types from '../../shared/api/models.gen'
 
 const defaultOptions = {} as const
 

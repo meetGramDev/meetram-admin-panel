@@ -1,5 +1,5 @@
-import { i18nConfig } from '@/src/app/i18n'
-import { ALL_POSTS, SIGN_IN } from '@/src/shared/routes'
+import { i18nConfig } from '@/src/app_layer/i18n'
+import { SIGN_IN, USERS_LIST } from '@/src/shared/routes'
 import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
 import { NextRequest, NextResponse } from 'next/server'
@@ -55,9 +55,6 @@ export function middleware(req: NextRequest) {
       new URL(`/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`, req.url)
     )
   }
-  // console.log('isLogged:', isLogged)
-  // console.log('pathname:', pathname)
-  // console.log('SIGN_IN:', SIGN_IN)
 
   if (!isLogged && !pathname.includes(SIGN_IN)) {
     const locale = getLocale(req) || i18nConfig.defaultLocale
@@ -66,7 +63,7 @@ export function middleware(req: NextRequest) {
   }
 
   if (isLogged && pathname.includes(SIGN_IN)) {
-    return NextResponse.redirect(new URL(ALL_POSTS, req.url)) //(new URL(USERS_LIST, req.url))
+    return NextResponse.redirect(new URL(USERS_LIST, req.url))
   }
 
   return NextResponse.next()

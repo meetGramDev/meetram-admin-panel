@@ -1,4 +1,4 @@
-import { type Locale, getDictionary } from '@/src/app/i18n'
+import { type Locale, getDictionary } from '@/src/app_layer/i18n'
 import Image from 'next/image'
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {

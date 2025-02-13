@@ -10,5 +10,11 @@
   },
   "all-posts": {
     "All posts will be here!": "Тут будут все посты!"
+  },
+  "profile": {
+    "User's profile will be here!!": "Здесь будет профиль пользователя!!"
+  },
+  "buttons": {
+    "Back": "Назад"
   }
 }

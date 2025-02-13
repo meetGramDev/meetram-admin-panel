@@ -1,4 +1,4 @@
-import { LocaleSwitcher } from '@/src/app/i18n'
+import { LocaleSwitcher } from '@/src/app_layer/i18n'
 import { HOME } from '@/src/shared/routes'
 import { DesktopHeader } from '@meetgram/ui-kit'
 import Link from 'next/link'

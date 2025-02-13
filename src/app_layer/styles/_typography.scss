@@ -1,0 +1,48 @@
+:root {
+  --font-family-main: 'Inter', sans-serif;
+
+  //weight
+  --fw-400: 400;
+  --fw-500: 500;
+  --fw-600: 600;
+  --fw-700: 700;
+
+  //size
+  --fs-xs: 0.75rem;
+  --fs-s: 0.875rem;
+  --fs-m: 1rem;
+  --fs-l: 1.125rem;
+  --fs-xl: 1.25rem;
+  --fs-xxl: 1.625rem;
+
+  //line-height
+  --lh-s: 16px;
+  --lh-m: 24px;
+  --lh-l: 36px;
+
+  //fonts
+  //large
+  --font-large: var(--fw-600) var(--fs-xxl) / var(--lh-l) var(--font-family-main);
+
+  //h1/2/3
+  --font-h1: var(--fw-700) var(--fs-xl) / var(--lh-l) var(--font-family-main);
+  --font-h2: var(--fw-700) var(--fs-l) / var(--lh-m) var(--font-family-main);
+  --font-h3: var(--fw-600) var(--fs-m) / var(--lh-m) var(--font-family-main);
+
+  //regular
+  --font-regular: var(--fw-400) var(--fs-m) / var(--lh-m) var(--font-family-main);
+  --font-regular-bold: var(--fw-700) var(--fs-m) / var(--lh-m) var(--font-family-main);
+  --font-regular-small: var(--fw-400) var(--fs-s) / var(--lh-m) var(--font-family-main);
+
+  //medium
+  --font-medium: var(--fw-500) var(--fs-s) / var(--lh-m) var(--font-family-main);
+  --font-medium-bold: var(--fw-700) var(--fs-s) / var(--lh-m) var(--font-family-main);
+
+  //small
+  --font-small: var(--fw-400) var(--fs-xs) / var(--lh-s) var(--font-family-main);
+  --font-small-bold: var(--fw-600) var(--fs-xs) / var(--lh-s) var(--font-family-main);
+
+  //link
+  --font-regular-link: var(--fw-400) var(--fs-s) / var(--lh-m) var(--font-family-main);
+  --font-small-link: var(--fw-400) var(--fs-xs) / var(--lh-s) var(--font-family-main);
+}

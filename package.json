@@ -8,13 +8,14 @@
     "start": "next start",
     "format": "prettier src app --write",
     "lint": "eslint \"**/*.{ts,tsx}\"",
-    "lint:fix": "eslint --fix {src,app}/**/*.{tsx,ts,jsx,js} --no-error-on-unmatched-pattern && stylelint --fix {src,app}/{,*/}*.{scss,css} --allow-empty-input",
+    "lint:fix": "eslint --fix {src,app}/**/*.{tsx,ts,jsx,js} --no-error-on-unmatched-pattern --ignore-pattern .eslintignore && stylelint --fix {src,app}/{,*/}*.{scss,css} --allow-empty-input",
     "lint:scss": "npx stylelint \"**/*.scss\"",
     "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "codegen:watch": "graphql-codegen --watch"
+    "api-codegen": "graphql-codegen",
+    "api-codegen:watch": "graphql-codegen --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.12.8",
