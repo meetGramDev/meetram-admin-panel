@@ -55,6 +55,9 @@ export function middleware(req: NextRequest) {
       new URL(`/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`, req.url)
     )
   }
+  // console.log('isLogged:', isLogged)
+  // console.log('pathname:', pathname)
+  // console.log('SIGN_IN:', SIGN_IN)
 
   if (!isLogged && !pathname.includes(SIGN_IN)) {
     const locale = getLocale(req) || i18nConfig.defaultLocale
@@ -71,7 +74,7 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   // Skip all internal paths (_next)
-  matcher: ['/((?!_next|[a-z]{2}(?:-[A-Z]{2})?/sign-in).*)'],
+  matcher: ['/((?!_next).*)', '/:locale(sign-in)'],
   // Optional: only run on root (/) URL
   // '/'
 }

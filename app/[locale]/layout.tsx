@@ -3,13 +3,12 @@ import type { Metadata } from 'next'
 import { type ReactNode } from 'react'
 
 import { type Locale, LocaleProvider, i18nConfig } from '@/src/app/i18n'
+import { Providers } from '@/src/app/providers/Providers'
 import { Header } from '@/src/widgets/header'
 import { Inter } from 'next/font/google'
 
 import '@/src/app/styles/globals.scss'
 import '@meetgram/ui-kit/styles.css'
-
-import { Providers } from './providers'
 
 const interFont = Inter({
   subsets: ['latin', 'cyrillic'],
