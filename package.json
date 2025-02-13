@@ -13,7 +13,8 @@
     "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "codegen:watch": "graphql-codegen --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.12.8",
@@ -23,6 +24,7 @@
     "@meetgram/tailwind-config": "*1.0.2",
     "@meetgram/ui-kit": "*0.2.2",
     "@meetgram/utils": "*0.2.6",
+    "cookies-next": "^4.3.0",
     "graphql": "^16.10.0",
     "graphql-ws": "^5.16.2",
     "negotiator": "^1.0.0",

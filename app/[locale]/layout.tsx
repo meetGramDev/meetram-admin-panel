@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { type ReactNode } from 'react'
 
 import { type Locale, LocaleProvider, i18nConfig } from '@/src/app/i18n'
+import { Providers } from '@/src/app/providers/Providers'
 import { Header } from '@/src/widgets/header'
 import { Inter } from 'next/font/google'
 
@@ -35,10 +36,12 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <LocaleProvider langParam={lang}>
-        <body className={`${interFont.variable} relative antialiased`}>
-          <Header />
-          {children}
-        </body>
+        <Providers>
+          <body className={`${interFont.variable} relative antialiased`}>
+            <Header />
+            {children}
+          </body>
+        </Providers>
       </LocaleProvider>
     </html>
   )
