@@ -1,11 +1,10 @@
 'use client'
+import type { ComponentProps } from 'react'
+
 import { DebounceSearch } from '@meetgram/ui-kit'
 
-type Props = {
-  onValueQuery: (value: string) => void
-  value?: string
-}
+type Props = {} & ComponentProps<typeof DebounceSearch>
 
-export const SearchBar = ({ onValueQuery, value }: Props) => {
-  return <DebounceSearch onValueQuery={onValueQuery} />
+export const SearchBar = (props: Props) => {
+  return <DebounceSearch {...props} />
 }
