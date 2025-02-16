@@ -1,5 +1,5 @@
 import { type Locale, getDictionary } from '@/src/app_layer/i18n'
-import { BackButton } from '@/src/shared/ui/back-button'
+import { BackButton } from '@/src/shared/ui'
 
 export default async function UserId({
   params,
