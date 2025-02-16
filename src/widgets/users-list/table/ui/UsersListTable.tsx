@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { useLocale } from '@/src/app_layer/i18n'
 import { SortDirection, type UserBlockStatus } from '@/src/shared/api'
@@ -22,8 +22,14 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { useGetUsersListQuery } from '../api/users.generated'
 import { type TableHeadKeysType, tableHeaders } from '../const/table-headers'
-import { PAGE_PARAM_KEY, PAGE_SIZE_PARAM_KEY, paginationPageSize } from '../model/pagination-config'
-import { SortDirectionTable, type TableSortType } from '../model/table.types'
+import {
+  PAGE_PARAM_KEY,
+  PAGE_SIZE_PARAM_KEY,
+  SORT_BY_PARAM_KEY,
+  SORT_PARAM_KEY,
+  paginationPageSize,
+} from '../model/pagination-config'
+import { SortDirectionTable } from '../model/table.types'
 import { TableSkeleton } from './TableSkeleton'
 
 type Props = {
@@ -53,11 +59,9 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
 
   const page = searchParams.get(PAGE_PARAM_KEY) || 1
   const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
-
-  const [sort, setSort] = useState<TableSortType>({
-    sortBy: 'createdAt',
-    sortDir: SortDirectionTable.DESC,
-  })
+  const sortDirParam = searchParams.get(SORT_PARAM_KEY)
+  const sortDir = sortDirParam ? +sortDirParam : SortDirectionTable.DESC
+  const sortBy = searchParams.get(SORT_BY_PARAM_KEY) || tableHeaders[3].key
 
   const { data, error, loading, refetch } = useGetUsersListQuery({
     pollInterval: 300000, // 5 min
@@ -65,9 +69,8 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
       pageNumber: +page,
       pageSize: +itemsPerPage,
       searchTerm: searchQuery,
-      sortBy: sort.sortBy,
-      sortDirection:
-        sort.sortDir === SortDirectionTable.DESC ? SortDirection.Desc : SortDirection.Asc,
+      sortBy,
+      sortDirection: sortDir === SortDirectionTable.DESC ? SortDirection.Desc : SortDirection.Asc,
       // сервер ожидает строковое значение из енамки,
       // типизация верная, но без as ts ругается.
       statusFilter: statusFilter as UserBlockStatus | undefined,
@@ -85,6 +88,20 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
       onError('')
     }
   }, [error, onError])
+
+  // При монтировании проверить, стоят ли параметры для сортировки.
+  // Если нет, то предустановить их.
+  useEffect(() => {
+    if (!searchParams.get(SORT_PARAM_KEY)) {
+      params.set(SORT_PARAM_KEY, String(SortDirectionTable.DESC))
+    }
+
+    if (!searchParams.get(SORT_BY_PARAM_KEY)) {
+      params.set(SORT_BY_PARAM_KEY, tableHeaders[3].key)
+    }
+
+    router.replace(`${pathname}?${params.toString()}`)
+  }, [])
 
   if (loading) {
     return <TableSkeleton />
@@ -116,16 +133,18 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
   }
 
   const handleChangeSorting = (header: ITableHead<TableHeadKeysType>) => {
-    setSort({
-      sortBy: header.key,
-      sortDir:
-        // eslint-disable-next-line no-nested-ternary
-        sort.sortBy === header.key
-          ? sort.sortDir === SortDirectionTable.DESC
-            ? SortDirectionTable.ASC
-            : SortDirectionTable.DESC
-          : SortDirectionTable.ASC,
-    })
+    const sortDirection =
+      // eslint-disable-next-line no-nested-ternary
+      sortBy === header.key
+        ? sortDir === SortDirectionTable.DESC
+          ? SortDirectionTable.ASC
+          : SortDirectionTable.DESC
+        : SortDirectionTable.ASC
+
+    params.set(SORT_PARAM_KEY, String(sortDirection))
+    params.set(SORT_BY_PARAM_KEY, header.key)
+
+    router.replace(`${pathname}?${params.toString()}`)
   }
 
   return (
@@ -133,13 +152,15 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
       <div className={'mb-9'}>
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className={'has-[:hover]:border-0'}>
               {tableHeaders.map(header => (
                 <TableHead
-                  /* @ts-ignore TODO */
-                  sort={sort.sortBy === header.key ? sort.sortDir : undefined}
+                  sort={sortBy === header.key ? sortDir : undefined}
                   onClick={() => handleChangeSorting(header)}
                   key={header.id}
+                  className={
+                    'transition-colors hover:border-0 hover:shadow-sm hover:shadow-neutral-100/50'
+                  }
                 >
                   {header.label}
                 </TableHead>
