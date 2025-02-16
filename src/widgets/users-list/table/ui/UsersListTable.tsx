@@ -100,8 +100,12 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
       params.set(SORT_BY_PARAM_KEY, tableHeaders[3].key)
     }
 
-    router.replace(`${pathname}?${params.toString()}`)
+    _saveSearchParams()
   }, [])
+
+  const _saveSearchParams = () => {
+    router.replace(`${pathname}?${params.toString()}`)
+  }
 
   if (loading) {
     return <TableSkeleton />
@@ -123,13 +127,13 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
   const handleOnPageChange = (page: number) => {
     params.set(PAGE_PARAM_KEY, String(page))
 
-    router.replace(`${pathname}?${params.toString()}`)
+    _saveSearchParams()
   }
 
   const handleItemsPerPageChange = (itemsPerPage: number) => {
     params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
 
-    router.replace(`${pathname}?${params.toString()}`)
+    _saveSearchParams()
   }
 
   const handleChangeSorting = (header: ITableHead<TableHeadKeysType>) => {
@@ -144,7 +148,7 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
     params.set(SORT_PARAM_KEY, String(sortDirection))
     params.set(SORT_BY_PARAM_KEY, header.key)
 
-    router.replace(`${pathname}?${params.toString()}`)
+    _saveSearchParams()
   }
 
   return (
