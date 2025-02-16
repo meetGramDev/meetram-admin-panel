@@ -67,7 +67,7 @@ export const UsersList = () => {
     <div className={'pb-6 xl:mb-12'}>
       <div className={'flex flex-wrap sm:flex-nowrap sm:justify-between sm:gap-6 xl:gap-24'}>
         <div className={'flex-grow basis-full sm:basis-2/3 xl:basis-3/4'}>
-          <SearchBar onValueQuery={handleOnSearchQuery} />
+          <SearchBar onValueQuery={handleOnSearchQuery} defaultValue={searchQuery} />
         </div>
         <div className={'mb-6 flex basis-full items-start sm:basis-1/3 xl:basis-1/4'}>
           <BanSelector

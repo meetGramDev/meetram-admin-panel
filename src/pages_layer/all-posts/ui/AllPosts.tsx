@@ -4,7 +4,7 @@ import Image from 'next/image'
 export const AllPosts = ({ dict }: { dict: Record<string, string> }) => {
   return (
     <div>
-      <SearchBar onValueQuery={value => console.log(value)} />
+      <SearchBar />
       <p className={'mt-24 text-center'}>
         {/* @ts-ignore */}
         {dict['all-posts']['All posts will be here!']}
