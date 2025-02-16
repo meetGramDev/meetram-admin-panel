@@ -1,17 +1,18 @@
 'use client'
-import type { UserBlockStatus } from '@/src/shared/api'
-
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useLocale } from '@/src/app_layer/i18n'
+import { SortDirection, type UserBlockStatus } from '@/src/shared/api'
 import { BannedIcon } from '@/src/shared/assets/icons'
 import { PROFILE } from '@/src/shared/routes'
 import {
   Button,
+  type ITableHead,
   Pagination,
   Table,
   TableBody,
   TableCell,
+  TableHead,
   TableHeader,
   TableRow,
 } from '@meetgram/ui-kit'
@@ -20,7 +21,9 @@ import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { useGetUsersListQuery } from '../api/users.generated'
+import { type TableHeadKeysType, tableHeaders } from '../const/table-headers'
 import { PAGE_PARAM_KEY, PAGE_SIZE_PARAM_KEY, paginationPageSize } from '../model/pagination-config'
+import { SortDirectionTable, type TableSortType } from '../model/table.types'
 import { TableSkeleton } from './TableSkeleton'
 
 type Props = {
@@ -51,12 +54,20 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
   const page = searchParams.get(PAGE_PARAM_KEY) || 1
   const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
 
+  const [sort, setSort] = useState<TableSortType>({
+    sortBy: 'createdAt',
+    sortDir: SortDirectionTable.DESC,
+  })
+
   const { data, error, loading, refetch } = useGetUsersListQuery({
     pollInterval: 300000, // 5 min
     variables: {
       pageNumber: +page,
       pageSize: +itemsPerPage,
       searchTerm: searchQuery,
+      sortBy: sort.sortBy,
+      sortDirection:
+        sort.sortDir === SortDirectionTable.DESC ? SortDirection.Desc : SortDirection.Asc,
       // сервер ожидает строковое значение из енамки,
       // типизация верная, но без as ts ругается.
       statusFilter: statusFilter as UserBlockStatus | undefined,
@@ -104,17 +115,36 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
     router.replace(`${pathname}?${params.toString()}`)
   }
 
+  const handleChangeSorting = (header: ITableHead<TableHeadKeysType>) => {
+    setSort({
+      sortBy: header.key,
+      sortDir:
+        // eslint-disable-next-line no-nested-ternary
+        sort.sortBy === header.key
+          ? sort.sortDir === SortDirectionTable.DESC
+            ? SortDirectionTable.ASC
+            : SortDirectionTable.DESC
+          : SortDirectionTable.ASC,
+    })
+  }
+
   return (
     <>
       <div className={'mb-9'}>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableCell>User ID</TableCell>
-              <TableCell>Username</TableCell>
-              <TableCell>Profile link</TableCell>
-              <TableCell>Date created</TableCell>
-              <TableCell></TableCell>
+              {tableHeaders.map(header => (
+                <TableHead
+                  /* @ts-ignore TODO */
+                  sort={sort.sortBy === header.key ? sort.sortDir : undefined}
+                  onClick={() => handleChangeSorting(header)}
+                  key={header.id}
+                >
+                  {header.label}
+                </TableHead>
+              ))}
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
