@@ -2,6 +2,7 @@
 import { useState } from 'react'
 
 import { UserBlockStatus } from '@/src/shared/api'
+import { ConfirmDialog } from '@/src/shared/ui'
 import { SearchBar } from '@/src/widgets/search-bar'
 import { BanSelector } from '@/src/widgets/users-list/ban-selector'
 import {
@@ -11,6 +12,8 @@ import {
   UsersListTable,
 } from '@/src/widgets/users-list/table'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
+import { useUserMutations } from '../lib/useUserMutations'
 
 export const UsersList = () => {
   const searchParams = useSearchParams()
@@ -28,6 +31,14 @@ export const UsersList = () => {
 
   // для дизейблинга UI
   const [hasError, setHasError] = useState(false)
+  const {
+    deleteLoading,
+    handleConfirmUserDeletion,
+    openDelete,
+    selectedUser,
+    setOpenDelete,
+    setSelectedUser,
+  } = useUserMutations()
 
   const handleOnValueChange = (value: UserBlockStatus) => {
     switch (value) {
@@ -81,9 +92,26 @@ export const UsersList = () => {
       </div>
 
       <UsersListTable
+        disabled={deleteLoading}
         onError={errMsg => setHasError(Boolean(errMsg))}
         statusFilter={blockedFilter}
         searchQuery={searchQuery}
+        onDelete={(id, userName) => {
+          setSelectedUser(state => ({ ...state, id, userName }))
+          setOpenDelete(true)
+        }}
+      />
+
+      <ConfirmDialog
+        open={openDelete}
+        onOpenChange={setOpenDelete}
+        title={'Delete user'}
+        message={
+          <span className={'text-regular16 text-white'}>
+            Are you sure to delete user <span className={'font-bold'}>{selectedUser.userName}</span>
+          </span>
+        }
+        onConfirm={handleConfirmUserDeletion}
       />
     </div>
   )

@@ -1,9 +1,9 @@
 'use client'
 import type { UserBlockStatus } from '@/src/shared/api'
 
-import { useEffect } from 'react'
-
 import { useLocale } from '@/src/app_layer/i18n'
+import { DeleteUserMenuItem } from '@/src/entities/users'
+import { TableActionsMenu } from '@/src/features/table-actions-menu'
 import { BannedIcon } from '@/src/shared/assets/icons'
 import { PROFILE } from '@/src/shared/routes'
 import {
@@ -17,13 +17,17 @@ import {
 } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils'
 import Link from 'next/link'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
-import { useGetUsersListQuery } from '../api/users.generated'
-import { PAGE_PARAM_KEY, PAGE_SIZE_PARAM_KEY, paginationPageSize } from '../model/pagination-config'
+import { useUsersListTable } from '../lib/useUsersListTable'
+import { paginationPageSize } from '../model/pagination-config'
 import { TableSkeleton } from './TableSkeleton'
 
-type Props = {
+export type UsersListTableProps = {
+  disabled?: boolean
+  /**
+   * Triggers on user deletion
+   */
+  onDelete?: (userId: number, userName: string) => void
   /**
    * Send error message whether it occurred
    * @param error message
@@ -40,40 +44,10 @@ type Props = {
   statusFilter?: `${UserBlockStatus}`
 }
 
-export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) => {
+export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableProps) => {
   const locale = useLocale()
-  const pathname = usePathname()
-  const router = useRouter()
-
-  const searchParams = useSearchParams()
-  const params = new URLSearchParams(searchParams)
-
-  const page = searchParams.get(PAGE_PARAM_KEY) || 1
-  const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
-
-  const { data, error, loading, refetch } = useGetUsersListQuery({
-    pollInterval: 300000, // 5 min
-    variables: {
-      pageNumber: +page,
-      pageSize: +itemsPerPage,
-      searchTerm: searchQuery,
-      // сервер ожидает строковое значение из енамки,
-      // типизация верная, но без as ts ругается.
-      statusFilter: statusFilter as UserBlockStatus | undefined,
-    },
-  })
-
-  useEffect(() => {
-    if (!onError) {
-      return
-    }
-
-    if (error) {
-      onError(error.message)
-    } else {
-      onError('')
-    }
-  }, [error, onError])
+  const { data, error, handleItemsPerPageChange, handleOnPageChange, loading, refetch } =
+    useUsersListTable(props)
 
   if (loading) {
     return <TableSkeleton />
@@ -90,18 +64,6 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
 
   if (data?.getUsers.users.length === 0) {
     return <p className={'text-center text-h1 lg:text-large'}>Nothing found</p>
-  }
-
-  const handleOnPageChange = (page: number) => {
-    params.set(PAGE_PARAM_KEY, String(page))
-
-    router.replace(`${pathname}?${params.toString()}`)
-  }
-
-  const handleItemsPerPageChange = (itemsPerPage: number) => {
-    params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
-
-    router.replace(`${pathname}?${params.toString()}`)
   }
 
   return (
@@ -140,6 +102,11 @@ export const UsersListTable = ({ onError, searchQuery, statusFilter }: Props) =>
                   </Button>
                 </TableCell>
                 <TableCell>{dateFormatting(user.createdAt, { locale })}</TableCell>
+                <TableCell className={'max-w-[100px] text-end'}>
+                  <TableActionsMenu disabled={disabled}>
+                    <DeleteUserMenuItem onClick={() => onDelete?.(user.id, user.userName)} />
+                  </TableActionsMenu>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
