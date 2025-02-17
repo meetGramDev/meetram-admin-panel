@@ -6,6 +6,6 @@ export type TableHeadKeysType = keyof User
 export const tableHeaders: ITableHead<TableHeadKeysType>[] = [
   { id: 1, key: 'id', label: 'User ID' },
   { id: 2, key: 'userName', label: 'Username' },
-  { id: 2, key: 'profile', label: 'Profile link' },
-  { id: 2, key: 'createdAt', label: 'Date created' },
+  { id: 3, key: 'profile', label: 'Profile link' },
+  { id: 4, key: 'createdAt', label: 'Date created' },
 ]
