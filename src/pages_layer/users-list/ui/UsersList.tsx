@@ -19,15 +19,22 @@ export const UsersList = () => {
 
   const params = new URLSearchParams(searchParams)
   const searchQuery = searchParams.get(SEARCH_PARAM_KEY) ?? ''
-  // сервер ожидает строковое значение из енамки,
-  // типизация верная, но без as ts ругается.
   const blockedFilterParam = searchParams.get(FILTER_PARAM_KEY)
+  // нужно явно указать тип, т.к typeof для query параметров по умолчанию string
   const blockedFilter = blockedFilterParam
     ? (blockedFilterParam.toUpperCase() as UserBlockStatus)
     : UserBlockStatus.All
 
   // для дизейблинга UI
   const [hasError, setHasError] = useState(false)
+
+  const _resetCurrentPage = () => {
+    params.set(PAGE_PARAM_KEY, '1')
+  }
+
+  const _saveSearchParams = () => {
+    router.replace(`${pathname}?${params.toString()}`)
+  }
 
   const handleOnValueChange = (value: UserBlockStatus) => {
     switch (value) {
@@ -43,7 +50,8 @@ export const UsersList = () => {
         break
     }
 
-    router.replace(`${pathname}?${params.toString()}`)
+    _resetCurrentPage()
+    _saveSearchParams()
   }
 
   const handleOnSearchQuery = (value: string) => {
@@ -52,7 +60,7 @@ export const UsersList = () => {
     if (value) {
       // перед новый поиском, сбросить до первой страницы
       if (!searchQuery || previousSearch !== value) {
-        params.set(PAGE_PARAM_KEY, '1')
+        _resetCurrentPage()
       }
 
       params.set(SEARCH_PARAM_KEY, value)
@@ -60,7 +68,7 @@ export const UsersList = () => {
       params.delete(SEARCH_PARAM_KEY)
     }
 
-    router.replace(`${pathname}?${params.toString()}`)
+    _saveSearchParams()
   }
 
   return (
