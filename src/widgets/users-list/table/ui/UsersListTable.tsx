@@ -2,7 +2,7 @@
 import type { UserBlockStatus } from '@/src/shared/api'
 
 import { useLocale } from '@/src/app_layer/i18n'
-import { DeleteUserMenuItem } from '@/src/entities/users'
+import { DeleteUserMenuItem, type MutateUserType } from '@/src/entities/users'
 import { TableActionsMenu } from '@/src/features/table-actions-menu'
 import { BannedIcon } from '@/src/shared/assets/icons'
 import { PROFILE } from '@/src/shared/routes'
@@ -27,7 +27,7 @@ export type UsersListTableProps = {
   /**
    * Triggers on user deletion
    */
-  onDelete?: (userId: number, userName: string) => void
+  onDelete?: (user: MutateUserType) => void
   /**
    * Send error message whether it occurred
    * @param error message
@@ -104,7 +104,7 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
                 <TableCell>{dateFormatting(user.createdAt, { locale })}</TableCell>
                 <TableCell className={'max-w-[100px] text-end'}>
                   <TableActionsMenu disabled={disabled}>
-                    <DeleteUserMenuItem onClick={() => onDelete?.(user.id, user.userName)} />
+                    <DeleteUserMenuItem onClick={() => onDelete?.(user)} />
                   </TableActionsMenu>
                 </TableCell>
               </TableRow>

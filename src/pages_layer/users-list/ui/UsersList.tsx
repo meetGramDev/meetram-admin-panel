@@ -1,4 +1,6 @@
 'use client'
+import type { MutateUserType } from '@/src/entities/users'
+
 import { useState } from 'react'
 
 import { UserBlockStatus } from '@/src/shared/api'
@@ -13,7 +15,7 @@ import {
 } from '@/src/widgets/users-list/table'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
-import { useUserMutations } from '../lib/useUserMutations'
+import { useUserDeleteMutation } from '../lib/useUserMutations'
 
 export const UsersList = () => {
   const searchParams = useSearchParams()
@@ -31,14 +33,10 @@ export const UsersList = () => {
 
   // для дизейблинга UI
   const [hasError, setHasError] = useState(false)
-  const {
-    deleteLoading,
-    handleConfirmUserDeletion,
-    openDelete,
-    selectedUser,
-    setOpenDelete,
-    setSelectedUser,
-  } = useUserMutations()
+  const [selectedUser, setSelectedUser] = useState<MutateUserType>({})
+
+  const { deleteLoading, handleConfirmUserDeletion, openDelete, setOpenDelete } =
+    useUserDeleteMutation({ selectedUser })
 
   const handleOnValueChange = (value: UserBlockStatus) => {
     switch (value) {
@@ -96,8 +94,8 @@ export const UsersList = () => {
         onError={errMsg => setHasError(Boolean(errMsg))}
         statusFilter={blockedFilter}
         searchQuery={searchQuery}
-        onDelete={(id, userName) => {
-          setSelectedUser(state => ({ ...state, id, userName }))
+        onDelete={user => {
+          setSelectedUser(user)
           setOpenDelete(true)
         }}
       />
@@ -109,6 +107,7 @@ export const UsersList = () => {
         message={
           <span className={'text-regular16 text-white'}>
             Are you sure to delete user <span className={'font-bold'}>{selectedUser.userName}</span>
+            ?
           </span>
         }
         onConfirm={handleConfirmUserDeletion}
