@@ -10,7 +10,7 @@ import { setCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
-  const [signIn, { loading }] = useSignInMutation()
+  const [signIn] = useSignInMutation()
   const [error, setError] = useState<ServerMessagesType[] | string>('')
   const router = useRouter()
 
@@ -34,10 +34,6 @@ export default function SignInPage() {
     } catch (error) {
       console.error(error)
     }
-  }
-
-  if (loading) {
-    return 'Loading...'
   }
 
   return <SignInForm error={error} onSubmit={handleSubmitForm} />
