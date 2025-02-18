@@ -12,12 +12,14 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableHead,
   TableHeader,
   TableRow,
 } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils'
 import Link from 'next/link'
 
+import { tableHeaders } from '../const/table-headers'
 import { useUsersListTable } from '../lib/useUsersListTable'
 import { paginationPageSize } from '../model/pagination-config'
 import { TableSkeleton } from './TableSkeleton'
@@ -46,8 +48,17 @@ export type UsersListTableProps = {
 
 export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableProps) => {
   const locale = useLocale()
-  const { data, error, handleItemsPerPageChange, handleOnPageChange, loading, refetch } =
-    useUsersListTable(props)
+  const {
+    data,
+    error,
+    handleChangeSorting,
+    handleItemsPerPageChange,
+    handleOnPageChange,
+    loading,
+    refetch,
+    sortBy,
+    sortDir,
+  } = useUsersListTable(props)
 
   if (loading) {
     return <TableSkeleton />
@@ -71,12 +82,20 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
       <div className={'mb-9'}>
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableCell>User ID</TableCell>
-              <TableCell>Username</TableCell>
-              <TableCell>Profile link</TableCell>
-              <TableCell>Date created</TableCell>
-              <TableCell></TableCell>
+            <TableRow className={'has-[:hover]:border-0'}>
+              {tableHeaders.map(header => (
+                <TableHead
+                  sort={sortBy === header.key ? sortDir : undefined}
+                  onClick={() => handleChangeSorting(header)}
+                  key={header.id}
+                  className={
+                    'transition-colors hover:border-0 hover:shadow-sm hover:shadow-neutral-100/50'
+                  }
+                >
+                  {header.label}
+                </TableHead>
+              ))}
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
