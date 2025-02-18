@@ -18,7 +18,7 @@ export function useProgressBar() {
 
   useEffect(() => {
     NProgress.start()
-    const timeout = setTimeout(NProgress.done, 800)
+    const timeout = setTimeout(NProgress.done, 500)
 
     return () => clearTimeout(timeout)
   }, [pathname, searchParams])
