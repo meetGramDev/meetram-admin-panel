@@ -3,6 +3,10 @@ import type { PropsWithChildren } from 'react'
 
 import { authLink } from '@/src/shared/api/apollo-client/apollo-config'
 import { BACKEND_GraphQL_BASE_URL } from '@/src/shared/config'
+import {
+  type GetUsersListQuery,
+  type GetUsersListQueryVariables,
+} from '@/src/widgets/users-list/table'
 import { HttpLink } from '@apollo/client'
 import {
   ApolloClient,
@@ -32,9 +36,48 @@ function makeClient() {
 
   // Инициализация инстанса клиента Apollo
   return new ApolloClient({
-    cache: new InMemoryCache(),
-    link: authLink.concat(httpLink),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            getUsers: {
+              keyArgs: ['statusFilter', 'searchTerm', 'pageNumber'],
+              read(existing: GetUsersListQuery['getUsers'], options) {
+                // возврат undefined сигнализирует о том, что Apollo Client
+                // должен сделать запрос на GraphQL сервер
+                if (!existing) {
+                  return
+                }
+
+                const args: GetUsersListQueryVariables | null = options.args
+
+                // при изменении page size в меньшую сторону обрезать массив пользователей
+                if (args?.pageSize && existing.pagination.pageSize > args.pageSize) {
+                  return {
+                    ...existing,
+                    pagination: {
+                      ...existing.pagination,
+                      pageSize: args.pageSize,
+                      pagesCount: Math.ceil(existing.pagination.totalCount / args.pageSize),
+                    },
+                    users: existing.users.slice(0, args.pageSize),
+                  }
+                }
+
+                // иначе инвалидировать кэш
+                if (args?.pageSize && existing.pagination.pageSize < args.pageSize) {
+                  return
+                }
+
+                return existing
+              },
+            },
+          },
+        },
+      },
+    }),
     // connectToDevTools: true,
+    link: authLink.concat(httpLink),
   })
 }
 

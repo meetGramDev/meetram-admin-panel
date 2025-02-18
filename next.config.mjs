@@ -18,7 +18,16 @@ const nextConfig = {
         permanent: true,
       }
     ]
-  }
+  },
+  webpack(config, { webpack }) {
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        "globalThis.__DEV__": false,
+      })
+    );
+
+    return config;
+  },
 }
 
 export default nextConfig

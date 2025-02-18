@@ -10,6 +10,6 @@ export default {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
     './node_modules/@meetgram/ui-kit/dist/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
   presets: [config],
 } satisfies Config
