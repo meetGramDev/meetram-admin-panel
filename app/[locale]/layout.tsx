@@ -3,9 +3,9 @@ import type { Metadata } from 'next'
 import { type ReactNode } from 'react'
 
 import { type Locale, LocaleProvider, i18nConfig } from '@/src/app_layer/i18n'
-import { ProgressBar } from '@/src/app_layer/progress-bar'
 import { ApolloWrapper } from '@/src/app_layer/providers'
 import { Header } from '@/src/widgets/header'
+import { ProgressBar } from '@/src/widgets/progress-bar'
 import { Inter } from 'next/font/google'
 
 import '@/src/app_layer/styles/globals.scss'
