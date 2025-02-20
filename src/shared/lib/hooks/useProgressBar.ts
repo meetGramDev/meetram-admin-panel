@@ -9,9 +9,6 @@ NProgress.configure({
   speed: 300,
 })
 
-// const startLoading = () => NProgress.start()
-// const endLoading = () => NProgress.done()
-
 export function useProgressBar() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -23,9 +20,3 @@ export function useProgressBar() {
     return () => clearTimeout(timeout)
   }, [pathname, searchParams])
 }
-
-// export function useClientProgress(isLoading: boolean) {
-//   useEffect(() => {
-//     isLoading ? startLoading() : endLoading()
-//   }, [isLoading])
-// }

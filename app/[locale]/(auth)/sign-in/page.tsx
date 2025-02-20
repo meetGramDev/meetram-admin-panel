@@ -1,22 +1,19 @@
 'use client'
-import type { ServerMessagesType } from '@/src/shared/api/types'
 
 import { useState } from 'react'
 
-import { type SignInFields, SignInForm } from '@/src/features/auth/signIn'
-import { useSignInMutation } from '@/src/queries/sign-in/signIn.generated'
+import { type SignInFields, SignInForm, useSignInMutation } from '@/src/features/auth/signIn'
+import { apolloErrorsHandler } from '@/src/shared/lib'
 import { USERS_LIST } from '@/src/shared/routes'
 import { setCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
   const [signIn] = useSignInMutation()
-  const [error, setError] = useState<ServerMessagesType[] | string>('')
   const router = useRouter()
-
+  const [error, setError] = useState('')
   const handleSubmitForm = async (data: SignInFields) => {
     try {
-      setError('')
       localStorage.setItem('email', data.email)
       localStorage.setItem('password', data.password)
 
@@ -30,9 +27,13 @@ export default function SignInPage() {
       if (res.data?.loginAdmin?.logged) {
         setCookie('logged', 'true', { maxAge: 60 * 60 * 24, path: '/' })
         router.push(USERS_LIST)
+      } else {
+        return setError('Invalid email or password')
       }
     } catch (error) {
-      console.error(error)
+      const err = apolloErrorsHandler(error)
+
+      setError(err)
     }
   }
 
