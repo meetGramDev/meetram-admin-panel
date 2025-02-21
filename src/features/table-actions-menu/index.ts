@@ -1,3 +1,1 @@
-import { TableActionsMenu } from './ui/TableActionsMenu'
-
-export { TableActionsMenu }
+export { TableActionsMenu } from './ui/TableActionsMenu'

@@ -1,3 +1,1 @@
-import { ApolloWrapper } from './apollo-provider'
-
-export { ApolloWrapper }
+export { ApolloWrapper } from './apollo-provider'
