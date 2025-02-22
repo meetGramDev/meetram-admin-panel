@@ -28,7 +28,7 @@ export default function SignInPage() {
         setCookie('logged', 'true', { maxAge: 60 * 60 * 24, path: '/' })
         router.push(USERS_LIST)
       } else {
-        return setError('Invalid email or password')
+        return setError('Incorrect email or password')
       }
     } catch (error) {
       const err = apolloErrorsHandler(error)
