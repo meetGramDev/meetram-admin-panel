@@ -1,2 +1,1 @@
-import { UsersList } from './ui/UsersList'
-export { UsersList }
+export { UsersList } from './ui/UsersList'

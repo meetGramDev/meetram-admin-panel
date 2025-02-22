@@ -1,7 +1,10 @@
 'use client'
+import type { MutateUserType } from '@/src/entities/users'
+
 import { useState } from 'react'
 
 import { UserBlockStatus } from '@/src/shared/api'
+import { ConfirmDialog } from '@/src/shared/ui'
 import { SearchBar } from '@/src/widgets/search-bar'
 import { BanSelector } from '@/src/widgets/users-list/ban-selector'
 import {
@@ -11,6 +14,8 @@ import {
   UsersListTable,
 } from '@/src/widgets/users-list/table'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
+import { useUserDeleteMutation } from '../lib/useUserMutations'
 
 export const UsersList = () => {
   const searchParams = useSearchParams()
@@ -27,6 +32,10 @@ export const UsersList = () => {
 
   // для дизейблинга UI
   const [hasError, setHasError] = useState(false)
+  const [selectedUser, setSelectedUser] = useState<MutateUserType>({})
+
+  const { deleteLoading, handleConfirmUserDeletion, openDelete, setOpenDelete } =
+    useUserDeleteMutation({ selectedUser })
 
   const _resetCurrentPage = () => {
     params.set(PAGE_PARAM_KEY, '1')
@@ -89,9 +98,27 @@ export const UsersList = () => {
       </div>
 
       <UsersListTable
+        disabled={deleteLoading}
         onError={errMsg => setHasError(Boolean(errMsg))}
         statusFilter={blockedFilter}
         searchQuery={searchQuery}
+        onDelete={user => {
+          setSelectedUser(user)
+          setOpenDelete(true)
+        }}
+      />
+
+      <ConfirmDialog
+        open={openDelete}
+        onOpenChange={setOpenDelete}
+        title={'Delete user'}
+        message={
+          <span className={'text-regular16 text-white'}>
+            Are you sure to delete user <span className={'font-bold'}>{selectedUser.userName}</span>
+            ?
+          </span>
+        }
+        onConfirm={handleConfirmUserDeletion}
       />
     </div>
   )
