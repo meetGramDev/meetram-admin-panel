@@ -12,7 +12,11 @@ export function apolloErrorsHandler(error: unknown): string {
   }
 
   if (isErrorWithMessage(error)) {
-    return error.message
+    const maxLength = 105
+
+    return error.message.length > maxLength
+      ? error.message.slice(0, maxLength) + '…'
+      : error.message
   }
 
   if (isErrorMessageString(error)) {
