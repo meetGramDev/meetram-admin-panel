@@ -41,7 +41,7 @@ function makeClient() {
         Query: {
           fields: {
             getUsers: {
-              keyArgs: ['statusFilter', 'searchTerm', 'pageNumber'],
+              keyArgs: ['statusFilter', 'searchTerm', 'pageNumber', 'sortBy', 'sortDirection'],
               read(existing: GetUsersListQuery['getUsers'], options) {
                 // возврат undefined сигнализирует о том, что Apollo Client
                 // должен сделать запрос на GraphQL сервер
@@ -76,7 +76,7 @@ function makeClient() {
         },
       },
     }),
-    // connectToDevTools: true,
+    connectToDevTools: true,
     link: authLink.concat(httpLink),
   })
 }

@@ -6,6 +6,7 @@ import { DeleteUserMenuItem, type MutateUserType } from '@/src/entities/users'
 import { TableActionsMenu } from '@/src/features/table-actions-menu'
 import { BannedIcon } from '@/src/shared/assets/icons'
 import { PROFILE } from '@/src/shared/routes'
+import { ProfileTabValues } from '@/src/widgets/tabs'
 import {
   Button,
   Pagination,
@@ -115,7 +116,10 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
                     as={Link}
                     variant={'link'}
                     className={'text-white'}
-                    href={{ pathname: `/${PROFILE}/${user.id}`, query: { from: 'users' } }}
+                    href={{
+                      pathname: `/${PROFILE}/${user.id}/${ProfileTabValues.posts}`,
+                      query: { from: 'users' },
+                    }}
                   >
                     {user.userName}
                   </Button>
