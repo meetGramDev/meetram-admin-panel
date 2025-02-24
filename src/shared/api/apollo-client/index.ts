@@ -22,9 +22,11 @@ const httpLink = new HttpLink({
 /**
  * Создаёт инстанс Apollo Client`а для использования в RSC и SSR
  */
-export const { PreloadQuery, getClient, query } = registerApolloClient(() => {
+const { PreloadQuery, getClient, query } = registerApolloClient(() => {
   return new ApolloClient({
     cache: new InMemoryCache(),
     link: authLink.concat(httpLink),
   })
 })
+
+export { PreloadQuery, getClient, query }
