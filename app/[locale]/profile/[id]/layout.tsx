@@ -1,11 +1,19 @@
+import type { ReactNode } from 'react'
+
 import { type Locale, getDictionary } from '@/src/app_layer/i18n'
 import { getUserProfileRSC } from '@/src/entities/users'
 import { BackButton } from '@/src/shared/ui'
 import { Photo } from '@meetgram/ui-kit'
-import { dateFormatting } from '@meetgram/utils'
+import { dateFormatting } from '@meetgram/utils/functions'
 import Image from 'next/image'
 
-export default async function UserId({ params }: { params: { id: string; locale: Locale } }) {
+export default async function UserLayout({
+  params,
+  tabs,
+}: {
+  params: { id: string; locale: Locale }
+  tabs: ReactNode
+}) {
   const { id, locale } = params
   const dict = await getDictionary(locale)
   const { data, error } = await getUserProfileRSC(+id)
@@ -18,7 +26,7 @@ export default async function UserId({ params }: { params: { id: string; locale:
   if (data) {
     content = (
       <div className={'mt-6 text-regular16'}>
-        <div className={'mb-5 flex gap-6 border border-white'}>
+        <div className={'mb-5 flex gap-6'}>
           <Photo
             containerClassname={'basis-[80px] self-center'}
             iconContainerClassname={'min-w-[80px] h-[80px]'}
@@ -44,28 +52,26 @@ export default async function UserId({ params }: { params: { id: string; locale:
             <p className={'underline'}>{data.userName}</p>
           </div>
         </div>
-        <div
-          className={
-            'grid grid-cols-[120px_120px] gap-y-2 border border-white sm:grid-cols-[180px_180px]'
-          }
-        >
+        <div className={'grid grid-cols-[120px_120px] gap-y-2 sm:grid-cols-[180px_180px]'}>
           <p className={'text-light-900'}>UserID</p>
           <p className={'text-light-900'}>Profile Creation Date</p>
           <p className={'text-light-100'}>{data.id}</p>
           <p className={'text-light-100'}>{dateFormatting(data.createdAt, { locale })}</p>
         </div>
-        <div></div>
       </div>
     )
   }
 
   return (
-    <div>
-      <BackButton>
-        {/* @ts-ignore */}
-        <span>{`${dict['buttons']['Back']}`}</span>
-      </BackButton>
-      {content}
-    </div>
+    <>
+      <div>
+        <BackButton>
+          {/* @ts-ignore */}
+          <span>{`${dict['buttons']['Back']}`}</span>
+        </BackButton>
+        {content}
+      </div>
+      <div className={'mt-9'}>{tabs}</div>
+    </>
   )
 }
