@@ -1,16 +1,12 @@
-import type { ServerMessagesType } from '@/src/shared/api/types'
-
 import { useEffect } from 'react'
 
 import { isErrorMessageString } from '@/src/shared/types/errorTypesPredicate'
 import { Button, Card, Input } from '@meetgram/ui-kit'
 
-import s from './SignInForm.module.scss'
-
 import { type SignInFields, useSignIn } from '../lib/useSignIn'
 
 type Props = {
-  error?: ServerMessagesType[] | string
+  error?: string
   onSubmit: (data: SignInFields) => void
 }
 
@@ -35,10 +31,10 @@ export const SignInForm = ({ error, onSubmit }: Props) => {
   }, [error, setError, getValues])
 
   return (
-    <Card className={s.signInCard}>
-      <h2 className={s.header}>Sign In</h2>
+    <Card className={'w-[23.7rem] p-6 text-base leading-6 text-white text-opacity-100'}>
+      <h2 className={'mb-[2.31rem] text-center text-[20px] font-bold leading-[36px]'}>Sign In</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={s.inputContainer}>
+        <div className={'flex flex-col gap-[1.8rem]'}>
           <Input
             error={errors.email?.message}
             {...register('email')}
@@ -56,7 +52,7 @@ export const SignInForm = ({ error, onSubmit }: Props) => {
         </div>
         <Button
           disabled={!isDirty || !isValid}
-          className={s.button}
+          className={'mb-[0.75rem] mt-[2.25rem]'}
           fullWidth
           type={'submit'}
           variant={'primary'}

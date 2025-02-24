@@ -5,6 +5,7 @@ import { type ReactNode } from 'react'
 import { type Locale, LocaleProvider, i18nConfig } from '@/src/app_layer/i18n'
 import { ApolloWrapper } from '@/src/app_layer/providers'
 import { Header } from '@/src/widgets/header'
+import { ProgressBar } from '@/src/widgets/progress-bar'
 import { Inter } from 'next/font/google'
 
 import '@/src/app_layer/styles/globals.scss'
@@ -38,6 +39,7 @@ export default async function RootLayout({
       <LocaleProvider langParam={lang}>
         <ApolloWrapper>
           <body className={`${interFont.variable} relative antialiased`}>
+            <ProgressBar />
             <Header />
             {children}
           </body>
