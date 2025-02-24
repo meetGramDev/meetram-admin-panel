@@ -1,0 +1,32 @@
+.loader {
+  position: relative;
+  width: 70px;
+  height: 70px;
+
+  &::before,
+  &::after {
+    content: '';
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 10px 2px rgb(0 0 0 / 30%) inset;
+  }
+
+  &::after {
+    box-shadow: 0 2px 0 var(--primary-color-500) inset;
+    animation: rotate 1.2s linear infinite;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
