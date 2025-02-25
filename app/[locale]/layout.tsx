@@ -11,8 +11,8 @@ import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 
-import '../../src/app_layer/styles/globals.scss'
 import '@meetgram/ui-kit/styles.css'
+import '@/src/app_layer/styles/globals.scss'
 
 const interFont = Inter({
   subsets: ['latin', 'cyrillic'],
