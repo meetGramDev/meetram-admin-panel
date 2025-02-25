@@ -12,6 +12,5 @@ export {
   useGet_User_ProfileQuery,
   useGet_User_ProfileSuspenseQuery,
 } from './api/get-user-profile/getUserProfile.generated'
-export { getUserProfileRSC } from './api/get-user-profile/getUserProfileRSC'
 export { type MutateUserType } from './model/domain.types'
 export { DeleteUserMenuItem } from './ui/DeleteUserMenuItem'
