@@ -1,11 +1,10 @@
 'use client'
 import type { UserBlockStatus } from '@/src/shared/api'
 
-import { useLocale } from '@/src/app_layer/i18n'
 import { DeleteUserMenuItem, type MutateUserType } from '@/src/entities/user'
 import { TableActionsMenu } from '@/src/features/table-actions-menu'
 import { BannedIcon } from '@/src/shared/assets/icons'
-import { PROFILE } from '@/src/shared/routes'
+import { Link, PROFILE } from '@/src/shared/routes'
 import { ProfileTabValues } from '@/src/widgets/tabs'
 import {
   Button,
@@ -18,7 +17,7 @@ import {
   TableRow,
 } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils'
-import Link from 'next/link'
+import { useLocale } from 'next-intl'
 
 import { usersListTableHeaders } from '../const/users-list-table-headers'
 import { useUsersListTable } from '../lib/useUsersListTable'
