@@ -1,0 +1,20 @@
+{
+  "home": {
+    "Get started by editing": "Пачніце з рэдагавання",
+    "Save and see your changes instantly": "Захоўвайце і імгненна Праглядайце свае змены.",
+    "Deploy now": "Задеплоить зараз",
+    "Read our docs": "Прачытаць дакументацыю",
+    "Learn": "Вывучыць",
+    "Examples": "Прыклад",
+    "Go to": "Перайсці на"
+  },
+  "all-posts": {
+    "All posts will be here!": "Тут будуць усе пасты!"
+  },
+  "profile": {
+    "User's profile will be here!!": "Тут будзе профіль карыстальніка!!"
+  },
+  "buttons": {
+    "Back": "Назад"
+  }
+}

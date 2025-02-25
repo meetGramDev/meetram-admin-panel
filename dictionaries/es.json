@@ -1,0 +1,20 @@
+{
+  "home": {
+    "Get started by editing": "Comience editando",
+    "Save and see your changes instantly": "Guarde y vea sus cambios al instante.",
+    "Deploy now": "Despliegue ahora",
+    "Read our docs": "Lea nuestros documentos",
+    "Learn": "Aprende",
+    "Examples": "Ejemplos",
+    "Go to": "Ir a"
+  },
+  "all-posts": {
+    "All posts will be here!": "¡Todas las publicaciones estarán aquí!"
+  },
+  "profile": {
+    "User's profile will be here!!": "¡El perfil del usuario estará aquí!!"
+  },
+  "buttons": {
+    "Back": "Volver"
+  }
+}
