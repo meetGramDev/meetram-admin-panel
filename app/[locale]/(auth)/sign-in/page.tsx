@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 
 import { type SignInFields, SignInForm, useSignInMutation } from '@/src/features/auth/signIn'
 import { apolloErrorsHandler } from '@/src/shared/lib'
@@ -37,5 +37,9 @@ export default function SignInPage() {
     }
   }
 
-  return <SignInForm error={error} onSubmit={handleSubmitForm} />
+  return (
+    <Suspense>
+      <SignInForm error={error} onSubmit={handleSubmitForm} />
+    </Suspense>
+  )
 }
