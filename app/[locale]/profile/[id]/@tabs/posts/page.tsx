@@ -1,10 +1,26 @@
-import { ProfileTabValues } from '@/src/widgets/tabs'
-import { TabContent } from '@meetgram/ui-kit'
+import { Suspense } from 'react'
 
-export default function Page() {
+import {
+  Get_User_PostsDocument,
+  type Get_User_PostsQuery,
+  type Get_User_PostsQueryVariables,
+} from '@/src/entities/post'
+import { UserPosts } from '@/src/pages_layer/user-profile'
+import { PreloadQuery } from '@/src/shared/api/apollo-client'
+import { ProfileTabValues } from '@/src/widgets/tabs'
+import { Loader, TabContent } from '@meetgram/ui-kit'
+
+export default function Page({ params: { id } }: { params: { id: string } }) {
   return (
     <TabContent value={ProfileTabValues.posts}>
-      <div>Здесь будут посты</div>
+      <PreloadQuery<Get_User_PostsQuery, Get_User_PostsQueryVariables>
+        query={Get_User_PostsDocument}
+        variables={{ userId: +id }}
+      >
+        <Suspense fallback={<Loader />}>
+          <UserPosts userId={id} />
+        </Suspense>
+      </PreloadQuery>
     </TabContent>
   )
 }
