@@ -37,9 +37,5 @@ export default function SignInPage() {
     }
   }
 
-  return (
-    <Suspense>
-      <SignInForm error={error} onSubmit={handleSubmitForm} />
-    </Suspense>
-  )
+  return <SignInForm error={error} onSubmit={handleSubmitForm} />
 }
