@@ -56,6 +56,7 @@ export const UserPosts = ({ queryRef }: { queryRef: QueryRef<Get_User_PostsQuery
               alt={'post image'}
               width={300}
               height={300}
+              priority
             />
           </li>
         ))}
