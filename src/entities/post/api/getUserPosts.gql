@@ -2,7 +2,6 @@ query GET_USER_POSTS($userId: Int!, $endCursorId: Int) {
   getPostsByUser(userId: $userId, endCursorId: $endCursorId) {
     pageSize
     totalCount
-    pagesCount
     items {
       id
       url

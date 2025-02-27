@@ -10,7 +10,7 @@ export type Get_User_PostsQueryVariables = Types.Exact<{
 }>;
 
 
-export type Get_User_PostsQuery = { __typename?: 'Query', getPostsByUser: { __typename?: 'PostsByUserModel', pageSize: number, totalCount: number, pagesCount: number, items?: Array<{ __typename?: 'ImagePost', id?: number | null, url?: string | null, createdAt?: any | null }> | null } };
+export type Get_User_PostsQuery = { __typename?: 'Query', getPostsByUser: { __typename?: 'PostsByUserModel', pageSize: number, totalCount: number, items?: Array<{ __typename?: 'ImagePost', id?: number | null, url?: string | null, createdAt?: any | null }> | null } };
 
 
 export const Get_User_PostsDocument = gql`
@@ -18,7 +18,6 @@ export const Get_User_PostsDocument = gql`
   getPostsByUser(userId: $userId, endCursorId: $endCursorId) {
     pageSize
     totalCount
-    pagesCount
     items {
       id
       url

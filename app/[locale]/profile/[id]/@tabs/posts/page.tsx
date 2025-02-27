@@ -17,9 +17,17 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
         query={Get_User_PostsDocument}
         variables={{ userId: +id }}
       >
-        <Suspense fallback={<Loader />}>
-          <UserPosts userId={id} />
-        </Suspense>
+        {queryRef => (
+          <Suspense
+            fallback={
+              <div className={'flex justify-center'}>
+                <Loader />
+              </div>
+            }
+          >
+            <UserPosts queryRef={queryRef} />
+          </Suspense>
+        )}
       </PreloadQuery>
     </TabContent>
   )
