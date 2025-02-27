@@ -106,7 +106,9 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
                   {user.userBan?.createdAt && <BannedIcon className={'text-light-100'} size={24} />}
                   <span>{user.id}</span>
                 </TableCell>
-                <TableCell>
+                <TableCell
+                  className={'max-w-40 overflow-y-auto whitespace-pre-line text-wrap break-all'}
+                >
                   {user.profile.firstName || user.profile.lastName
                     ? `${user.profile.firstName || ''} ${user.profile.lastName || ''}`
                     : '—'}
