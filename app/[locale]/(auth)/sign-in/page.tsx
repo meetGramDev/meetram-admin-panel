@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import { useState } from 'react'
 
 import { type SignInFields, SignInForm, useSignInMutation } from '@/src/features/auth/signIn'
 import { apolloErrorsHandler } from '@/src/shared/lib'

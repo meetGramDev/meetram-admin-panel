@@ -20,7 +20,7 @@ import {
 import { dateFormatting } from '@meetgram/utils'
 import Link from 'next/link'
 
-import { tableHeaders } from '../const/table-headers'
+import { usersListTableHeaders } from '../const/users-list-table-headers'
 import { useUsersListTable } from '../lib/useUsersListTable'
 import { paginationPageSize } from '../model/pagination-config'
 import { TableSkeleton } from './TableSkeleton'
@@ -84,7 +84,7 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
         <Table>
           <TableHeader>
             <TableRow className={'has-[:hover]:border-0'}>
-              {tableHeaders.map(header => (
+              {usersListTableHeaders.map(header => (
                 <TableHead
                   sort={sortBy === header.key ? sortDir : undefined}
                   onClick={() => handleChangeSorting(header)}

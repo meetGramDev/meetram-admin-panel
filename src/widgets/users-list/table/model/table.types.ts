@@ -1,7 +1,7 @@
-import type { TableHeadKeysType } from '../const/table-headers'
+import type { usersListTableHeadKeysType } from '../const/users-list-table-headers'
 
 export type TableSortType = {
-  sortBy: TableHeadKeysType
+  sortBy: usersListTableHeadKeysType
   sortDir: SortDirectionTable
 }
 

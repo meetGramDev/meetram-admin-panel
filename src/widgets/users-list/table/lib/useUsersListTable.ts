@@ -7,7 +7,10 @@ import { SortDirection, type UserBlockStatus } from '@/src/shared/api'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { useGetUsersListQuery } from '../api/users.generated'
-import { type TableHeadKeysType, tableHeaders } from '../const/table-headers'
+import {
+  type usersListTableHeadKeysType,
+  usersListTableHeaders,
+} from '../const/users-list-table-headers'
 import {
   PAGE_PARAM_KEY,
   PAGE_SIZE_PARAM_KEY,
@@ -28,7 +31,7 @@ export function useUsersListTable({ onError, searchQuery, statusFilter }: UsersL
   const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
   const sortDirParam = searchParams.get(SORT_PARAM_KEY)
   const sortDir = sortDirParam ? +sortDirParam : SortDirectionTable.DESC
-  const sortBy = searchParams.get(SORT_BY_PARAM_KEY) || tableHeaders[3].key
+  const sortBy = searchParams.get(SORT_BY_PARAM_KEY) || usersListTableHeaders[3].key
 
   const { data, error, loading, refetch } = useGetUsersListQuery({
     pollInterval: 300000, // 5 min
@@ -64,7 +67,7 @@ export function useUsersListTable({ onError, searchQuery, statusFilter }: UsersL
     }
 
     if (!searchParams.get(SORT_BY_PARAM_KEY)) {
-      params.set(SORT_BY_PARAM_KEY, tableHeaders[3].key)
+      params.set(SORT_BY_PARAM_KEY, usersListTableHeaders[3].key)
     }
 
     _saveSearchParams()
@@ -86,7 +89,7 @@ export function useUsersListTable({ onError, searchQuery, statusFilter }: UsersL
     _saveSearchParams()
   }
 
-  const handleChangeSorting = (header: ITableHead<TableHeadKeysType>) => {
+  const handleChangeSorting = (header: ITableHead<usersListTableHeadKeysType>) => {
     const sortDirection =
       // eslint-disable-next-line no-nested-ternary
       sortBy === header.key
