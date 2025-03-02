@@ -1,1 +1,1 @@
-export { Get_FollowersDocument } from './api/get-user-followers/userFollowers.generated'
+export { useGet_FollowersQuery } from './api/get-user-followers/userFollowers.generated'

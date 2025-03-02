@@ -1,6 +1,6 @@
 'use client'
 import { useLocale } from '@/src/app_layer/i18n'
-import { useGet_FollowersQuery } from '@/src/entities/user/api/get-user-followers/userFollowers.generated'
+import { useGet_FollowersQuery } from '@/src/entities/user'
 import { SortDirection } from '@/src/shared/api'
 import { PROFILE } from '@/src/shared/routes'
 import { ProfileTabValues } from '@/src/widgets/tabs'
