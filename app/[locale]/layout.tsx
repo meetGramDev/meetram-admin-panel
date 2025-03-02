@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { type ReactNode } from 'react'
+import { type ReactNode, Suspense } from 'react'
 
 import { type Locale, LocaleProvider, i18nConfig } from '@/src/app_layer/i18n'
 import { ApolloWrapper } from '@/src/app_layer/providers'
@@ -39,7 +39,9 @@ export default async function RootLayout({
       <LocaleProvider langParam={lang}>
         <ApolloWrapper>
           <body className={`${interFont.variable} relative antialiased`}>
-            <ProgressBar />
+            <Suspense fallback={null}>
+              <ProgressBar />
+            </Suspense>
             <Header />
             {children}
           </body>
