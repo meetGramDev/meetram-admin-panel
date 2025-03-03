@@ -2,7 +2,7 @@
 import type { UserBlockStatus } from '@/src/shared/api'
 
 import { useLocale } from '@/src/app_layer/i18n'
-import { DeleteUserMenuItem, type MutateUserType } from '@/src/entities/users'
+import { DeleteUserMenuItem, type MutateUserType } from '@/src/entities/user'
 import { TableActionsMenu } from '@/src/features/table-actions-menu'
 import { BannedIcon } from '@/src/shared/assets/icons'
 import { PROFILE } from '@/src/shared/routes'
@@ -106,7 +106,9 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
                   {user.userBan?.createdAt && <BannedIcon className={'text-light-100'} size={24} />}
                   <span>{user.id}</span>
                 </TableCell>
-                <TableCell>
+                <TableCell
+                  className={'max-w-40 overflow-y-auto whitespace-pre-line text-wrap break-all'}
+                >
                   {user.profile.firstName || user.profile.lastName
                     ? `${user.profile.firstName || ''} ${user.profile.lastName || ''}`
                     : '—'}

@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 
-import { UserFollowers } from '@/src/pages_layer/user/user-followers'
+import { UserFollowers } from '@/src/pages_layer/user-profile/user-followers'
 import { ProfileTabValues } from '@/src/widgets/tabs'
 import { TabContent } from '@meetgram/ui-kit'
 
