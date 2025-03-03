@@ -2,6 +2,7 @@
 import { useTransition } from 'react'
 
 import { type Get_User_PostsQuery } from '@/src/entities/post'
+import imgPlaceholder from '@/src/shared/assets/img/no-image-placeholder.webp'
 import { type QueryRef, useQueryRefHandlers, useReadQuery } from '@apollo/client'
 import { Loader } from '@meetgram/ui-kit'
 import { cn, dateFormatting, useInfiniteScroll } from '@meetgram/utils'
@@ -52,7 +53,7 @@ export const UserPosts = ({ queryRef }: { queryRef: QueryRef<Get_User_PostsQuery
           >
             <Image
               title={`Created at ${dateFormatting(post.createdAt)}`}
-              src={post.url ?? ''}
+              src={post.url ?? imgPlaceholder}
               alt={'post image'}
               width={300}
               height={300}
