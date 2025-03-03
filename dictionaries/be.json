@@ -2,7 +2,7 @@
   "home": {
     "Get started by editing": "Пачніце з рэдагавання",
     "Save and see your changes instantly": "Захоўвайце і імгненна Праглядайце свае змены.",
-    "Deploy now": "Задеплоить зараз",
+    "Deploy now": "Задэплоиць зараз",
     "Read our docs": "Прачытаць дакументацыю",
     "Learn": "Вывучыць",
     "Examples": "Прыклад",
@@ -15,6 +15,6 @@
     "User's profile will be here!!": "Тут будзе профіль карыстальніка!!"
   },
   "buttons": {
-    "Back": "Назад"
+    "Back": "Вярнуцца"
   }
 }
