@@ -1,4 +1,6 @@
 'use client'
+import type { Get_User_PostsQuery } from '@/src/entities/post'
+
 import type { PropsWithChildren } from 'react'
 
 import { authLink } from '@/src/shared/api/apollo-client/apollo-config'
@@ -40,6 +42,41 @@ function makeClient() {
       typePolicies: {
         Query: {
           fields: {
+            getPostsByUser: {
+              keyArgs: ['userId'],
+              merge(
+                existing: Get_User_PostsQuery['getPostsByUser'],
+                incoming: Get_User_PostsQuery['getPostsByUser'],
+                { readField }
+              ) {
+                const items = existing ? { ...existing.items } : {}
+
+                if (incoming.items && incoming.items.length) {
+                  incoming.items.forEach(item => {
+                    const key = readField('id', item)
+
+                    if (key && typeof key === 'number') {
+                      items[key] = item
+                    }
+                  })
+                }
+
+                return {
+                  items,
+                  pageSize: incoming.pageSize,
+                  totalCount: incoming.totalCount,
+                }
+              },
+              read(existing) {
+                if (existing) {
+                  return {
+                    items: Object.values(existing.items).reverse(),
+                    pageSize: existing.pageSize,
+                    totalCount: existing.totalCount,
+                  }
+                }
+              },
+            },
             getUsers: {
               keyArgs: ['statusFilter', 'searchTerm', 'pageNumber', 'sortBy', 'sortDirection'],
               read(existing: GetUsersListQuery['getUsers'], options) {

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { type Locale, getDictionary } from '@/src/app_layer/i18n'
-import { getUserProfileRSC } from '@/src/entities/users/api'
+import { getUserProfileRSC } from '@/src/entities/user/api'
 import { BackButton } from '@/src/shared/ui'
 import { Photo } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils/functions'

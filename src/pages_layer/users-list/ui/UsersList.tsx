@@ -1,5 +1,5 @@
 'use client'
-import type { MutateUserType } from '@/src/entities/users'
+import type { MutateUserType } from '@/src/entities/user'
 
 import { useState } from 'react'
 
