@@ -5,7 +5,7 @@ import {
   type Get_User_PostsQuery,
   type Get_User_PostsQueryVariables,
 } from '@/src/entities/post'
-import { UserPosts } from '@/src/pages_layer/user-profile'
+import { UserPosts } from '@/src/pages_layer/user-profile/posts'
 import { PreloadQuery } from '@/src/shared/api/apollo-client'
 import { ErrorBoundary } from '@/src/shared/ui'
 import { ProfileTabValues } from '@/src/widgets/tabs'

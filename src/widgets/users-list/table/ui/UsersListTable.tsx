@@ -2,7 +2,7 @@
 import type { UserBlockStatus } from '@/src/shared/api'
 
 import { useLocale } from '@/src/app_layer/i18n'
-import { DeleteUserMenuItem, type MutateUserType } from '@/src/entities/users'
+import { DeleteUserMenuItem, type MutateUserType } from '@/src/entities/user'
 import { TableActionsMenu } from '@/src/features/table-actions-menu'
 import { BannedIcon } from '@/src/shared/assets/icons'
 import { PROFILE } from '@/src/shared/routes'
