@@ -29,5 +29,9 @@
       "Delete user": "Удалить пользователя",
       "Are you sure to delete user": "Вы уверены, что хотите удалить пользователя"
     }
+  },
+  "info-messages": {
+    "Nothing found": "Ничего не найдено",
+    "Try again": "Обновить"
   }
 }

@@ -29,5 +29,9 @@
       "Delete user": "Delete user",
       "Are you sure to delete user": "Are you sure to delete user"
     }
+  },
+  "info-messages": {
+    "Nothing found": "Nothing found",
+    "Try again": "Try again"
   }
 }

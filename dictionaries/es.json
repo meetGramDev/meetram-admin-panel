@@ -29,5 +29,9 @@
       "Delete user": "Eliminar usuario",
       "Are you sure to delete user": "¿Estás seguro de eliminar el usuario"
     }
+  },
+  "info-messages": {
+    "Nothing found": "No se encontró nada",
+    "Try again": "Intentar otra vez"
   }
 }

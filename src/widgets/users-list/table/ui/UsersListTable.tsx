@@ -48,7 +48,7 @@ export type UsersListTableProps = {
 
 export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableProps) => {
   const locale = useLocale()
-  const t = useTranslations()
+  const t = useTranslations('info-messages')
   const {
     data,
     error,
@@ -69,13 +69,13 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
     return (
       <div className={'mt-8 flex flex-col items-center justify-center gap-3'}>
         <p className={'text-center text-h1 text-danger-500 lg:text-large'}>{error.message}</p>
-        <Button onClick={() => refetch()}>Try again</Button>
+        <Button onClick={() => refetch()}>{t('Try again')}</Button>
       </div>
     )
   }
 
   if (data?.getUsers.users.length === 0) {
-    return <p className={'text-center text-h1 lg:text-large'}>Nothing found</p>
+    return <p className={'text-center text-h1 lg:text-large'}>{t('Nothing found')}</p>
   }
 
   return (
