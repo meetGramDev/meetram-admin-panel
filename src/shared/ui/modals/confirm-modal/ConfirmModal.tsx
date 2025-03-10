@@ -2,6 +2,7 @@ import type { ComponentProps, ReactElement } from 'react'
 
 import { Button, Dialog } from '@meetgram/ui-kit'
 import { cn } from '@meetgram/utils'
+import { useTranslations } from 'next-intl'
 
 type Props = {
   buttonsClassname?: string
@@ -18,6 +19,8 @@ export const ConfirmDialog = ({
   rootClassname,
   ...props
 }: Props) => {
+  const t = useTranslations('buttons')
+
   return (
     <Dialog {...props}>
       <div className={cn('px-6 py-7', rootClassname)}>
@@ -30,9 +33,9 @@ export const ConfirmDialog = ({
         </p>
         <div className={cn('flex flex-wrap gap-6 md:justify-end', buttonsClassname)}>
           <Button onClick={() => onConfirm(true)} variant={'outlined'}>
-            Yes
+            {t('Yes')}
           </Button>
-          <Button onClick={() => onConfirm(false)}>No</Button>
+          <Button onClick={() => onConfirm(false)}>{t('No')}</Button>
         </div>
       </div>
     </Dialog>

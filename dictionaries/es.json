@@ -15,11 +15,19 @@
     "User's profile will be here!!": "¡El perfil del usuario estará aquí!!"
   },
   "buttons": {
-    "Back": "Volver"
+    "Back": "Volver",
+    "Yes": "Sí",
+    "No": "No"
   },
   "auth": {
     "Sign In": "Iniciar sesión",
     "Email": "Email",
     "Password": "Contraseña"
+  },
+  "dialogs": {
+    "delete": {
+      "Delete user": "Eliminar usuario",
+      "Are you sure to delete user": "¿Estás seguro de eliminar el usuario"
+    }
   }
 }

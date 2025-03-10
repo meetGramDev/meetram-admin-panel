@@ -17,7 +17,7 @@ import {
   TableRow,
 } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { usersListTableHeaders } from '../const/users-list-table-headers'
 import { useUsersListTable } from '../lib/useUsersListTable'
@@ -48,6 +48,7 @@ export type UsersListTableProps = {
 
 export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableProps) => {
   const locale = useLocale()
+  const t = useTranslations()
   const {
     data,
     error,

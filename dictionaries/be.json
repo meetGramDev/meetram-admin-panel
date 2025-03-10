@@ -15,11 +15,19 @@
     "User's profile will be here!!": "Тут будзе профіль карыстальніка!!"
   },
   "buttons": {
-    "Back": "Вярнуцца"
+    "Back": "Вярнуцца",
+    "Yes": "Так",
+    "No": "Не"
   },
   "auth": {
     "Sign In": "Увайсці",
     "Email": "Электронная пошта",
     "Password": "Пароль"
+  },
+  "dialogs": {
+    "delete": {
+      "Delete user": "Выдаліць карыстальніка",
+      "Are you sure to delete user": "Вы ўпэўнены, што хочаце выдаліць карыстальніка"
+    }
   }
 }
