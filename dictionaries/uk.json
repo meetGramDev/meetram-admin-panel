@@ -1,1 +1,40 @@
-{}
+{
+  "home": {
+    "Get started by editing": "Почніть редагувати",
+    "Save and see your changes instantly": "Збережіть і Ваші зміни відразу ж відобразяться",
+    "Deploy now": "Задеплоїти",
+    "Read our docs": "Прочитати документацію",
+    "Learn": "Вивчивши",
+    "Examples": "Приклад",
+    "Go to": "Перейти на"
+  },
+  "all-posts": {
+    "All posts will be here!": "Тут будуть всі пости!"
+  },
+  "profile": {
+    "User's profile will be here!!": "Тут буде профіль користувача!!"
+  },
+  "buttons": {
+    "Back": "Назад",
+    "Yes": "Так",
+    "No": "Ні"
+  },
+  "auth": {
+    "Sign In": "Увійти",
+    "Email": "Електронна пошта",
+    "Password": "Пароль"
+  },
+  "dialogs": {
+    "delete": {
+      "Delete user": "Видалити користувача",
+      "Are you sure to delete user": "Ви впевнені, що хочете видалити користувача"
+    }
+  },
+  "info-messages": {
+    "Nothing found": "Нічого не знайдено",
+    "Try again": "Оновити"
+  },
+  "error-messages": {
+    "Incorrect email or password": "Невірний логін або пароль"
+  }
+}

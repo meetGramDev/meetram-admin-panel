@@ -1,13 +1,11 @@
 'use client'
-import { useLocale } from '@/src/app_layer/i18n'
+import { usePathname } from '@/src/shared/routes'
 import { sidebarItems } from '@/src/widgets/sidebar/const/sidebar-items'
 import { SidebarItem } from '@meetgram/ui-kit'
 import { cn } from '@meetgram/utils'
-import { usePathname } from 'next/navigation'
 
 export const SidebarItemList = ({ isMobile = false }: { isMobile?: boolean }) => {
   const currentPathname = usePathname()
-  const locale = useLocale()
 
   return (
     <>
@@ -16,10 +14,10 @@ export const SidebarItemList = ({ isMobile = false }: { isMobile?: boolean }) =>
           isMobile={isMobile}
           key={item.name}
           item={item}
-          isActiveLink={currentPathname === `/${locale}/${item.hrefPath}`}
+          isActiveLink={currentPathname === `/${item.hrefPath}`}
           className={cn(
             'font-semibold',
-            currentPathname !== `/${locale}/${item.hrefPath}` && 'text-light-100'
+            currentPathname !== `/${item.hrefPath}` && 'text-light-100'
           )}
         />
       ))}

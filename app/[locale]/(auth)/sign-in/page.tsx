@@ -7,8 +7,10 @@ import { apolloErrorsHandler } from '@/src/shared/lib'
 import { USERS_LIST } from '@/src/shared/routes'
 import { setCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 export default function SignInPage() {
+  const t = useTranslations('error-messages')
   const [signIn] = useSignInMutation()
   const router = useRouter()
   const [error, setError] = useState('')
@@ -28,7 +30,7 @@ export default function SignInPage() {
         setCookie('logged', 'true', { maxAge: 60 * 60 * 24, path: '/' })
         router.push(USERS_LIST)
       } else {
-        return setError('Incorrect email or password')
+        return setError(t('Incorrect email or password'))
       }
     } catch (error) {
       const err = apolloErrorsHandler(error)

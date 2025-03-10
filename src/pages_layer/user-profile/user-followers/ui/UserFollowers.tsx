@@ -1,5 +1,5 @@
 'use client'
-import { useLocale } from '@/src/app_layer/i18n'
+
 import { useGet_FollowersQuery } from '@/src/entities/user'
 import { SortDirection } from '@/src/shared/api'
 import { PROFILE } from '@/src/shared/routes'
@@ -31,6 +31,7 @@ import {
 import { dateFormatting } from '@meetgram/utils'
 import Link from 'next/link'
 import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useLocale } from 'next-intl'
 
 export const UserFollowers = () => {
   const locale = useLocale()

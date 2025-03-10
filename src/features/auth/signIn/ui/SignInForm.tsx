@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 
 import { isErrorMessageString } from '@/src/shared/types/errorTypesPredicate'
 import { Button, Card, Input } from '@meetgram/ui-kit'
+import { useTranslations } from 'next-intl'
 
 import { type SignInFields, useSignIn } from '../lib/useSignIn'
 
@@ -11,6 +12,8 @@ type Props = {
 }
 
 export const SignInForm = ({ error, onSubmit }: Props) => {
+  const t = useTranslations('auth')
+
   const {
     formState: { errors, isDirty, isValid, touchedFields },
     getValues,
@@ -32,21 +35,23 @@ export const SignInForm = ({ error, onSubmit }: Props) => {
 
   return (
     <Card className={'w-[23.7rem] p-6 text-base leading-6 text-white text-opacity-100'}>
-      <h2 className={'mb-[2.31rem] text-center text-[20px] font-bold leading-[36px]'}>Sign In</h2>
+      <h2 className={'mb-[2.31rem] text-center text-[20px] font-bold leading-[36px]'}>
+        {t('Sign In')}
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={'flex flex-col gap-[1.8rem]'}>
           <Input
             error={errors.email?.message}
             {...register('email')}
             aria-invalid={errors.email ? 'true' : 'false'}
-            label={'Email'}
+            label={t('Email')}
             type={'email'}
           />
           <Input
             error={errors.password?.message}
             {...register('password')}
             aria-invalid={errors.password ? 'true' : 'false'}
-            label={'Password'}
+            label={t('Password')}
             type={'password'}
           />
         </div>
@@ -57,7 +62,7 @@ export const SignInForm = ({ error, onSubmit }: Props) => {
           type={'submit'}
           variant={'primary'}
         >
-          Sign In
+          {t('Sign In')}
         </Button>
       </form>
     </Card>
