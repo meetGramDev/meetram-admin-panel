@@ -1,14 +1,14 @@
 import { SearchBar } from '@/src/widgets/search-bar'
 import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
 
-export const AllPosts = ({ dict }: { dict: Record<string, string> }) => {
+export const AllPosts = async () => {
+  const t = await getTranslations()
+
   return (
     <div>
       <SearchBar />
-      <p className={'mt-24 text-center'}>
-        {/* @ts-ignore */}
-        {dict['all-posts']['All posts will be here!']}
-      </p>
+      <p className={'mt-24 text-center'}>{t('all-posts.All posts will be here!')}</p>
       <div
         className={
           'grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-inter-sans)] sm:p-20'
@@ -29,8 +29,7 @@ export const AllPosts = ({ dict }: { dict: Record<string, string> }) => {
             }
           >
             <li className={'mb-2'}>
-              {/* @ts-ignore */}
-              {dict.home['Get started by editing']}{' '}
+              {t('home.Get started by editing')}
               <code
                 className={'rounded bg-black/[.05] px-1 py-0.5 font-semibold dark:bg-white/[.06]'}
               >
@@ -38,8 +37,7 @@ export const AllPosts = ({ dict }: { dict: Record<string, string> }) => {
               </code>
               .
             </li>
-            {/* @ts-ignore */}
-            <li>{dict.home['Save and see your changes instantly.']}</li>
+            <li>{t('home.Save and see your changes instantly')}</li>
           </ol>
 
           <div className={'flex flex-col items-center gap-4 sm:flex-row'}>
@@ -60,8 +58,7 @@ export const AllPosts = ({ dict }: { dict: Record<string, string> }) => {
                 src={'/vercel.svg'}
                 width={20}
               />
-              {/* @ts-ignore */}
-              {dict.home['Deploy now']}
+              {t('home.Deploy now')}
             </a>
             <a
               className={
@@ -73,8 +70,7 @@ export const AllPosts = ({ dict }: { dict: Record<string, string> }) => {
               rel={'noopener noreferrer'}
               target={'_blank'}
             >
-              {/* @ts-ignore */}
-              {dict.home['Read our docs']}
+              {t('home.Read our docs')}
             </a>
           </div>
         </main>
@@ -88,8 +84,7 @@ export const AllPosts = ({ dict }: { dict: Record<string, string> }) => {
             target={'_blank'}
           >
             <Image alt={'File icon'} aria-hidden height={16} src={'/file.svg'} width={16} />
-            {/* @ts-ignore */}
-            {dict.home.Learn}
+            {t('home.Learn')}
           </a>
           <a
             className={'flex items-center gap-2 hover:underline hover:underline-offset-4'}
@@ -100,8 +95,7 @@ export const AllPosts = ({ dict }: { dict: Record<string, string> }) => {
             target={'_blank'}
           >
             <Image alt={'Window icon'} aria-hidden height={16} src={'/window.svg'} width={16} />
-            {/* @ts-ignore */}
-            {dict.home.Examples}
+            {t('home.Examples')}
           </a>
           <a
             rel={'noopener noreferrer'}
@@ -112,8 +106,7 @@ export const AllPosts = ({ dict }: { dict: Record<string, string> }) => {
             className={'flex items-center gap-2 hover:underline hover:underline-offset-4'}
           >
             <Image alt={'Globe icon'} aria-hidden height={16} src={'/globe.svg'} width={16} />
-            {/* @ts-ignore */}
-            {`${dict.home['Go to']} nextjs.org →`}
+            {`${t('home.Go to')} nextjs.org →`}
           </a>
         </footer>
       </div>

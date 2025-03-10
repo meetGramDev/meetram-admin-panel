@@ -1,7 +1,7 @@
 {
   "home": {
     "Get started by editing": "Get started by editing",
-    "Save and see your changes instantly.": "Save and see your changes instantly.",
+    "Save and see your changes instantly": "Save and see your changes instantly.",
     "Deploy now": "Deploy now",
     "Read our docs": "Read our docs",
     "Learn": "Learn",
@@ -15,6 +15,26 @@
     "User's profile will be here!!": "User's profile will be here!!"
   },
   "buttons": {
-    "Back": "Back"
+    "Back": "Back",
+    "Yes": "Yes",
+    "No": "No"
+  },
+  "auth": {
+    "Sign In": "Sign In",
+    "Email": "Email",
+    "Password": "Password"
+  },
+  "dialogs": {
+    "delete": {
+      "Delete user": "Delete user",
+      "Are you sure to delete user": "Are you sure to delete user"
+    }
+  },
+  "info-messages": {
+    "Nothing found": "Nothing found",
+    "Try again": "Try again"
+  },
+  "error-messages": {
+    "Incorrect email or password": "Incorrect email or password"
   }
 }
