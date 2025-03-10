@@ -33,5 +33,8 @@
   "info-messages": {
     "Nothing found": "Nothing found",
     "Try again": "Try again"
+  },
+  "error-messages": {
+    "Incorrect email or password": "Incorrect email or password"
   }
 }

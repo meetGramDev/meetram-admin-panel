@@ -33,5 +33,8 @@
   "info-messages": {
     "Nothing found": "Нічога не знойдзена",
     "Try again": "Абнавіць"
+  },
+  "error-messages": {
+    "Incorrect email or password": "Няправільны лагін ці пароль"
   }
 }
