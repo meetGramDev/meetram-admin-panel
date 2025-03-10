@@ -16,5 +16,10 @@
   },
   "buttons": {
     "Back": "Volver"
+  },
+  "auth": {
+    "Sign In": "Iniciar sesión",
+    "Email": "Email",
+    "Password": "Contraseña"
   }
 }
