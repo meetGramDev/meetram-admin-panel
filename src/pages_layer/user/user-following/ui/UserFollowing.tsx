@@ -1,11 +1,13 @@
 'use client'
 
-import { useLocale } from '@/src/app_layer/i18n'
 import * as Types from '@/src/shared/api/models.gen'
 import { PROFILE } from '@/src/shared/routes'
 import { ProfileTabValues } from '@/src/widgets/tabs'
 import { followersListTableHeaders } from '@/src/widgets/users-list/table/const/users-list-table-headers'
-import { paginationPageSize } from '@/src/widgets/users-list/table/model/pagination-config'
+import {
+  PAGE_SIZE_PARAM_KEY,
+  paginationPageSize,
+} from '@/src/widgets/users-list/table/model/pagination-config'
 import { gql, useQuery } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 import {
@@ -20,6 +22,8 @@ import {
 } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils/functions'
 import Link from 'next/link'
+import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useLocale } from 'next-intl'
 
 export const Get_FollowingDocument = gql`
   query GET_FOLLOWING(
@@ -91,13 +95,22 @@ export function useGet_FollowingQuery(
 
 export const UserFollowing = () => {
   const locale = useLocale()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+  const params = useParams()
+
+  const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
+
+  const parsedUserId = params?.id ? Number(params?.id) : null
+
   const { data, error, loading } = useGet_FollowingQuery({
     variables: {
       pageNumber: 1,
-      pageSize: 10,
+      pageSize: +itemsPerPage,
       sortBy: 'createdAt',
       sortDirection: 'desc',
-      userId: 640,
+      userId: parsedUserId!,
     },
   })
 
