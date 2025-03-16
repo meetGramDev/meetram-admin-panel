@@ -1,0 +1,14 @@
+query GET_FOLLOWINGS($pageNumber: Int = 1, $sortBy: String = "createdAt", $pageSize: Int = 10, $sortDirection: SortDirection = desc, $userId: Int!) {
+getFollowing(pageNumber: $pageNumber, sortBy: $sortBy, pageSize: $pageSize, sortDirection: $sortDirection, userId: $userId ) {
+    page
+    pageSize
+    pagesCount
+    totalCount
+    items {
+        userId
+        createdAt
+        id
+        userName
+    }
+}
+}
