@@ -101,7 +101,6 @@ export const UserFollowing = () => {
                   {header.label}
                 </TableHead>
               ))}
-              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
