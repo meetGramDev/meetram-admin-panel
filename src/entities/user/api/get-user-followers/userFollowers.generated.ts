@@ -17,7 +17,7 @@ export type Get_FollowersQuery = { __typename?: 'Query', getFollowers: { __typen
 
 
 export const Get_FollowersDocument = gql`
-    query GET_FOLLOWERS($pageNumber: Int! = 1, $pageSize: Int! = 10, $sortBy: String = "createdAt", $sortDirection: SortDirection = desc, $userId: Int!) {
+    query GET_FOLLOWERS($pageNumber: Int = 1, $pageSize: Int = 10, $sortBy: String = "createdAt", $sortDirection: SortDirection = desc, $userId: Int!) {
   getFollowers(
     pageNumber: $pageNumber
     pageSize: $pageSize

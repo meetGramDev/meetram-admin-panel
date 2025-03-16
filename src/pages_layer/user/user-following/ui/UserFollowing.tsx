@@ -1,10 +1,7 @@
 'use client'
 
-import {
-  type FollowPaginationModel,
-  type QueryGetFollowingArgs,
-  SortDirection,
-} from '@/src/shared/api/models.gen'
+import { useGet_FollowingsQuery } from '@/src/entities/user/api/get-user-following/userFollowings.generated'
+import { SortDirection } from '@/src/shared/api/models.gen'
 import { PROFILE } from '@/src/shared/routes'
 import { ProfileTabValues } from '@/src/widgets/tabs'
 import {
@@ -19,8 +16,6 @@ import {
   paginationPageSize,
 } from '@/src/widgets/users-list/table/model/pagination-config'
 import { SortDirectionTable } from '@/src/widgets/users-list/table/model/table.types'
-import { gql, useQuery } from '@apollo/client'
-import * as Apollo from '@apollo/client'
 import {
   Button,
   type ITableHead,
@@ -37,51 +32,6 @@ import Link from 'next/link'
 import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
-export const Get_FollowingDocument = gql`
-  query GET_FOLLOWING(
-    $pageNumber: Int! = 1
-    $pageSize: Int! = 10
-    $sortBy: String = "createdAt"
-    $sortDirection: SortDirection = desc
-    $userId: Int!
-  ) {
-    getFollowing(
-      pageSize: $pageSize
-      pageNumber: $pageNumber
-      sortBy: $sortBy
-      sortDirection: $sortDirection
-      userId: $userId
-    ) {
-      items {
-        userId
-        createdAt
-        id
-        userName
-      }
-      pagesCount
-      page
-      pageSize
-      totalCount
-    }
-  }
-`
-
-const defaultOptions = {} as const
-
-export type Get_FollowingQuery = {
-  __typename?: 'Query'
-  getFollowing: FollowPaginationModel
-}
-
-export function useGet_FollowingQuery(
-  baseOptions: ({ skip: boolean } | { skip?: boolean; variables: QueryGetFollowingArgs }) &
-    Apollo.QueryHookOptions<Get_FollowingQuery, QueryGetFollowingArgs>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-
-  return Apollo.useQuery<Get_FollowingQuery, QueryGetFollowingArgs>(Get_FollowingDocument, options)
-}
-
 export const UserFollowing = () => {
   const locale = useLocale()
   const searchParams = useSearchParams()
@@ -97,7 +47,7 @@ export const UserFollowing = () => {
   const currentPage = searchParams.get(PAGE_PARAM_KEY) || 1
   const params = new URLSearchParams(searchParams)
 
-  const { data, error, loading } = useGet_FollowingQuery({
+  const { data, error, loading } = useGet_FollowingsQuery({
     variables: {
       pageNumber: +currentPage,
       pageSize: +itemsPerPage,
@@ -106,6 +56,7 @@ export const UserFollowing = () => {
       userId: parsedUserId!,
     },
   })
+
   const saveSearchParams = () => {
     router.replace(`${pathname}?${params.toString()}`)
   }
