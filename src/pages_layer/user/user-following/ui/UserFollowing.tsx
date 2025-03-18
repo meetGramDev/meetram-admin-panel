@@ -40,7 +40,7 @@ export const UserFollowing = () => {
   const paramsId = useParams()
 
   const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
-  const parsedUserId = paramsId?.id ? Number(paramsId?.id) : null
+  const parsedUserId = paramsId?.id ? Number(paramsId.id) : null
   const userSortBy = searchParams.get(SORT_BY_PARAM_KEY) || followersListTableHeaders[3].key
   const sortDirParam = searchParams.get(SORT_PARAM_KEY)
   const sortDir = sortDirParam ? +sortDirParam : SortDirectionTable.DESC
@@ -66,7 +66,7 @@ export const UserFollowing = () => {
   }
   const handleItemsPerPageChange = (itemsPerPage: number) => {
     params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
-    saveSearchParams
+    saveSearchParams()
   }
   const handleChangeSorting = (header: ITableHead<followersListTableHeadKeysType>) => {
     const sortDirection =
@@ -106,8 +106,8 @@ export const UserFollowing = () => {
           <TableBody>
             {data?.getFollowing?.items?.map(following => {
               return (
-                <TableRow key={following.userId}>
-                  <TableCell className={'flex items-center gap-3'}>{following.userId}</TableCell>
+                <TableRow key={following.id}>
+                  <TableCell className={'flex items-center gap-3'}>{following.id}</TableCell>
                   <TableCell>{following.userName}</TableCell>
                   <TableCell>
                     {
