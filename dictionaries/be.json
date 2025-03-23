@@ -1,1 +1,40 @@
-{}
+{
+  "home": {
+    "Get started by editing": "Пачніце з рэдагавання",
+    "Save and see your changes instantly": "Захоўвайце і імгненна Праглядайце свае змены.",
+    "Deploy now": "Задэплоиць зараз",
+    "Read our docs": "Прачытаць дакументацыю",
+    "Learn": "Вывучыць",
+    "Examples": "Прыклад",
+    "Go to": "Перайсці на"
+  },
+  "all-posts": {
+    "All posts will be here!": "Тут будуць усе пасты!"
+  },
+  "profile": {
+    "User's profile will be here!!": "Тут будзе профіль карыстальніка!!"
+  },
+  "buttons": {
+    "Back": "Вярнуцца",
+    "Yes": "Так",
+    "No": "Не"
+  },
+  "auth": {
+    "Sign In": "Увайсці",
+    "Email": "Электронная пошта",
+    "Password": "Пароль"
+  },
+  "dialogs": {
+    "delete": {
+      "Delete user": "Выдаліць карыстальніка",
+      "Are you sure to delete user": "Вы ўпэўнены, што хочаце выдаліць карыстальніка"
+    }
+  },
+  "info-messages": {
+    "Nothing found": "Нічога не знойдзена",
+    "Try again": "Абнавіць"
+  },
+  "error-messages": {
+    "Incorrect email or password": "Няправільны лагін ці пароль"
+  }
+}

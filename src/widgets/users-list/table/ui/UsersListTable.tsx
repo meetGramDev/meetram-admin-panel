@@ -1,11 +1,10 @@
 'use client'
 import type { UserBlockStatus } from '@/src/shared/api'
 
-import { useLocale } from '@/src/app_layer/i18n'
 import { DeleteUserMenuItem, type MutateUserType } from '@/src/entities/user'
 import { TableActionsMenu } from '@/src/features/table-actions-menu'
 import { BannedIcon } from '@/src/shared/assets/icons'
-import { PROFILE } from '@/src/shared/routes'
+import { Link, PROFILE } from '@/src/shared/routes'
 import { ProfileTabValues } from '@/src/widgets/tabs'
 import {
   Button,
@@ -18,7 +17,7 @@ import {
   TableRow,
 } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils'
-import Link from 'next/link'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { usersListTableHeaders } from '../const/users-list-table-headers'
 import { useUsersListTable } from '../lib/useUsersListTable'
@@ -49,6 +48,7 @@ export type UsersListTableProps = {
 
 export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableProps) => {
   const locale = useLocale()
+  const t = useTranslations('info-messages')
   const {
     data,
     error,
@@ -69,13 +69,13 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
     return (
       <div className={'mt-8 flex flex-col items-center justify-center gap-3'}>
         <p className={'text-center text-h1 text-danger-500 lg:text-large'}>{error.message}</p>
-        <Button onClick={() => refetch()}>Try again</Button>
+        <Button onClick={() => refetch()}>{t('Try again')}</Button>
       </div>
     )
   }
 
   if (data?.getUsers.users.length === 0) {
-    return <p className={'text-center text-h1 lg:text-large'}>Nothing found</p>
+    return <p className={'text-center text-h1 lg:text-large'}>{t('Nothing found')}</p>
   }
 
   return (

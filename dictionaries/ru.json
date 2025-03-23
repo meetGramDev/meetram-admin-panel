@@ -1,7 +1,7 @@
 {
   "home": {
     "Get started by editing": "Начните редактировать",
-    "Save and see your changes instantly.": "Сохраните и ваши изменения сразу же отобразятся.",
+    "Save and see your changes instantly": "Сохраните и ваши изменения сразу же отобразятся",
     "Deploy now": "Задеплоить",
     "Read our docs": "Прочитать документацию",
     "Learn": "Изучить",
@@ -15,6 +15,26 @@
     "User's profile will be here!!": "Здесь будет профиль пользователя!!"
   },
   "buttons": {
-    "Back": "Назад"
+    "Back": "Назад",
+    "Yes": "Да",
+    "No": "Нет"
+  },
+  "auth": {
+    "Sign In": "Войти",
+    "Email": "Электронная почта",
+    "Password": "Пароль"
+  },
+  "dialogs": {
+    "delete": {
+      "Delete user": "Удалить пользователя",
+      "Are you sure to delete user": "Вы уверены, что хотите удалить пользователя"
+    }
+  },
+  "info-messages": {
+    "Nothing found": "Ничего не найдено",
+    "Try again": "Обновить"
+  },
+  "error-messages": {
+    "Incorrect email or password": "Неверный логин или пароль"
   }
 }

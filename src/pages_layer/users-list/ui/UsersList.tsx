@@ -14,10 +14,12 @@ import {
   UsersListTable,
 } from '@/src/widgets/users-list/table'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 import { useUserDeleteMutation } from '../lib/useUserMutations'
 
 export const UsersList = () => {
+  const t = useTranslations('dialogs.delete')
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
@@ -111,11 +113,11 @@ export const UsersList = () => {
       <ConfirmDialog
         open={openDelete}
         onOpenChange={setOpenDelete}
-        title={'Delete user'}
+        title={t('Delete user')}
         message={
           <span className={'text-regular16 text-white'}>
-            Are you sure to delete user <span className={'font-bold'}>{selectedUser.userName}</span>
-            ?
+            {t('Are you sure to delete user')}{' '}
+            <span className={'font-bold'}>{selectedUser.userName}</span>?
           </span>
         }
         onConfirm={handleConfirmUserDeletion}

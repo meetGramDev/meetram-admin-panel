@@ -1,11 +1,12 @@
 import type { ReactNode } from 'react'
 
-import { type Locale, getDictionary } from '@/src/app_layer/i18n'
+import { type Locale } from '@/src/app_layer/i18n'
 import { getUserProfileRSC } from '@/src/entities/user/api'
 import { BackButton } from '@/src/shared/ui'
 import { Photo } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils/functions'
 import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
 
 export default async function UserLayout({
   params,
@@ -15,7 +16,8 @@ export default async function UserLayout({
   tabs: ReactNode
 }) {
   const { id, locale } = params
-  const dict = await getDictionary(locale)
+  const t = await getTranslations('buttons')
+
   const { data, error } = await getUserProfileRSC(+id)
   let content
 
@@ -66,8 +68,7 @@ export default async function UserLayout({
     <>
       <div>
         <BackButton>
-          {/* @ts-ignore */}
-          <span>{`${dict['buttons']['Back']}`}</span>
+          <span>{t('Back')}</span>
         </BackButton>
         {content}
       </div>
