@@ -1,6 +1,5 @@
 'use client'
 
-import { useLocale } from '@/src/app_layer/i18n'
 import { useGet_User_PaymentsQuery } from '@/src/entities/user/api/get-user-payments/getUserPayments.generated'
 import { PAGE_PARAM_KEY, PAGE_SIZE_PARAM_KEY } from '@/src/widgets/users-list/table'
 import {
@@ -25,6 +24,7 @@ import {
 } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils'
 import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useLocale } from 'next-intl'
 
 export const UserPayments = () => {
   const locale = useLocale()

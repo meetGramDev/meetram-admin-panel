@@ -19,14 +19,12 @@ const signInSchema = getSignInSchema()
 export type SignInFields = z.infer<typeof signInSchema>
 
 export function useSignIn() {
-  const { formState, getValues, handleSubmit, register, setError, trigger } = useForm<SignInFields>(
-    {
-      defaultValues: { email: '', password: '' },
-      mode: 'onBlur',
-      reValidateMode: 'onChange',
-      resolver: zodResolver(getSignInSchema()),
-    }
-  )
+  const { formState, getValues, handleSubmit, register, setError } = useForm<SignInFields>({
+    defaultValues: { email: '', password: '' },
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(getSignInSchema()),
+  })
 
-  return { formState, getValues, handleSubmit, register, setError, trigger }
+  return { formState, getValues, handleSubmit, register, setError }
 }
