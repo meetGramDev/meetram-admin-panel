@@ -15,12 +15,11 @@ export const SignInForm = ({ error, onSubmit }: Props) => {
   const t = useTranslations('auth')
 
   const {
-    formState: { errors, isDirty, isValid, touchedFields },
+    formState: { errors, isDirty, isValid },
     getValues,
     handleSubmit,
     register,
     setError,
-    trigger,
   } = useSignIn()
 
   useEffect(() => {
