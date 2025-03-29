@@ -49,6 +49,7 @@ export type UsersListTableProps = {
 export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableProps) => {
   const locale = useLocale()
   const t = useTranslations('info-messages')
+  const translateTable = useTranslations('user-list-items-table-header')
   const {
     data,
     error,
@@ -84,18 +85,22 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
         <Table>
           <TableHeader>
             <TableRow className={'has-[:hover]:border-0'}>
-              {usersListTableHeaders.map(header => (
-                <TableHead
-                  sort={sortBy === header.key ? sortDir : undefined}
-                  onClick={() => handleChangeSorting(header)}
-                  key={header.id}
-                  className={
-                    'transition-colors hover:border-0 hover:shadow-sm hover:shadow-neutral-100/50'
-                  }
-                >
-                  {header.label}
-                </TableHead>
-              ))}
+              {usersListTableHeaders.map(header => {
+                return (
+                  <TableHead
+                    sort={sortBy === header.key ? sortDir : undefined}
+                    onClick={() => handleChangeSorting(header)}
+                    key={header.id}
+                    className={
+                      'transition-colors hover:border-0 hover:shadow-sm hover:shadow-neutral-100/50'
+                    }
+                  >
+                    {/*{header.label}*/}
+                    {/* TODO точнить и поменять заглушку на типе any*/}
+                    {translateTable(header.label as any)}
+                  </TableHead>
+                )
+              })}
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>
