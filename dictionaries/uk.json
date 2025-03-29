@@ -48,5 +48,10 @@
     "Username": "Ім'я користувача",
     "Profile link": "Посилання на профіль",
     "Date created": "Дата створення"
+  },
+  "ban-selector": {
+    "Not selected": "Не вибрано",
+    "Blocked": "Заблоковано",
+    "Not blocked": "Не заблокований"
   }
 }

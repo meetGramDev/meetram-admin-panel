@@ -48,5 +48,10 @@
     "Username": "Nombre de usuario",
     "Profile link": "Enlace de perfil",
     "Date created": "Fecha de creación"
+  },
+  "ban-selector": {
+    "Not selected": "No seleccionado",
+    "Blocked": "Obstruido",
+    "Not blocked": "No bloqueado"
   }
 }

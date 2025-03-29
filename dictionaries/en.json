@@ -48,5 +48,10 @@
     "Username": "Username",
     "Profile link": "Profile link",
     "Date created": "Date created"
+  },
+  "ban-selector": {
+    "Not selected": "Not selected",
+    "Blocked": "Blocked",
+    "Not blocked": "Not blocked"
   }
 }
