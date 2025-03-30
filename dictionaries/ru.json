@@ -36,5 +36,22 @@
   },
   "error-messages": {
     "Incorrect email or password": "Неверный логин или пароль"
+  },
+  "sidebar-items": {
+    "Users list": "Список пользователей",
+    "Statistics": "Статистика",
+    "Payments list": "Список платежей",
+    "Posts list": "Список постов"
+  },
+  "user-list-items-table-header": {
+    "User ID": "ID пользователя",
+    "Username": "Имя пользователя",
+    "Profile link": "Ссылка на профиль",
+    "Date created": "Дата создания"
+  },
+  "ban-selector": {
+    "Not selected": "Не выбрано",
+    "Blocked": "Заблокированные",
+    "Not blocked": "Не заблокированные"
   }
 }

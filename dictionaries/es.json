@@ -36,5 +36,22 @@
   },
   "error-messages": {
     "Incorrect email or password": "Correo electrónico o contraseña incorrectos"
+  },
+  "sidebar-items": {
+    "Users list": "Lista de usuarios",
+    "Statistics": "Estadística",
+    "Payments list": "Lista de pagos",
+    "Posts list": "Lista de publicaciones"
+  },
+  "user-list-items-table-header": {
+    "User ID": "ID de usuario",
+    "Username": "Nombre de usuario",
+    "Profile link": "Enlace de perfil",
+    "Date created": "Fecha de creación"
+  },
+  "ban-selector": {
+    "Not selected": "No seleccionado",
+    "Blocked": "Obstruido",
+    "Not blocked": "No bloqueado"
   }
 }

@@ -36,5 +36,22 @@
   },
   "error-messages": {
     "Incorrect email or password": "Невірний логін або пароль"
+  },
+  "sidebar-items": {
+    "Users list": "Список користувачів",
+    "Statistics": "Статистика",
+    "Payments list": "Список платежів",
+    "Posts list": "Список дописів"
+  },
+  "user-list-items-table-header": {
+    "User ID": "ID користувача",
+    "Username": "Ім'я користувача",
+    "Profile link": "Посилання на профіль",
+    "Date created": "Дата створення"
+  },
+  "ban-selector": {
+    "Not selected": "Не вибрано",
+    "Blocked": "Заблоковано",
+    "Not blocked": "Не заблокований"
   }
 }
