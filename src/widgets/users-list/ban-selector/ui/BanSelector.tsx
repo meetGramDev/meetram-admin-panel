@@ -27,11 +27,10 @@ export const BanSelector = ({ ...restProps }: Props) => {
   return (
     <Select placeholder={t('Not selected')} {...restProps}>
       {options.map(o => {
-        console.log(o)
-
         return (
           <Option key={o.value} value={o.value}>
             {/*{o.label}*/}
+            {/* TODO заменить заглушку any на правильный тип*/}
             {t(o.label as any)}
           </Option>
         )
