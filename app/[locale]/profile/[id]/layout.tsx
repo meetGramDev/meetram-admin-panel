@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 
 import { type Locale } from '@/src/app_layer/i18n'
 import { getUserProfileRSC } from '@/src/entities/user/api'
+import { USERS_LIST } from '@/src/shared/routes'
 import { BackButton } from '@/src/shared/ui'
 import { Photo } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils/functions'
@@ -67,7 +68,7 @@ export default async function UserLayout({
   return (
     <>
       <div>
-        <BackButton>
+        <BackButton whereTo={'/' + USERS_LIST}>
           <span>{t('Back')}</span>
         </BackButton>
         {content}
