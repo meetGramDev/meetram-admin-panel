@@ -4,6 +4,7 @@ import type { UserBlockStatus } from '@/src/shared/api'
 import { type MutateUserType, UserMenuItem } from '@/src/entities/user'
 import { TableActionsMenu } from '@/src/features/table-actions-menu'
 import { BannedIcon, DeleteUserIcon } from '@/src/shared/assets/icons'
+import { CheckMarkIcon } from '@/src/shared/assets/icons/components/checkMarkIcon'
 import { Link, PROFILE } from '@/src/shared/routes'
 import { ProfileTabValues } from '@/src/widgets/tabs'
 import {
@@ -36,6 +37,7 @@ export type UsersListTableProps = {
    * @param error message
    */
   onError?: (error: string) => void
+  onUnBan?: (user: MutateUserType) => void
   /**
    * Search by username
    */
@@ -47,7 +49,13 @@ export type UsersListTableProps = {
   statusFilter?: `${UserBlockStatus}`
 }
 
-export const UsersListTable = ({ disabled, onBlock, onDelete, ...props }: UsersListTableProps) => {
+export const UsersListTable = ({
+  disabled,
+  onBlock,
+  onDelete,
+  onUnBan,
+  ...props
+}: UsersListTableProps) => {
   const locale = useLocale()
   const t = useTranslations('info-messages')
   const translateTable = useTranslations('user-list-items-table-header')
@@ -142,9 +150,14 @@ export const UsersListTable = ({ disabled, onBlock, onDelete, ...props }: UsersL
                       onClick={() => onDelete?.(user)}
                       icon={<DeleteUserIcon size={24} />}
                     />
-                    {!user?.userBan?.createdAt && (
+                    {user?.userBan?.createdAt ? (
                       <UserMenuItem
-                        key={user.id}
+                        innerText={banUser('Unban in the system')}
+                        onClick={() => onUnBan?.(user)}
+                        icon={<CheckMarkIcon size={24} />}
+                      />
+                    ) : (
+                      <UserMenuItem
                         innerText={banUser('Ban in the system')}
                         onClick={() => onBlock?.(user)}
                         icon={<BannedIcon size={24} />}

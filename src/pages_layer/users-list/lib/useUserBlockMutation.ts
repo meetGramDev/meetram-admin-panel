@@ -2,7 +2,7 @@ import type { UserMutationType } from '@/src/pages_layer/users-list/lib/userMuta
 
 import { useState } from 'react'
 
-import { useBan_UserMutation } from '../../../entities/user/api/user-blocking/userBlocking.generated'
+import { useBan_UserMutation } from '@/src/entities/user/api/user-blocking/userBlocking.generated'
 
 export function useUserBlockMutation({
   banReason,
@@ -13,7 +13,7 @@ export function useUserBlockMutation({
   const [openBlock, setOpenBlock] = useState(false)
   const [blockUser, { error, loading: blockLoading }] = useBan_UserMutation({
     onCompleted() {
-      alert(`Successfully blocked! User id was ${selectedUser.id}`)
+      alert(`Successfully blocked! User id is ${selectedUser.id}`)
       setOpenBlock(false)
       onCompleted?.()
     },

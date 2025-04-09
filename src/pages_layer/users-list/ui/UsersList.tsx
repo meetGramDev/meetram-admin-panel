@@ -3,6 +3,7 @@ import type { MutateUserType } from '@/src/entities/user'
 
 import { useState } from 'react'
 
+import { useUserUnBanMutation } from '@/src/pages_layer/users-list/lib/useUserUnBanMutation'
 import { UserBlockStatus } from '@/src/shared/api'
 import { ConfirmBlock, ConfirmDialog } from '@/src/shared/ui'
 import { SearchBar } from '@/src/widgets/search-bar'
@@ -16,6 +17,7 @@ import {
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
+import { useConfirmDialog } from '../lib/useConfirmDialog'
 import { useUserBlockMutation } from '../lib/useUserBlockMutation'
 import { useUserDeleteMutation } from '../lib/useUserDeleteMutation'
 
@@ -40,17 +42,19 @@ export const UsersList = () => {
   const [selectedUser, setSelectedUser] = useState<MutateUserType>({})
   const [banReason, setBanReason] = useState('')
 
-  const { deleteLoading, handleConfirmUserDeletion, openDelete, setOpenDelete } =
-    useUserDeleteMutation({ selectedUser })
-
   const { blockLoading, handleConfirmUserBlock, openBlock, setOpenBlock } = useUserBlockMutation({
     banReason: banReason,
     selectedUser,
   })
-
   const _resetCurrentPage = () => {
     params.set(PAGE_PARAM_KEY, '1')
   }
+  const { deleteLoading, handleConfirmUserDeletion, openDelete, setOpenDelete } =
+    useUserDeleteMutation({ selectedUser })
+
+  const { handleConfirmUserUnBan, openUnBan, setOpenUnBan, unBanLoading } = useUserUnBanMutation({
+    selectedUser,
+  })
 
   const _saveSearchParams = () => {
     router.replace(`${pathname}?${params.toString()}`)
@@ -91,7 +95,16 @@ export const UsersList = () => {
     _saveSearchParams()
   }
 
-  const isLoading = deleteLoading || blockLoading
+  const isLoading = deleteLoading || blockLoading || unBanLoading
+
+  const { activeAction, handleConfirm, handleDialogChange, open } = useConfirmDialog({
+    handleConfirmUserDeletion,
+    handleConfirmUserUnBan,
+    openDelete,
+    openUnBan,
+    setOpenDelete,
+    setOpenUnBan,
+  })
 
   return (
     <div className={'pb-6 xl:mb-12'}>
@@ -123,19 +136,25 @@ export const UsersList = () => {
           setSelectedUser(user)
           setOpenBlock(true)
         }}
+        onUnBan={user => {
+          setSelectedUser(user)
+          setOpenUnBan(true)
+        }}
       />
 
       <ConfirmDialog
-        open={openDelete}
-        onOpenChange={setOpenDelete}
-        title={tDelete('Delete user')}
+        open={!!open}
+        onOpenChange={handleDialogChange}
+        title={activeAction === 'delete' ? tDelete('Delete user') : tBan('Unban user')}
         message={
           <span className={'text-regular16 text-white'}>
-            {tDelete('Are you sure to delete user')}{' '}
+            {activeAction === 'delete'
+              ? tDelete('Are you sure to delete user')
+              : tBan('Are you sure to unban this user')}{' '}
             <span className={'font-bold'}>{selectedUser.userName}</span>?
           </span>
         }
-        onConfirm={handleConfirmUserDeletion}
+        onConfirm={handleConfirm}
       />
 
       <ConfirmBlock

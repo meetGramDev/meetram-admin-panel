@@ -33,6 +33,9 @@
       "Ban user": "Ban user",
       "Ban in the system": "Ban in the system",
       "Are you sure to ban this user": "Are you sure to ban user",
+      "Unban user": "Unban user",
+      "Unban in the system": "Unban in the system",
+      "Are you sure to unban this user": "Are you sure to unban user",
       "reasons": {
         "Bad behavior": "Bad behavior",
         "Advertising placemen": "Advertising placemen",

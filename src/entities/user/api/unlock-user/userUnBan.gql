@@ -1,0 +1,3 @@
+mutation UN_BAN_USER ($userId: Int!) {
+    unbanUser(userId: $userId)
+}
