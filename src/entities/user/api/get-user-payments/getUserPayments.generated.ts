@@ -34,6 +34,11 @@ export const Get_User_PaymentsDocument = gql`
       businessAccountId
       dateOfPayment
       endDate
+      type
+      paymentType
+      price
+      startDate
+      status
       payments {
         endDate
         id
@@ -44,11 +49,6 @@ export const Get_User_PaymentsDocument = gql`
         paymentMethod
         type
       }
-      type
-      paymentType
-      price
-      startDate
-      status
     }
   }
 }

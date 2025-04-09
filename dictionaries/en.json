@@ -28,6 +28,17 @@
     "delete": {
       "Delete user": "Delete user",
       "Are you sure to delete user": "Are you sure to delete user"
+    },
+    "ban" : {
+      "Ban user": "Ban user",
+      "Ban in the system": "Ban in the system",
+      "Are you sure to ban this user": "Are you sure to ban user",
+      "reasons": {
+        "Bad behavior": "Bad behavior",
+        "Advertising placemen": "Advertising placemen",
+        "Another reason": "Another reason",
+        "Description": "Description"
+      }
     }
   },
   "info-messages": {

@@ -28,6 +28,17 @@
     "delete": {
       "Delete user": "Выдаліць карыстальніка",
       "Are you sure to delete user": "Вы ўпэўнены, што хочаце выдаліць карыстальніка"
+    },
+    "ban" : {
+      "Ban user": "Заблакіраваць карыстальніка",
+      "Ban in the system": "Заблакіраваць у сістэме",
+      "Are you sure to ban this user": "Вы ўпэўнены, што хочаце заблакіраваць карыстальніка",
+      "reasons": {
+        "Bad behavior": "Дрэнныя паводзіны",
+        "Advertising placemen": "Размяшчэнне рэкламы",
+        "Another reason": "Іншая прычына",
+        "Description": "Апісанне"
+      }
     }
   },
   "info-messages": {

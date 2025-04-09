@@ -4,7 +4,7 @@ import type { MutateUserType } from '@/src/entities/user'
 import { useState } from 'react'
 
 import { UserBlockStatus } from '@/src/shared/api'
-import { ConfirmDialog } from '@/src/shared/ui'
+import { ConfirmBlock, ConfirmDialog } from '@/src/shared/ui'
 import { SearchBar } from '@/src/widgets/search-bar'
 import { BanSelector } from '@/src/widgets/users-list/ban-selector'
 import {
@@ -16,10 +16,13 @@ import {
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
-import { useUserDeleteMutation } from '../lib/useUserMutations'
+import { useUserBlockMutation } from '../lib/useUserBlockMutation'
+import { useUserDeleteMutation } from '../lib/useUserDeleteMutation'
 
 export const UsersList = () => {
-  const t = useTranslations('dialogs.delete')
+  const tDelete = useTranslations('dialogs.delete')
+  const tBan = useTranslations('dialogs.ban')
+
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
@@ -35,9 +38,15 @@ export const UsersList = () => {
   // для дизейблинга UI
   const [hasError, setHasError] = useState(false)
   const [selectedUser, setSelectedUser] = useState<MutateUserType>({})
+  const [banReason, setBanReason] = useState('')
 
   const { deleteLoading, handleConfirmUserDeletion, openDelete, setOpenDelete } =
     useUserDeleteMutation({ selectedUser })
+
+  const { blockLoading, handleConfirmUserBlock, openBlock, setOpenBlock } = useUserBlockMutation({
+    banReason: banReason,
+    selectedUser,
+  })
 
   const _resetCurrentPage = () => {
     params.set(PAGE_PARAM_KEY, '1')
@@ -82,6 +91,8 @@ export const UsersList = () => {
     _saveSearchParams()
   }
 
+  const isLoading = deleteLoading || blockLoading
+
   return (
     <div className={'pb-6 xl:mb-12'}>
       <div className={'flex flex-wrap sm:flex-nowrap sm:justify-between sm:gap-6 xl:gap-24'}>
@@ -100,7 +111,7 @@ export const UsersList = () => {
       </div>
 
       <UsersListTable
-        disabled={deleteLoading}
+        disabled={isLoading}
         onError={errMsg => setHasError(Boolean(errMsg))}
         statusFilter={blockedFilter}
         searchQuery={searchQuery}
@@ -108,19 +119,37 @@ export const UsersList = () => {
           setSelectedUser(user)
           setOpenDelete(true)
         }}
+        onBlock={user => {
+          setSelectedUser(user)
+          setOpenBlock(true)
+        }}
       />
 
       <ConfirmDialog
         open={openDelete}
         onOpenChange={setOpenDelete}
-        title={t('Delete user')}
+        title={tDelete('Delete user')}
         message={
           <span className={'text-regular16 text-white'}>
-            {t('Are you sure to delete user')}{' '}
+            {tDelete('Are you sure to delete user')}{' '}
             <span className={'font-bold'}>{selectedUser.userName}</span>?
           </span>
         }
         onConfirm={handleConfirmUserDeletion}
+      />
+
+      <ConfirmBlock
+        title={tBan('Ban user')}
+        open={openBlock}
+        onOpenChange={setOpenBlock}
+        onConfirm={handleConfirmUserBlock}
+        message={
+          <span className={'text-regular16 text-white'}>
+            {tBan('Are you sure to ban this user')}{' '}
+            <span className={'font-bold'}>{selectedUser.userName}</span>?
+          </span>
+        }
+        onChange={setBanReason}
       />
     </div>
   )

@@ -1,3 +1,4 @@
+export { UserMenuItem } from '../user/ui/UserMenuItem'
 export {
   Delete_UserDocument,
   type Delete_UserMutationResult,
@@ -14,4 +15,3 @@ export {
   useGet_User_ProfileSuspenseQuery,
 } from './api/get-user-profile/getUserProfile.generated'
 export { type MutateUserType } from './model/domain.types'
-export { DeleteUserMenuItem } from './ui/DeleteUserMenuItem'
