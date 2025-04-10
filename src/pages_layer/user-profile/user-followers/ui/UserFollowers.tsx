@@ -69,8 +69,8 @@ export const UserFollowers = () => {
     saveSearchParams()
   }
 
-  const handleItemsPerPageChange = (itemsPerPage: number) => {
-    params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
+  const handleItemsPerPageChange = (itemsPerPage: string) => {
+    params.set(PAGE_SIZE_PARAM_KEY, itemsPerPage)
 
     saveSearchParams()
   }
@@ -144,6 +144,7 @@ export const UserFollowers = () => {
             onPageChange={handleOnPageChange}
             options={paginationPageSize}
             onPerPageChange={handleItemsPerPageChange}
+            perPage={itemsPerPage}
           />
         )}
       </div>

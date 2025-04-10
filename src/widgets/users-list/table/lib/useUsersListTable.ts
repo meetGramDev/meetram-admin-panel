@@ -83,8 +83,8 @@ export function useUsersListTable({ onError, searchQuery, statusFilter }: UsersL
     _saveSearchParams()
   }
 
-  const handleItemsPerPageChange = (itemsPerPage: number) => {
-    params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
+  const handleItemsPerPageChange = (itemsPerPage: string) => {
+    params.set(PAGE_SIZE_PARAM_KEY, itemsPerPage)
 
     _saveSearchParams()
   }
