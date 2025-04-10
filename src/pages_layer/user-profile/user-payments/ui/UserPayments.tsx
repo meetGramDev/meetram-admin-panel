@@ -61,8 +61,8 @@ export const UserPayments = () => {
     saveSearchParam()
   }
 
-  const handleItemsPerPageChange = (itemsPerPage: number) => {
-    params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
+  const handleItemsPerPageChange = (itemsPerPage: string) => {
+    params.set(PAGE_SIZE_PARAM_KEY, itemsPerPage)
 
     saveSearchParam()
   }
@@ -126,6 +126,7 @@ export const UserPayments = () => {
             onPageChange={handleOnPageChange}
             options={paginationPageSize}
             onPerPageChange={handleItemsPerPageChange}
+            perPage={itemsPerPage}
           />
         )}
       </div>

@@ -64,8 +64,8 @@ export const UserFollowing = () => {
     params.set(PAGE_PARAM_KEY, String(page))
     saveSearchParams()
   }
-  const handleItemsPerPageChange = (itemsPerPage: number) => {
-    params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
+  const handleItemsPerPageChange = (itemsPerPage: string) => {
+    params.set(PAGE_SIZE_PARAM_KEY, itemsPerPage)
     saveSearchParams()
   }
   const handleChangeSorting = (header: ITableHead<followersListTableHeadKeysType>) => {
@@ -138,6 +138,7 @@ export const UserFollowing = () => {
             onPageChange={handleOnPageChange}
             options={paginationPageSize}
             onPerPageChange={handleItemsPerPageChange}
+            perPage={itemsPerPage}
           />
         )}
       </div>

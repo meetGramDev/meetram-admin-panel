@@ -56,6 +56,7 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
     handleChangeSorting,
     handleItemsPerPageChange,
     handleOnPageChange,
+    itemsPerPage,
     loading,
     refetch,
     sortBy,
@@ -151,6 +152,7 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
             onPageChange={handleOnPageChange}
             options={paginationPageSize}
             onPerPageChange={handleItemsPerPageChange}
+            perPage={itemsPerPage}
           />
         </div>
       )}
