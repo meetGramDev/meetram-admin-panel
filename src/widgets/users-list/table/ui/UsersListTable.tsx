@@ -67,6 +67,7 @@ export const UsersListTable = ({
     handleChangeSorting,
     handleItemsPerPageChange,
     handleOnPageChange,
+    itemsPerPage,
     loading,
     refetch,
     sortBy,
@@ -179,6 +180,7 @@ export const UsersListTable = ({
             onPageChange={handleOnPageChange}
             options={paginationPageSize}
             onPerPageChange={handleItemsPerPageChange}
+            perPage={itemsPerPage}
           />
         </div>
       )}

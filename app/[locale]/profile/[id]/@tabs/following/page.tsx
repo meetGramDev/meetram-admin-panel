@@ -1,4 +1,4 @@
-import { UserFollowing } from '@/src/pages_layer/user/user-following'
+import { UserFollowing } from '@/src/pages_layer/user-profile/user-following'
 import { ProfileTabValues } from '@/src/widgets/tabs'
 import { TabContent } from '@meetgram/ui-kit'
 
