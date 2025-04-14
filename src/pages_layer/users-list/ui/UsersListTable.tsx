@@ -30,11 +30,13 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
   const locale = useLocale()
   const t = useTranslations('user-list-items-table-header')
   const {
+    currentPage,
     data,
     error,
     handleChangeSorting,
     handleItemsPerPageChange,
     handleOnPageChange,
+    itemsPerPage,
     loading,
     refetch,
     sortBy,
@@ -116,7 +118,11 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
       sortBy={sortBy}
       sortDir={sortDir}
       onSortChange={handleChangeSorting}
-      pagination={data?.getUsers.pagination}
+      pagination={{
+        currentPage: data?.getUsers.pagination.page ?? currentPage,
+        pageCount: data?.getUsers.pagination.pagesCount ?? 0,
+        perPage: String(data?.getUsers.pagination.pageSize) ?? itemsPerPage,
+      }}
       paginationOptions={paginationPageSize}
       onPageChange={handleOnPageChange}
       onPerPageChange={handleItemsPerPageChange}

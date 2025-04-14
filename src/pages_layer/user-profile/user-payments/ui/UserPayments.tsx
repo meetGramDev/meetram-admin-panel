@@ -91,7 +91,7 @@ export const UserPayments = () => {
       pagination={{
         currentPage: data?.getPaymentsByUser.page ?? currentPage,
         pageCount: data?.getPaymentsByUser.pagesCount ?? 0,
-        perPage: itemsPerPage,
+        perPage: String(data?.getPaymentsByUser.pageSize) ?? itemsPerPage,
       }}
       paginationOptions={paginationPageSize}
       onPageChange={handleOnPageChange}

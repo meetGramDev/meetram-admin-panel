@@ -95,7 +95,7 @@ export const UserFollowers = () => {
       pagination={{
         currentPage: data?.getFollowers.page ?? currentPage,
         pageCount: data?.getFollowers.pagesCount ?? 0,
-        perPage: itemsPerPage,
+        perPage: String(data?.getFollowers.pageSize) ?? itemsPerPage,
       }}
       paginationOptions={paginationPageSize}
       onPageChange={handleOnPageChange}

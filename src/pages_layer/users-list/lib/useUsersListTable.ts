@@ -23,7 +23,7 @@ export function useUsersListTable({ onError, searchQuery, statusFilter }: UsersL
     pollInterval: 300000, // 5 min
     variables: {
       pageNumber: currentPage,
-      pageSize: itemsPerPage,
+      pageSize: +itemsPerPage,
       searchTerm: searchQuery,
       sortBy,
       sortDirection,
@@ -46,11 +46,13 @@ export function useUsersListTable({ onError, searchQuery, statusFilter }: UsersL
   }, [error, onError])
 
   return {
+    currentPage,
     data,
     error,
     handleChangeSorting,
     handleItemsPerPageChange,
     handleOnPageChange,
+    itemsPerPage,
     loading,
     refetch,
     sortBy,

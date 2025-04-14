@@ -99,7 +99,7 @@ export const UserFollowing = () => {
       pagination={{
         currentPage: data?.getFollowing.page ?? currentPage,
         pageCount: data?.getFollowing.pagesCount ?? 0,
-        perPage: itemsPerPage,
+        perPage: String(data?.getFollowing.pageSize) ?? itemsPerPage,
       }}
       paginationOptions={paginationPageSize}
       onPageChange={handleOnPageChange}
