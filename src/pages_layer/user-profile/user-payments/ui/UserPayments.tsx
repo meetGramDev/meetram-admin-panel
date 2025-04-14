@@ -6,73 +6,21 @@ import {
   type Get_User_PaymentsQuery,
   useGet_User_PaymentsQuery,
 } from '@/src/entities/user/api/get-user-payments/getUserPayments.generated'
-import { usePathname, useRouter } from '@/src/shared/routes'
 import { isGraphQLError } from '@/src/shared/types'
-import { DataTable, SortDirectionTable, type TableColumn } from '@/src/widgets/table'
 import {
-  PAGE_PARAM_KEY,
-  PAGE_SIZE_PARAM_KEY,
-  SORT_BY_PARAM_KEY,
-  SORT_PARAM_KEY,
+  DataTable,
+  type TableColumn,
   paginationPageSize,
-} from '@/src/widgets/table/const/pagination-config'
+  useTableSorting,
+} from '@/src/widgets/table'
 import { dateFormatting } from '@meetgram/utils'
-import { useParams, useSearchParams } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
 export const UserPayments = () => {
   const locale = useLocale()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const router = useRouter()
-
-  const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
-  const sortDirParam = searchParams.get(SORT_PARAM_KEY)
-  const sortDir = sortDirParam ? +sortDirParam : SortDirectionTable.DESC
-  const sortBy = searchParams.get(SORT_BY_PARAM_KEY) || 'createdAt'
-  const page = searchParams.get(PAGE_PARAM_KEY) || 1
-  const params = new URLSearchParams(searchParams)
-
   const paramsId = useParams()
   const parsedUserId = paramsId?.id ? Number(paramsId.id) : null
-
-  const { data, error, loading } = useGet_User_PaymentsQuery({
-    variables: {
-      pageNumber: +page,
-      pageSize: +itemsPerPage,
-      sortBy,
-      userId: parsedUserId!,
-    },
-  })
-
-  const saveSearchParams = () => {
-    router.replace(`${pathname}?${params.toString()}`)
-  }
-
-  const handleOnPageChange = (page: number) => {
-    params.set(PAGE_PARAM_KEY, String(page))
-    saveSearchParams()
-  }
-
-  const handleItemsPerPageChange = (itemsPerPage: number) => {
-    params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
-    saveSearchParams()
-  }
-
-  const handleChangeSort = (column: string) => {
-    const sortDirection =
-      // eslint-disable-next-line no-nested-ternary
-      sortBy === column
-        ? sortDir === SortDirectionTable.DESC
-          ? SortDirectionTable.ASC
-          : SortDirectionTable.DESC
-        : SortDirectionTable.ASC
-
-    params.set(SORT_PARAM_KEY, String(sortDirection))
-    params.set(SORT_BY_PARAM_KEY, column)
-
-    saveSearchParams()
-  }
 
   const paymentListTableHeaders: TableColumn<
     Get_User_PaymentsQuery['getPaymentsByUser']['items'][0],
@@ -109,6 +57,27 @@ export const UserPayments = () => {
     },
   ]
 
+  const {
+    currentPage,
+    handleChangeSorting,
+    handleItemsPerPageChange,
+    handleOnPageChange,
+    itemsPerPage,
+    sortBy,
+    sortDir,
+    sortDirection,
+  } = useTableSorting({ defaultSortBy: paymentListTableHeaders[0].key })
+
+  const { data, error, loading } = useGet_User_PaymentsQuery({
+    variables: {
+      pageNumber: currentPage,
+      pageSize: itemsPerPage,
+      sortBy,
+      sortDirection,
+      userId: parsedUserId!,
+    },
+  })
+
   return (
     <DataTable
       columns={paymentListTableHeaders}
@@ -117,7 +86,7 @@ export const UserPayments = () => {
       error={isGraphQLError(error) ? error.message : 'Some error. See logs.'}
       sortBy={sortBy}
       sortDir={sortDir}
-      onSortChange={handleChangeSort}
+      onSortChange={handleChangeSorting}
       pagination={data?.getPaymentsByUser}
       paginationOptions={paginationPageSize}
       onPageChange={handleOnPageChange}
