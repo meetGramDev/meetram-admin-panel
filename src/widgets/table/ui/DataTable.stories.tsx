@@ -93,24 +93,23 @@ export const Default: Story = {
   },
 
   render: args => {
-    const [page, setPage] = useState(1)
-    const [pageSize, setPageSize] = useState(5)
+    const [currentPage, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState('5')
     const [sortBy, setSortBy] = useState('createdAt')
     const [sortDir, setSortDir] = useState<SortDirectionTable>(0)
 
     return (
       <DataTable
         pagination={{
-          page,
-          pageSize,
-          pagesCount: 2,
-          totalCount: 10,
+          currentPage,
+          pageCount: 2,
+          perPage: pageSize,
         }}
         sortDir={sortDir}
         sortBy={sortBy}
         onPageChange={setPage}
         onPerPageChange={setPageSize}
-        paginationOptions={[1, 3, 5]}
+        paginationOptions={['1', '3', '5']}
         onSortChange={newSortBy => {
           const newSortDir =
             sortBy === newSortBy && sortDir === SortDirectionTable.DESC
