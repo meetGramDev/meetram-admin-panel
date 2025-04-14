@@ -16,9 +16,9 @@ import { SortDirectionTable } from '../ui/DataTable'
 export type UseTableSortingResult = {
   currentPage: number
   handleChangeSorting: (column: string) => void
-  handleItemsPerPageChange: (itemsPerPage: number) => void
+  handleItemsPerPageChange: (itemsPerPage: string) => void
   handleOnPageChange: (page: number) => void
-  itemsPerPage: number
+  itemsPerPage: string
   sortBy: string
   /** Current sort direction (1 for ascending, 0 for descending) */
   sortDir: SortDirectionTable
@@ -37,7 +37,7 @@ export function useTableSorting({ defaultSortBy }: UseTableSortingProps): UseTab
   const params = new URLSearchParams(searchParams)
 
   const currentPage = +(searchParams.get(PAGE_PARAM_KEY) || 1)
-  const itemsPerPage = +(searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1])
+  const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
   const sortDirParam = searchParams.get(SORT_PARAM_KEY)
   const sortDir = sortDirParam ? +sortDirParam : SortDirectionTable.DESC
   const sortBy = searchParams.get(SORT_BY_PARAM_KEY) || defaultSortBy
@@ -65,8 +65,8 @@ export function useTableSorting({ defaultSortBy }: UseTableSortingProps): UseTab
     saveSearchParams()
   }
 
-  const handleItemsPerPageChange = (itemsPerPage: number) => {
-    params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
+  const handleItemsPerPageChange = (itemsPerPage: string) => {
+    params.set(PAGE_SIZE_PARAM_KEY, itemsPerPage)
     saveSearchParams()
   }
 

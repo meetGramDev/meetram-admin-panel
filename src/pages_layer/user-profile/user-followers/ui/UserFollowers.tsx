@@ -75,7 +75,7 @@ export const UserFollowers = () => {
   const { data, error, loading, refetch } = useGet_FollowersQuery({
     variables: {
       pageNumber: currentPage,
-      pageSize: itemsPerPage,
+      pageSize: +itemsPerPage,
       sortBy,
       sortDirection,
       userId: parsedUserId!,
@@ -92,7 +92,11 @@ export const UserFollowers = () => {
       sortBy={sortBy}
       sortDir={sortDir}
       onSortChange={handleChangeSorting}
-      pagination={data?.getFollowers}
+      pagination={{
+        currentPage: data?.getFollowers.page ?? currentPage,
+        pageCount: data?.getFollowers.pagesCount ?? 0,
+        perPage: itemsPerPage,
+      }}
       paginationOptions={paginationPageSize}
       onPageChange={handleOnPageChange}
       onPerPageChange={handleItemsPerPageChange}

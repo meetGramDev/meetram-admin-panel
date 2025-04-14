@@ -4,6 +4,7 @@ import {
   Button,
   type ITableHead,
   Pagination,
+  type PaginationProps,
   Table,
   TableBody,
   TableCell,
@@ -35,18 +36,6 @@ export interface TableColumn<
   render?: (item: T) => ReactNode
 }
 
-// TODO поменять на тип из ui-kit
-export type PaginationData = {
-  /** Current page number */
-  page: number
-  /** Number of items per page */
-  pageSize: number
-  /** Total number of available pages */
-  pagesCount: number
-  /** Total number of items across all pages */
-  totalCount: number
-}
-
 export const enum SortDirectionTable {
   DESC,
   ASC,
@@ -75,15 +64,15 @@ type DataTableProps<
   /** Callback for button when there is an error */
   onErrorBtn?: () => void
   /** Callback fired when the page is changed */
-  onPageChange?: (page: number) => void
+  onPageChange?: PaginationProps['onPageChange']
   /** Callback fired when the number of items per page is changed */
-  onPerPageChange?: (perPage: number) => void
+  onPerPageChange?: PaginationProps['onPerPageChange']
   /** Callback fired when a column sort is triggered */
   onSortChange?: (key: string) => void
   /** Optional pagination configuration */
-  pagination?: PaginationData
+  pagination?: Omit<PaginationProps, 'onPageChange' | 'onPerPageChange' | 'options'>
   /** Array of available page size options for the pagination */
-  paginationOptions?: number[]
+  paginationOptions?: PaginationProps['options']
   /** Current sort column key */
   sortBy?: string
   /** Current sort direction (1 for ascending, 0 for descending) */
@@ -113,7 +102,7 @@ export function DataTable<
   onPerPageChange,
   onSortChange,
   pagination,
-  paginationOptions = [10, 20, 50],
+  paginationOptions = ['10', '20', '50'],
   sortBy,
   sortDir = SortDirectionTable.DESC,
 }: DataTableProps<T, K, L>) {
@@ -138,7 +127,7 @@ export function DataTable<
 
   const handlePageChange = (page: number) => onPageChange?.(page)
 
-  const handlePerPageChange = (itemsPerPage: number) => onPerPageChange?.(itemsPerPage)
+  const handlePerPageChange = (itemsPerPage: string) => onPerPageChange?.(itemsPerPage)
 
   const handleSortChange = (sortBy: string) => () => onSortChange?.(sortBy)
 
@@ -181,11 +170,10 @@ export function DataTable<
       {pagination && (
         <div className={'w-full md:w-1/2'}>
           <Pagination
-            currentPage={pagination.page}
-            pageCount={pagination.pagesCount}
-            onPageChange={handlePageChange}
             options={paginationOptions}
             onPerPageChange={handlePerPageChange}
+            onPageChange={handlePageChange}
+            {...pagination}
           />
         </div>
       )}

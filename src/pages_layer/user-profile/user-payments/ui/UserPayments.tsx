@@ -71,7 +71,7 @@ export const UserPayments = () => {
   const { data, error, loading, refetch } = useGet_User_PaymentsQuery({
     variables: {
       pageNumber: currentPage,
-      pageSize: itemsPerPage,
+      pageSize: +itemsPerPage,
       sortBy,
       sortDirection,
       userId: parsedUserId!,
@@ -88,7 +88,11 @@ export const UserPayments = () => {
       sortBy={sortBy}
       sortDir={sortDir}
       onSortChange={handleChangeSorting}
-      pagination={data?.getPaymentsByUser}
+      pagination={{
+        currentPage: data?.getPaymentsByUser.page ?? currentPage,
+        pageCount: data?.getPaymentsByUser.pagesCount ?? 0,
+        perPage: itemsPerPage,
+      }}
       paginationOptions={paginationPageSize}
       onPageChange={handleOnPageChange}
       onPerPageChange={handleItemsPerPageChange}

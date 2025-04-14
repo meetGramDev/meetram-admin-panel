@@ -79,7 +79,7 @@ export const UserFollowing = () => {
   const { data, error, loading, refetch } = useGet_FollowingsQuery({
     variables: {
       pageNumber: currentPage,
-      pageSize: itemsPerPage,
+      pageSize: +itemsPerPage,
       sortBy,
       sortDirection,
       userId: parsedUserId!,
@@ -96,7 +96,11 @@ export const UserFollowing = () => {
       sortBy={sortBy}
       sortDir={sortDir}
       onSortChange={handleChangeSorting}
-      pagination={data?.getFollowing}
+      pagination={{
+        currentPage: data?.getFollowing.page ?? currentPage,
+        pageCount: data?.getFollowing.pagesCount ?? 0,
+        perPage: itemsPerPage,
+      }}
       paginationOptions={paginationPageSize}
       onPageChange={handleOnPageChange}
       onPerPageChange={handleItemsPerPageChange}
