@@ -4,19 +4,16 @@ import type { MutateUserType } from '@/src/entities/user'
 import { useState } from 'react'
 
 import { UserBlockStatus } from '@/src/shared/api'
+import { usePathname, useRouter } from '@/src/shared/routes'
 import { ConfirmDialog } from '@/src/shared/ui'
 import { SearchBar } from '@/src/widgets/search-bar'
+import { FILTER_PARAM_KEY, PAGE_PARAM_KEY, SEARCH_PARAM_KEY } from '@/src/widgets/table'
 import { BanSelector } from '@/src/widgets/users-list/ban-selector'
-import {
-  FILTER_PARAM_KEY,
-  PAGE_PARAM_KEY,
-  SEARCH_PARAM_KEY,
-  UsersListTable,
-} from '@/src/widgets/users-list/table'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import { useUserDeleteMutation } from '../lib/useUserMutations'
+import { UsersListTable } from './UsersListTable'
 
 export const UsersList = () => {
   const t = useTranslations('dialogs.delete')

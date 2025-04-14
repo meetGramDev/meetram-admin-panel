@@ -2,7 +2,10 @@
 
 import type { FollowersListTableHeadKeysType } from '../model/table-headers.types'
 
-import { type Get_FollowersQuery, useGet_FollowersQuery } from '@/src/entities/user'
+import {
+  type Get_FollowingsQuery,
+  useGet_FollowingsQuery,
+} from '@/src/entities/user/api/get-user-following/userFollowings.generated'
 import { SortDirection } from '@/src/shared/api'
 import { Link, PROFILE, usePathname, useRouter } from '@/src/shared/routes'
 import { isGraphQLError } from '@/src/shared/types'
@@ -18,29 +21,28 @@ import {
 } from '@/src/widgets/table'
 import { ProfileTabValues } from '@/src/widgets/tabs'
 import { Button } from '@meetgram/ui-kit'
-import { dateFormatting } from '@meetgram/utils'
+import { dateFormatting } from '@meetgram/utils/functions'
 import { useParams, useSearchParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
-export const UserFollowers = () => {
+export const UserFollowing = () => {
   const locale = useLocale()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
+  const paramsId = useParams()
 
   const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
+  const parsedUserId = paramsId?.id ? Number(paramsId.id) : null
+  const sortBy = searchParams.get(SORT_BY_PARAM_KEY) || 'createdAt'
   const sortDirParam = searchParams.get(SORT_PARAM_KEY)
   const sortDir = sortDirParam ? +sortDirParam : SortDirectionTable.DESC
-  const sortBy = searchParams.get(SORT_BY_PARAM_KEY) || 'createdAt'
-  const page = searchParams.get(PAGE_PARAM_KEY) || 1
+  const currentPage = searchParams.get(PAGE_PARAM_KEY) || 1
   const params = new URLSearchParams(searchParams)
 
-  const paramsId = useParams()
-  const parsedUserId = paramsId?.id ? Number(paramsId.id) : null
-
-  const { data, error, loading } = useGet_FollowersQuery({
+  const { data, error, loading } = useGet_FollowingsQuery({
     variables: {
-      pageNumber: +page,
+      pageNumber: +currentPage,
       pageSize: +itemsPerPage,
       sortBy,
       sortDirection: sortDir === SortDirectionTable.DESC ? SortDirection.Desc : SortDirection.Asc,
@@ -54,13 +56,11 @@ export const UserFollowers = () => {
 
   const handleOnPageChange = (page: number) => {
     params.set(PAGE_PARAM_KEY, String(page))
-
     saveSearchParams()
   }
 
   const handleItemsPerPageChange = (itemsPerPage: number) => {
     params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
-
     saveSearchParams()
   }
 
@@ -79,8 +79,8 @@ export const UserFollowers = () => {
     saveSearchParams()
   }
 
-  const followersListTableHeaders: TableColumn<
-    Get_FollowersQuery['getFollowers']['items'][0],
+  const followingListTableHeaders: TableColumn<
+    Get_FollowingsQuery['getFollowing']['items'][0],
     FollowersListTableHeadKeysType
   >[] = [
     {
@@ -93,7 +93,7 @@ export const UserFollowers = () => {
         </div>
       ),
     },
-    { id: 2, key: 'userName', label: 'Username', render: following => following.userName },
+    { id: 2, key: 'userName', label: 'Username' },
     {
       id: 3,
       key: 'userId',
@@ -121,14 +121,14 @@ export const UserFollowers = () => {
 
   return (
     <DataTable
-      columns={followersListTableHeaders}
-      data={data?.getFollowers.items || []}
+      columns={followingListTableHeaders}
+      data={data?.getFollowing?.items || []}
       loading={loading}
       error={isGraphQLError(error) ? error.message : 'Some error. See logs.'}
       sortBy={sortBy}
       sortDir={sortDir}
       onSortChange={handleChangeSorting}
-      pagination={data?.getFollowers}
+      pagination={data?.getFollowing}
       paginationOptions={paginationPageSize}
       onPageChange={handleOnPageChange}
       onPerPageChange={handleItemsPerPageChange}

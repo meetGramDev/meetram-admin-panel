@@ -1,24 +1,20 @@
 import type { UsersListTableProps } from '../ui/UsersListTable'
-import type { ITableHead } from '@meetgram/ui-kit'
 
 import { useEffect } from 'react'
 
 import { SortDirection, type UserBlockStatus } from '@/src/shared/api'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-
-import { useGetUsersListQuery } from '../api/users.generated'
-import {
-  type usersListTableHeadKeysType,
-  usersListTableHeaders,
-} from '../const/users-list-table-headers'
+import { useRouter } from '@/src/shared/routes'
 import {
   PAGE_PARAM_KEY,
   PAGE_SIZE_PARAM_KEY,
   SORT_BY_PARAM_KEY,
   SORT_PARAM_KEY,
+  SortDirectionTable,
   paginationPageSize,
-} from '../model/pagination-config'
-import { SortDirectionTable } from '../model/table.types'
+} from '@/src/widgets/table'
+import { usePathname, useSearchParams } from 'next/navigation'
+
+import { useGetUsersListQuery } from '../api/users.generated'
 
 export function useUsersListTable({ onError, searchQuery, statusFilter }: UsersListTableProps) {
   const pathname = usePathname()
@@ -31,7 +27,7 @@ export function useUsersListTable({ onError, searchQuery, statusFilter }: UsersL
   const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
   const sortDirParam = searchParams.get(SORT_PARAM_KEY)
   const sortDir = sortDirParam ? +sortDirParam : SortDirectionTable.DESC
-  const sortBy = searchParams.get(SORT_BY_PARAM_KEY) || usersListTableHeaders[3].key
+  const sortBy = searchParams.get(SORT_BY_PARAM_KEY) || 'createdAt'
 
   const { data, error, loading, refetch } = useGetUsersListQuery({
     pollInterval: 300000, // 5 min
@@ -67,7 +63,7 @@ export function useUsersListTable({ onError, searchQuery, statusFilter }: UsersL
     }
 
     if (!searchParams.get(SORT_BY_PARAM_KEY)) {
-      params.set(SORT_BY_PARAM_KEY, usersListTableHeaders[3].key)
+      params.set(SORT_BY_PARAM_KEY, 'createdAt')
     }
 
     _saveSearchParams()
@@ -89,17 +85,17 @@ export function useUsersListTable({ onError, searchQuery, statusFilter }: UsersL
     _saveSearchParams()
   }
 
-  const handleChangeSorting = (header: ITableHead<usersListTableHeadKeysType>) => {
+  const handleChangeSorting = (column: string) => {
     const sortDirection =
       // eslint-disable-next-line no-nested-ternary
-      sortBy === header.key
+      sortBy === column
         ? sortDir === SortDirectionTable.DESC
           ? SortDirectionTable.ASC
           : SortDirectionTable.DESC
         : SortDirectionTable.ASC
 
     params.set(SORT_PARAM_KEY, String(sortDirection))
-    params.set(SORT_BY_PARAM_KEY, header.key)
+    params.set(SORT_BY_PARAM_KEY, column)
 
     _saveSearchParams()
   }

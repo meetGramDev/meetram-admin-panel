@@ -1,14 +1,11 @@
 'use client'
 import type { Get_User_PostsQuery } from '@/src/entities/post'
+import type { GetUsersListQuery, GetUsersListQueryVariables } from '@/src/pages_layer/users-list'
 
 import type { PropsWithChildren } from 'react'
 
 import { authLink } from '@/src/shared/api/apollo-client/apollo-config'
 import { BACKEND_GraphQL_BASE_URL } from '@/src/shared/config'
-import {
-  type GetUsersListQuery,
-  type GetUsersListQueryVariables,
-} from '@/src/widgets/users-list/table'
 import { HttpLink } from '@apollo/client'
 import {
   ApolloClient,

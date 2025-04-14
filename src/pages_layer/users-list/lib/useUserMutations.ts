@@ -1,7 +1,8 @@
+import type { GetUsersListQuery } from '../api/users.generated'
+
 import { useState } from 'react'
 
 import { type MutateUserType, useDelete_UserMutation } from '@/src/entities/user'
-import { type GetUsersListQuery } from '@/src/widgets/users-list/table'
 
 type UseUserDeleteMutationType = {
   onCompleted?: () => void

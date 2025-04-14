@@ -1,29 +1,23 @@
 'use client'
 
-import { useGet_User_PaymentsQuery } from '@/src/entities/user/api/get-user-payments/getUserPayments.generated'
-import { PAGE_PARAM_KEY, PAGE_SIZE_PARAM_KEY } from '@/src/widgets/users-list/table'
+import type { PaymentsListTableHeadKeysType } from '../model/table-headers.types'
+
 import {
-  paymentListTableHeaders,
-  type paymentsListTableHeadKeysType,
-} from '@/src/widgets/users-list/table/const/users-list-table-headers'
+  type Get_User_PaymentsQuery,
+  useGet_User_PaymentsQuery,
+} from '@/src/entities/user/api/get-user-payments/getUserPayments.generated'
+import { usePathname, useRouter } from '@/src/shared/routes'
+import { isGraphQLError } from '@/src/shared/types'
+import { DataTable, SortDirectionTable, type TableColumn } from '@/src/widgets/table'
 import {
+  PAGE_PARAM_KEY,
+  PAGE_SIZE_PARAM_KEY,
   SORT_BY_PARAM_KEY,
   SORT_PARAM_KEY,
   paginationPageSize,
-} from '@/src/widgets/users-list/table/model/pagination-config'
-import { SortDirectionTable } from '@/src/widgets/users-list/table/model/table.types'
-import {
-  type ITableHead,
-  Pagination,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@meetgram/ui-kit'
+} from '@/src/widgets/table/const/pagination-config'
 import { dateFormatting } from '@meetgram/utils'
-import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
 export const UserPayments = () => {
@@ -35,14 +29,14 @@ export const UserPayments = () => {
   const itemsPerPage = searchParams.get(PAGE_SIZE_PARAM_KEY) || paginationPageSize[1]
   const sortDirParam = searchParams.get(SORT_PARAM_KEY)
   const sortDir = sortDirParam ? +sortDirParam : SortDirectionTable.DESC
-  const sortBy = searchParams.get(SORT_BY_PARAM_KEY) || paymentListTableHeaders[0].key
+  const sortBy = searchParams.get(SORT_BY_PARAM_KEY) || 'createdAt'
   const page = searchParams.get(PAGE_PARAM_KEY) || 1
   const params = new URLSearchParams(searchParams)
 
   const paramsId = useParams()
   const parsedUserId = paramsId?.id ? Number(paramsId.id) : null
 
-  const { data } = useGet_User_PaymentsQuery({
+  const { data, error, loading } = useGet_User_PaymentsQuery({
     variables: {
       pageNumber: +page,
       pageSize: +itemsPerPage,
@@ -51,84 +45,84 @@ export const UserPayments = () => {
     },
   })
 
-  const saveSearchParam = () => {
+  const saveSearchParams = () => {
     router.replace(`${pathname}?${params.toString()}`)
   }
 
   const handleOnPageChange = (page: number) => {
     params.set(PAGE_PARAM_KEY, String(page))
-
-    saveSearchParam()
+    saveSearchParams()
   }
 
   const handleItemsPerPageChange = (itemsPerPage: number) => {
     params.set(PAGE_SIZE_PARAM_KEY, String(itemsPerPage))
-
-    saveSearchParam()
+    saveSearchParams()
   }
 
-  const handleChangeSort = (header: ITableHead<paymentsListTableHeadKeysType>) => {
+  const handleChangeSort = (column: string) => {
     const sortDirection =
       // eslint-disable-next-line no-nested-ternary
-      sortBy === header.key
+      sortBy === column
         ? sortDir === SortDirectionTable.DESC
           ? SortDirectionTable.ASC
           : SortDirectionTable.DESC
         : SortDirectionTable.ASC
 
     params.set(SORT_PARAM_KEY, String(sortDirection))
-    params.set(SORT_BY_PARAM_KEY, header.key)
+    params.set(SORT_BY_PARAM_KEY, column)
 
-    saveSearchParam()
+    saveSearchParams()
   }
 
-  return (
-    <>
-      <div className={'mb-9'}>
-        <Table>
-          <TableHeader>
-            <TableRow className={'has-[:hover]:border-0'}>
-              {paymentListTableHeaders.map(header => (
-                <TableHead
-                  sort={sortBy === header.key ? sortDir : undefined}
-                  onClick={() => handleChangeSort(header)}
-                  key={header.id}
-                  className={
-                    'transition-colors hover:border-0 hover:shadow-sm hover:shadow-neutral-100/50'
-                  }
-                >
-                  {header.label}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data?.getPaymentsByUser.items.map(payment => (
-              <TableRow key={payment.id}>
-                <TableCell className={'flex items-center gap-3'}>
-                  <span>{dateFormatting(payment.dateOfPayment, { locale })}</span>
-                </TableCell>
-                <TableCell>{dateFormatting(payment.endDate, { locale })}</TableCell>
-                <TableCell>{payment.payments.map(el => el.amount)}</TableCell>
-                <TableCell>{payment.type}</TableCell>
-                <TableCell>{payment.payments.map(el => el.paymentMethod)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+  const paymentListTableHeaders: TableColumn<
+    Get_User_PaymentsQuery['getPaymentsByUser']['items'][0],
+    PaymentsListTableHeadKeysType
+  >[] = [
+    {
+      id: 1,
+      key: 'createdAt',
+      label: 'Date of Payment',
+      render: payment => (
+        <div className={'flex items-center gap-3'}>
+          <span>{dateFormatting(payment.dateOfPayment, { locale })}</span>
+        </div>
+      ),
+    },
+    {
+      id: 2,
+      key: 'endDate',
+      label: 'End date of subscription',
+      render: payment => dateFormatting(payment.endDate, { locale }),
+    },
+    {
+      id: 3,
+      key: 'amount',
+      label: 'Amount, $',
+      render: payment => payment.payments.map(el => el.amount),
+    },
+    { id: 4, key: 'type', label: 'Subscription Type', render: payment => payment.type },
+    {
+      id: 5,
+      key: 'paymentMethod',
+      label: 'Payment Type',
+      render: payment => payment.payments.map(el => el.paymentMethod),
+    },
+  ]
 
-      <div className={'w-full md:w-1/2'}>
-        {data?.getPaymentsByUser.items.length && (
-          <Pagination
-            currentPage={data?.getPaymentsByUser.page}
-            pageCount={data?.getPaymentsByUser.pagesCount}
-            onPageChange={handleOnPageChange}
-            options={paginationPageSize}
-            onPerPageChange={handleItemsPerPageChange}
-          />
-        )}
-      </div>
-    </>
+  return (
+    <DataTable
+      columns={paymentListTableHeaders}
+      data={data?.getPaymentsByUser.items || []}
+      loading={loading}
+      error={isGraphQLError(error) ? error.message : 'Some error. See logs.'}
+      sortBy={sortBy}
+      sortDir={sortDir}
+      onSortChange={handleChangeSort}
+      pagination={data?.getPaymentsByUser}
+      paginationOptions={paginationPageSize}
+      onPageChange={handleOnPageChange}
+      onPerPageChange={handleItemsPerPageChange}
+      className={'mb-9'}
+    />
   )
 }
