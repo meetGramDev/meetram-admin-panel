@@ -76,7 +76,7 @@ export const UserFollowing = () => {
     sortDirection,
   } = useTableSorting({ defaultSortBy: followingListTableHeaders[3].key })
 
-  const { data, error, loading } = useGet_FollowingsQuery({
+  const { data, error, loading, refetch } = useGet_FollowingsQuery({
     variables: {
       pageNumber: currentPage,
       pageSize: itemsPerPage,
@@ -88,10 +88,11 @@ export const UserFollowing = () => {
 
   return (
     <DataTable
+      onErrorBtn={refetch}
       columns={followingListTableHeaders}
       data={data?.getFollowing?.items || []}
       loading={loading}
-      error={isGraphQLError(error) ? error.message : 'Some error. See logs.'}
+      error={isGraphQLError(error) ? error.message : ''}
       sortBy={sortBy}
       sortDir={sortDir}
       onSortChange={handleChangeSorting}

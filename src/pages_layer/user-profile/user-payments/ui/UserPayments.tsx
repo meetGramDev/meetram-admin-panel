@@ -68,7 +68,7 @@ export const UserPayments = () => {
     sortDirection,
   } = useTableSorting({ defaultSortBy: paymentListTableHeaders[0].key })
 
-  const { data, error, loading } = useGet_User_PaymentsQuery({
+  const { data, error, loading, refetch } = useGet_User_PaymentsQuery({
     variables: {
       pageNumber: currentPage,
       pageSize: itemsPerPage,
@@ -80,10 +80,11 @@ export const UserPayments = () => {
 
   return (
     <DataTable
+      onErrorBtn={refetch}
       columns={paymentListTableHeaders}
       data={data?.getPaymentsByUser.items || []}
       loading={loading}
-      error={isGraphQLError(error) ? error.message : 'Some error. See logs.'}
+      error={isGraphQLError(error) ? error.message : ''}
       sortBy={sortBy}
       sortDir={sortDir}
       onSortChange={handleChangeSorting}

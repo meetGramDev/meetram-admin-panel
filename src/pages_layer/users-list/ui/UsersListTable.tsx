@@ -36,6 +36,7 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
     handleItemsPerPageChange,
     handleOnPageChange,
     loading,
+    refetch,
     sortBy,
     sortDir,
   } = useUsersListTable(props)
@@ -107,10 +108,11 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
 
   return (
     <DataTable
+      onErrorBtn={refetch}
       columns={usersListTableColumns}
       data={data?.getUsers.users || []}
       loading={loading}
-      error={isGraphQLError(error) ? error.message : 'Some error. See logs.'}
+      error={isGraphQLError(error) ? error.message : ''}
       sortBy={sortBy}
       sortDir={sortDir}
       onSortChange={handleChangeSorting}

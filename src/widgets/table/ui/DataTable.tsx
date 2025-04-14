@@ -72,6 +72,8 @@ type DataTableProps<
   error?: string
   /** Flag to indicate if the table is in a loading state */
   loading?: boolean
+  /** Callback for button when there is an error */
+  onErrorBtn?: () => void
   /** Callback fired when the page is changed */
   onPageChange?: (page: number) => void
   /** Callback fired when the number of items per page is changed */
@@ -106,6 +108,7 @@ export function DataTable<
   data,
   error,
   loading,
+  onErrorBtn,
   onPageChange,
   onPerPageChange,
   onSortChange,
@@ -124,7 +127,7 @@ export function DataTable<
     return (
       <div className={'mt-8 flex flex-col items-center justify-center gap-3'}>
         <p className={'text-center text-h1 text-danger-500 lg:text-large'}>{error}</p>
-        <Button onClick={() => {}}>{t('Try again')}</Button>
+        <Button onClick={onErrorBtn}>{t('Try again')}</Button>
       </div>
     )
   }

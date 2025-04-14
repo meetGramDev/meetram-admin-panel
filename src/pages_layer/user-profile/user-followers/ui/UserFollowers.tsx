@@ -72,7 +72,7 @@ export const UserFollowers = () => {
     sortDirection,
   } = useTableSorting({ defaultSortBy: followersListTableHeaders[3].key })
 
-  const { data, error, loading } = useGet_FollowersQuery({
+  const { data, error, loading, refetch } = useGet_FollowersQuery({
     variables: {
       pageNumber: currentPage,
       pageSize: itemsPerPage,
@@ -84,10 +84,11 @@ export const UserFollowers = () => {
 
   return (
     <DataTable
+      onErrorBtn={refetch}
       columns={followersListTableHeaders}
       data={data?.getFollowers.items || []}
       loading={loading}
-      error={isGraphQLError(error) ? error.message : 'Some error. See logs.'}
+      error={isGraphQLError(error) ? error.message : ''}
       sortBy={sortBy}
       sortDir={sortDir}
       onSortChange={handleChangeSorting}
