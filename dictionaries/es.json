@@ -28,6 +28,20 @@
     "delete": {
       "Delete user": "Eliminar usuario",
       "Are you sure to delete user": "¿Estás seguro de eliminar el usuario"
+    },
+    "ban" : {
+      "Ban user": "Bloquear usuario",
+      "Ban in the system": "Bloqueo en el sistema",
+      "Are you sure to ban this user": "¿Estás seguro que deseas bloquear al usuario?",
+      "Unban user": "Desbloquear usuario",
+      "Unban in the system": "Desbloquear en el sistema",
+      "Are you sure to unban this user": "¿Estás seguro de que deseas desbloquear al usuario?",
+      "reasons": {
+        "Bad behavior": "Mal comportamiento",
+        "Advertising placemen": "Colocación de publicidad",
+        "Another reason": "Otra razón",
+        "Description": "Descripción"
+      }
     }
   },
   "info-messages": {

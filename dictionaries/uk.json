@@ -28,6 +28,20 @@
     "delete": {
       "Delete user": "Видалити користувача",
       "Are you sure to delete user": "Ви впевнені, що хочете видалити користувача"
+    },
+    "ban": {
+      "Ban user": "Заблокувати користувача",
+      "Ban in the system": "Заблокувати у системі",
+      "Are you sure to ban this user": "Ви впевнені, що хочете заблокувати користувача",
+      "Unban user": "Розблокувати користувача",
+      "Unban in the system": "Розблокувати у системі",
+      "Are you sure to unban this user": "Ви впевнені, що хочете розблокувати користувача",
+      "reasons": {
+        "Bad behavior": "Погана поведінка",
+        "Advertising placemen": "Розміщення реклами",
+        "Another reason": "Інша причина",
+        "Description": "Опис"
+      }
     }
   },
   "info-messages": {

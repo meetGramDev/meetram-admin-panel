@@ -1,9 +1,10 @@
 'use client'
 import type { UserBlockStatus } from '@/src/shared/api'
 
-import { DeleteUserMenuItem, type MutateUserType } from '@/src/entities/user'
+import { type MutateUserType, UserMenuItem } from '@/src/entities/user'
 import { TableActionsMenu } from '@/src/features/table-actions-menu'
-import { BannedIcon } from '@/src/shared/assets/icons'
+import { BannedIcon, DeleteUserIcon } from '@/src/shared/assets/icons'
+import { CheckMarkIcon } from '@/src/shared/assets/icons/components/checkMarkIcon'
 import { Link, PROFILE } from '@/src/shared/routes'
 import { ProfileTabValues } from '@/src/widgets/tabs'
 import {
@@ -26,6 +27,7 @@ import { TableSkeleton } from './TableSkeleton'
 
 export type UsersListTableProps = {
   disabled?: boolean
+  onBlock?: (user: MutateUserType) => void
   /**
    * Triggers on user deletion
    */
@@ -35,6 +37,7 @@ export type UsersListTableProps = {
    * @param error message
    */
   onError?: (error: string) => void
+  onUnBan?: (user: MutateUserType) => void
   /**
    * Search by username
    */
@@ -46,10 +49,18 @@ export type UsersListTableProps = {
   statusFilter?: `${UserBlockStatus}`
 }
 
-export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableProps) => {
+export const UsersListTable = ({
+  disabled,
+  onBlock,
+  onDelete,
+  onUnBan,
+  ...props
+}: UsersListTableProps) => {
   const locale = useLocale()
   const t = useTranslations('info-messages')
   const translateTable = useTranslations('user-list-items-table-header')
+  const deleteUser = useTranslations('dialogs.delete')
+  const banUser = useTranslations('dialogs.ban')
   const {
     data,
     error,
@@ -135,7 +146,24 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
                 <TableCell>{dateFormatting(user.createdAt, { locale })}</TableCell>
                 <TableCell className={'max-w-[100px] text-end'}>
                   <TableActionsMenu disabled={disabled}>
-                    <DeleteUserMenuItem onClick={() => onDelete?.(user)} />
+                    <UserMenuItem
+                      innerText={deleteUser('Delete user')}
+                      onClick={() => onDelete?.(user)}
+                      icon={<DeleteUserIcon size={24} />}
+                    />
+                    {user?.userBan?.createdAt ? (
+                      <UserMenuItem
+                        innerText={banUser('Unban in the system')}
+                        onClick={() => onUnBan?.(user)}
+                        icon={<CheckMarkIcon size={24} />}
+                      />
+                    ) : (
+                      <UserMenuItem
+                        innerText={banUser('Ban in the system')}
+                        onClick={() => onBlock?.(user)}
+                        icon={<BannedIcon size={24} />}
+                      />
+                    )}
                   </TableActionsMenu>
                 </TableCell>
               </TableRow>
