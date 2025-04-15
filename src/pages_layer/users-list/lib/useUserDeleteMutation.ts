@@ -1,23 +1,14 @@
-import type { GetUsersListQuery } from '../api/users.generated'
+import type { UserMutationType } from './userMutationType'
+import type { GetUsersListQuery } from '@/src/pages_layer/users-list'
 
 import { useState } from 'react'
 
-import { type MutateUserType, useDelete_UserMutation } from '@/src/entities/user'
-
-type UseUserDeleteMutationType = {
-  onCompleted?: () => void
-  onError?: () => void
-  selectedUser: MutateUserType
-}
+import { useDelete_UserMutation } from '@/src/entities/user'
 
 /**
  * Все хуки и колбэки для удаления пользователя
  */
-export function useUserDeleteMutation({
-  onCompleted,
-  onError,
-  selectedUser,
-}: UseUserDeleteMutationType) {
+export function useUserDeleteMutation({ onCompleted, onError, selectedUser }: UserMutationType) {
   const [openDelete, setOpenDelete] = useState(false)
   const [deleteUser, { error, loading: deleteLoading }] = useDelete_UserMutation({
     onCompleted() {

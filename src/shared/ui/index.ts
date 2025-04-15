@@ -1,6 +1,7 @@
 export * from './back-button/BackButton'
 export * from './dropdown/dropdown'
 export * from './error-boundary/ErrorBoundary'
+export * from './modals/confirm-modal/ConfirmBlock'
 export * from './modals/confirm-modal/ConfirmModal'
 export * from './spinner/Spinner'
 export * from './tabs-view/TabsView'

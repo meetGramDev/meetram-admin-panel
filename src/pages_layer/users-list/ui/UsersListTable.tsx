@@ -4,31 +4,55 @@ import type { GetUsersListQuery } from '../api/users.generated'
 import type { UsersListTableHeadKeysType } from '../model/table-headers.types'
 import type { UserBlockStatus } from '@/src/shared/api'
 
-import { DeleteUserMenuItem, type MutateUserType } from '@/src/entities/user'
+import { type MutateUserType, UserMenuItem } from '@/src/entities/user'
 import { TableActionsMenu } from '@/src/features/table-actions-menu'
-import { BannedIcon } from '@/src/shared/assets/icons'
+import { BannedIcon, CheckMarkIcon, DeleteUserIcon } from '@/src/shared/assets/icons'
 import { Link, PROFILE } from '@/src/shared/routes'
 import { isGraphQLError } from '@/src/shared/types'
-import { DataTable, type TableColumn } from '@/src/widgets/table'
+import { DataTable, type TableColumn, paginationPageSize } from '@/src/widgets/table'
 import { ProfileTabValues } from '@/src/widgets/tabs'
 import { Button } from '@meetgram/ui-kit'
 import { dateFormatting } from '@meetgram/utils'
 import { useLocale, useTranslations } from 'next-intl'
 
-import { paginationPageSize } from '../../../widgets/table/const/pagination-config'
 import { useUsersListTable } from '../lib/useUsersListTable'
 
 export type UsersListTableProps = {
   disabled?: boolean
+  onBlock?: (user: MutateUserType) => void
+  /**
+   * Triggers on user deletion
+   */
   onDelete?: (user: MutateUserType) => void
+  /**
+   * Send error message whether it occurred
+   * @param error message
+   */
   onError?: (error: string) => void
+  onUnBan?: (user: MutateUserType) => void
+  /**
+   * Search by username
+   */
   searchQuery?: string
+  /**
+   * Filter by user status
+   * @enum {UserBlockStatus}
+   */
   statusFilter?: `${UserBlockStatus}`
 }
 
-export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableProps) => {
+export const UsersListTable = ({
+  disabled,
+  onBlock,
+  onDelete,
+  onUnBan,
+  ...props
+}: UsersListTableProps) => {
   const locale = useLocale()
   const t = useTranslations('user-list-items-table-header')
+  const deleteUser = useTranslations('dialogs.delete')
+  const banUser = useTranslations('dialogs.ban')
+
   const {
     currentPage,
     data,
@@ -101,7 +125,24 @@ export const UsersListTable = ({ disabled, onDelete, ...props }: UsersListTableP
       render: user => (
         <div className={'max-w-[100px] text-end'}>
           <TableActionsMenu disabled={disabled}>
-            <DeleteUserMenuItem onClick={() => onDelete?.(user)} />
+            <UserMenuItem
+              innerText={deleteUser('Delete user')}
+              onClick={() => onDelete?.(user)}
+              icon={<DeleteUserIcon size={24} />}
+            />
+            {user?.userBan?.createdAt ? (
+              <UserMenuItem
+                innerText={banUser('Unban in the system')}
+                onClick={() => onUnBan?.(user)}
+                icon={<CheckMarkIcon size={24} />}
+              />
+            ) : (
+              <UserMenuItem
+                innerText={banUser('Ban in the system')}
+                onClick={() => onBlock?.(user)}
+                icon={<BannedIcon size={24} />}
+              />
+            )}
           </TableActionsMenu>
         </div>
       ),
