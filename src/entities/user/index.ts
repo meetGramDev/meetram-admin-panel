@@ -5,7 +5,10 @@ export {
   type Delete_UserMutationVariables,
   useDelete_UserMutation,
 } from './api/delete-user/deleteUser.generated'
-export { useGet_FollowersQuery } from './api/get-user-followers/userFollowers.generated'
+export {
+  type Get_FollowersQuery,
+  useGet_FollowersQuery,
+} from './api/get-user-followers/userFollowers.generated'
 export {
   Get_User_ProfileDocument,
   type Get_User_ProfileQuery,

@@ -1,5 +1,5 @@
 import type { UserMutationType } from './userMutationType'
-import type { GetUsersListQuery } from '@/src/widgets/users-list/table'
+import type { GetUsersListQuery } from '@/src/pages_layer/users-list'
 
 import { useState } from 'react'
 
