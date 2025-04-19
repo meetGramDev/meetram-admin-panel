@@ -24,7 +24,7 @@ import { TableSkeleton } from './TableSkeleton'
  * @template L - The type of the cell label
  */
 export interface TableColumn<
-  T extends { id: number | string },
+  T extends { id?: null | number | string | undefined },
   K extends string = string,
   L extends string = string,
 > extends ITableHead<K, L> {
@@ -47,7 +47,7 @@ export const enum SortDirectionTable {
  * @template L - The type of the cell label
  */
 type DataTableProps<
-  T extends { id: number | string },
+  T extends { id?: null | number | string | undefined },
   K extends string = string,
   L extends string = string,
 > = {
@@ -88,7 +88,7 @@ type DataTableProps<
  *
  */
 export function DataTable<
-  T extends { id: number | string },
+  T extends { id?: null | number | string | undefined },
   K extends string = string,
   L extends string = string,
 >({

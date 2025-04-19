@@ -67,5 +67,12 @@
     "Not selected": "Не выбрано",
     "Blocked": "Заблокированные",
     "Not blocked": "Не заблокированные"
+  },
+  "payment-list-items-table-header": {
+    "Amount": "Сумма, $",
+    "Username": "Имя пользователя",
+    "Subscription": "Тип подписки",
+    "Date added": "Дата добавления",
+    "Payment method": "Способ оплаты"
   }
 }

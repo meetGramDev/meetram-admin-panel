@@ -67,5 +67,12 @@
     "Not selected": "No seleccionado",
     "Blocked": "Obstruido",
     "Not blocked": "No bloqueado"
+  },
+  "payment-list-items-table-header": {
+    "Amount": "Suma, $",
+    "Username": "Nombre de usuario",
+    "Subscription": "Tipo de Suscripción",
+    "Date added": "Fecha de incorporación",
+    "Payment method": "Forma de pago"
   }
 }

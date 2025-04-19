@@ -67,5 +67,13 @@
     "Not selected": "Не вибрано",
     "Blocked": "Заблоковано",
     "Not blocked": "Не заблокований"
+  },
+  "payment-list-items-table-header": {
+    "Amount": "Сума, $",
+    "Username": "Ім'я користувача",
+    "Subscription": "Тип Передплати",
+    "Date added": "Дата додавання",
+    "Payment method": "Спосiб Оплати"
   }
 }
+
