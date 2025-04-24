@@ -1,5 +1,5 @@
 query GetPaymentsList(
- $pageSize: Int = 10
+ $pageSize: Int = 6
  $pageNumber: Int = 1
  $sortBy: String = "createdAt"
  $sortDirection: SortDirection = desc
@@ -18,19 +18,14 @@ query GetPaymentsList(
     totalCount
     items {
         id
-        userId
         paymentMethod 
         amount
         currency
         createdAt
-        endDate
         type
         userName
         avatars {
             url 
-            width
-            height
-            fileSize
         }
     }
    }

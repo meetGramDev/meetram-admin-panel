@@ -2,7 +2,8 @@ import type { PaymentsListTableProps } from '../ui/PaymentsListTable'
 
 import { useEffect } from 'react'
 
-import { useTableSorting } from '@/src/widgets/table'
+import { PAGE_SIZE_PARAM_KEY, useTableSorting } from '@/src/widgets/table'
+import { useSearchParams } from 'next/navigation'
 
 import { useGetPaymentsListQuery } from '../api/payments.generated'
 
@@ -18,11 +19,15 @@ export function usePaymentsTable({ onError, searchQuery }: PaymentsListTableProp
     sortDirection,
   } = useTableSorting({ defaultSortBy: 'createdAt' })
 
+  const searchParams = useSearchParams()
+
+  const initialPageSize = searchParams.get(PAGE_SIZE_PARAM_KEY) ? itemsPerPage : 6
+
   const { data, error, loading, refetch } = useGetPaymentsListQuery({
     pollInterval: 300000,
     variables: {
       pageNumber: currentPage,
-      pageSize: +itemsPerPage,
+      pageSize: +initialPageSize,
       searchTerm: searchQuery,
       sortBy,
       sortDirection,
