@@ -67,5 +67,12 @@
     "Not selected": "Не выбраны",
     "Blocked": "Заблакіраваны",
     "Not blocked": "Не заблакіраваны"
+  },
+  "payment-list-items-table-header": {
+    "Amount": "Сума, $",
+    "Username": "Імя карыстальніка",
+    "Subscription": "Тып падпiскi",
+    "Date added": "Дата дадання",
+    "Payment method": "Спосаб Аплаты"
   }
 }
