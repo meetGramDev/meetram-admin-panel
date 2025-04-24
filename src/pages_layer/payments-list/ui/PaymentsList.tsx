@@ -1,8 +1,7 @@
 'use client'
-import { usePathname, useRouter } from '@/src/shared/routes'
 import { SearchBar } from '@/src/widgets/search-bar'
 import { PAGE_PARAM_KEY, SEARCH_PARAM_KEY } from '@/src/widgets/table'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { PaymentsListTable } from './PaymentsListTable'
 

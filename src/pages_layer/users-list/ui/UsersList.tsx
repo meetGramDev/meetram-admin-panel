@@ -5,12 +5,11 @@ import { useState } from 'react'
 
 import { useUserUnBanMutation } from '@/src/pages_layer/users-list/lib/useUserUnBanMutation'
 import { UserBlockStatus } from '@/src/shared/api'
-import { usePathname, useRouter } from '@/src/shared/routes'
 import { ConfirmBlock, ConfirmDialog } from '@/src/shared/ui'
 import { SearchBar } from '@/src/widgets/search-bar'
 import { FILTER_PARAM_KEY, PAGE_PARAM_KEY, SEARCH_PARAM_KEY } from '@/src/widgets/table'
 import { BanSelector } from '@/src/widgets/users-list/ban-selector'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import { useConfirmDialog } from '../lib/useConfirmDialog'
