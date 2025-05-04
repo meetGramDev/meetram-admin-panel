@@ -1,0 +1,29 @@
+  subscription OnNewPost {
+    postAdded {
+      images {
+        id
+        createdAt
+        url
+        width
+        height
+        fileSize
+      }
+      id
+      ownerId
+      description
+      createdAt
+      postOwner {
+        id
+        userName
+        firstName
+        lastName
+        avatars {
+          url
+        }
+      }
+      userBan {
+        reason
+        createdAt
+      }
+    }
+  }

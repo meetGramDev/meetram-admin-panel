@@ -74,5 +74,9 @@
     "Subscription": "Tipo de Suscripción",
     "Date added": "Fecha de incorporación",
     "Payment method": "Forma de pago"
+  },
+  "text": {
+    "Show more": "Espectáculo",
+    "Hide": "Esconder"
   }
 }

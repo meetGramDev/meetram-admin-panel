@@ -1,0 +1,46 @@
+query GetPostsLists (
+$endCursorPostId: Int
+$searchTerm: String
+$pageSize: Int = 10
+$sortBy: String = "createdAt"
+$sortDirection: SortDirection = desc
+) {
+  getPosts ( 
+    pageSize: $pageSize
+    sortBy: $sortBy
+    sortDirection: $sortDirection
+    searchTerm: $searchTerm
+    endCursorPostId: $endCursorPostId
+    ) 
+    {
+        pageSize
+        totalCount
+        items {
+            images {
+                id
+                createdAt
+                url
+                width
+                height
+                fileSize
+            }
+        id
+        ownerId
+        description
+        createdAt
+        postOwner {
+            id
+            userName
+            firstName
+            lastName
+            avatars {
+               url
+            }
+          }
+        userBan {
+            reason
+            createdAt
+        }
+        }
+    }
+}

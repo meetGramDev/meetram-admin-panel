@@ -6,12 +6,34 @@ import type { PropsWithChildren } from 'react'
 
 import { authLink } from '@/src/shared/api/apollo-client/apollo-config'
 import { BACKEND_GraphQL_BASE_URL } from '@/src/shared/config'
-import { HttpLink } from '@apollo/client'
+import { ApolloLink, HttpLink } from '@apollo/client'
+import { WebSocketLink } from '@apollo/client/link/ws'
+import { getMainDefinition } from '@apollo/client/utilities'
 import {
   ApolloClient,
   ApolloNextAppProvider,
   InMemoryCache,
 } from '@apollo/experimental-nextjs-app-support'
+
+const httpUri = 'https://inctagram.work/api/v1/graphql'
+const wsUri = 'ws://inctagram.work/api/v1/graphql'
+
+const wsLink = new WebSocketLink({
+  options: {
+    reconnect: true,
+  },
+  uri: wsUri,
+})
+
+const splitLink = ApolloLink.split(
+  ({ query }) => {
+    const definition = getMainDefinition(query)
+
+    return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
+  },
+  wsLink,
+  new HttpLink({ uri: httpUri })
+)
 
 /**
  *
@@ -111,7 +133,7 @@ function makeClient() {
       },
     }),
     connectToDevTools: true,
-    link: authLink.concat(httpLink),
+    link: authLink.concat(splitLink),
   })
 }
 

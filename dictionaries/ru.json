@@ -74,5 +74,9 @@
     "Subscription": "Тип подписки",
     "Date added": "Дата добавления",
     "Payment method": "Способ оплаты"
+  },
+  "text": {
+    "Show more": "Показать",
+    "Hide": "Скрыть"
   }
 }
