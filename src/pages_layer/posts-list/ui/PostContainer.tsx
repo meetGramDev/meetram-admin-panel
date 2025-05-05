@@ -55,8 +55,8 @@ export const PostContainer = ({ locale, post }: { locale: string; post: Post }) 
       <div className={'no-scrollbar max-h-[440px] overflow-y-auto'}>
         <ImageCarousel
           images={images}
-          className={'max-h-[300px] max-w-[300px]'}
-          contentClassname={'max-h-[300px] max-w-[300px]'}
+          className={'max-h-[300px] max-w-[300px] overflow-hidden'}
+          contentClassname={'max-h-[300px] max-w-[300px] flex items-center justify-center'}
         />
 
         <div className={'mt-[12px] flex items-center'}>
