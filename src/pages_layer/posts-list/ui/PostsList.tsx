@@ -4,35 +4,20 @@ import { useEffect, useTransition } from 'react'
 
 import { SortDirection } from '@/src/shared/api'
 import { Spinner } from '@/src/shared/ui'
-import { useQuery } from '@apollo/client'
 import { Loader } from '@meetgram/ui-kit'
 import { useInfiniteScroll } from '@meetgram/utils'
 import { useLocale } from 'next-intl'
 
-import {
-  OnNewPostDocument,
-  type OnNewPostSubscription,
-  type OnNewPostSubscriptionVariables,
-  useOnNewPostSubscription,
-} from '../api/newPost.generated'
-import {
-  GetPostsListsDocument,
-  type GetPostsListsQuery,
-  type GetPostsListsQueryVariables,
-} from '../api/posts.generated'
+import { OnNewPostDocument } from '../api/newPost.generated'
+import { useGetPostsListsQuery } from '../api/posts.generated'
 import { PostContainer } from './PostContainer'
 
-export const PostsList = ({ searchQuery }: { searchQuery: string }) => {
+export const PostsList = ({ searchQuery }: { searchQuery?: string }) => {
   const [isPending, startTransition] = useTransition()
-
-  //const { data: subscriptionData } = useOnNewPostSubscription()
 
   const locale = useLocale()
 
-  const { data, fetchMore, loading, subscribeToMore } = useQuery<
-    GetPostsListsQuery,
-    GetPostsListsQueryVariables
-  >(GetPostsListsDocument, {
+  const { data, fetchMore, loading, subscribeToMore } = useGetPostsListsQuery({
     variables: {
       endCursorPostId: 0,
       pageSize: 8,
@@ -113,23 +98,21 @@ export const PostsList = ({ searchQuery }: { searchQuery: string }) => {
   //{subscriptionData && <PostContainer locale={locale} post={subscriptionData.postAdded} />}
 
   return (
-    <>
-      <div className={'flex justify-center'}>
-        <div
-          className={'grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:w-fit lg:grid-cols-4'}
-        >
-          {data.getPosts.items.map(post => (
-            <div key={post.id}>
-              <PostContainer locale={locale} post={post} />
-            </div>
-          ))}
-          {hasMoreItems && (
-            <div ref={ref} className={'col-span-full mt-3 flex h-fit justify-center'}>
-              <Loader />
-            </div>
-          )}
-        </div>
+    <div className={'flex justify-center'}>
+      <div
+        className={'grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:w-fit lg:grid-cols-4'}
+      >
+        {data.getPosts.items.map(post => (
+          <div key={post.id}>
+            <PostContainer locale={locale} post={post} />
+          </div>
+        ))}
+        {hasMoreItems && (
+          <div ref={ref} className={'col-span-full mt-3 flex h-fit justify-center'}>
+            <Loader />
+          </div>
+        )}
       </div>
-    </>
+    </div>
   )
 }

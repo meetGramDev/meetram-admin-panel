@@ -5,10 +5,18 @@ import { useState } from 'react'
 
 import { BannedIcon } from '@/src/shared/assets/icons'
 import imgPlaceholder from '@/src/shared/assets/img/no-image-placeholder.webp'
+import { Link, PROFILE } from '@/src/shared/routes'
 import { ConfirmBlock } from '@/src/shared/ui'
-import { ButtonIcon, ExpandableText, ImageCarousel, type ImageType, Photo } from '@meetgram/ui-kit'
+import { ProfileTabValues } from '@/src/widgets/tabs'
+import {
+  Button,
+  ButtonIcon,
+  ExpandableText,
+  ImageCarousel,
+  type ImageType,
+  Photo,
+} from '@meetgram/ui-kit'
 import { getTimeAgo } from '@meetgram/utils'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
 import { useUserBlockMutation } from '../../users-list/lib/useUserBlockMutation'
@@ -71,7 +79,18 @@ export const PostContainer = ({ locale, post }: { locale: string; post: Post }) 
           <h2
             className={'ml-[12px] flex items-center justify-center text-[16px] font-bold leading-6'}
           >
-            {post.postOwner.userName}
+            {' '}
+            <Button
+              as={Link}
+              variant={'link'}
+              className={'text-white no-underline'}
+              href={{
+                pathname: `/${PROFILE}/${post.ownerId}/${ProfileTabValues.posts}`,
+                query: { from: 'users' },
+              }}
+            >
+              {post.postOwner.userName}
+            </Button>
           </h2>
           <ButtonIcon
             className={'ml-auto cursor-pointer'}

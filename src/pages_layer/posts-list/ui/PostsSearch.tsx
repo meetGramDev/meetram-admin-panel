@@ -4,11 +4,7 @@ import { SearchBar } from '@/src/widgets/search-bar'
 import { SEARCH_PARAM_KEY } from '@/src/widgets/table'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
-export const PostsSearch = ({
-  setSearchQuery,
-}: {
-  setSearchQuery: (searchQuery: string) => void
-}) => {
+export const PostsSearch = ({}: {}) => {
   const searchParams = useSearchParams()
   const params = new URLSearchParams(searchParams)
   const router = useRouter()
@@ -31,15 +27,8 @@ export const PostsSearch = ({
       params.delete(SEARCH_PARAM_KEY)
     }
 
-    setSearchQuery(value)
-
     _saveSearchParams()
   }
 
-  return (
-    <>
-      {' '}
-      <SearchBar onValueQuery={handleOnSearchQuery} defaultValue={searchQuery} />
-    </>
-  )
+  return <SearchBar onValueQuery={handleOnSearchQuery} defaultValue={searchQuery} />
 }
