@@ -5,8 +5,10 @@ import type { GetUsersListQuery, GetUsersListQueryVariables } from '@/src/pages_
 import type { PropsWithChildren } from 'react'
 
 import { authLink } from '@/src/shared/api/apollo-client/apollo-config'
-import { BACKEND_GraphQL_BASE_URL } from '@/src/shared/config'
-import { HttpLink } from '@apollo/client'
+import { BACKEND_GraphQL_BASE_URL, BACKEND_WebSocket_BASE_URL } from '@/src/shared/config'
+import { ApolloLink, HttpLink } from '@apollo/client'
+import { WebSocketLink } from '@apollo/client/link/ws'
+import { getMainDefinition } from '@apollo/client/utilities'
 import {
   ApolloClient,
   ApolloNextAppProvider,
@@ -22,6 +24,14 @@ import {
  */
 function makeClient() {
   // инициализация API baseUrl
+
+  const wsLink = new WebSocketLink({
+    options: {
+      reconnect: true,
+    },
+    uri: BACKEND_WebSocket_BASE_URL,
+  })
+
   const httpLink = new HttpLink({
     // по желанию, здесь можно задизейблить кэш
     // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
@@ -29,9 +39,19 @@ function makeClient() {
     // на каждый query запрос можно переопределить дефолтное значение `fetchOptions`
     // через свойство `context` в объекте параметров, передаваемый вторым аргументом
     // в хук Apollo Client`а для запроса за данными, например:
-    // const { data } = useSuspenseQuery(MY_QUERY, { context: { fetchOptions: { cache: "force-cache" }}});
     uri: BACKEND_GraphQL_BASE_URL,
+    // const { data } = useSuspenseQuery(MY_QUERY, { context: { fetchOptions: { cache: "force-cache" }}});
   })
+
+  const splitLink = ApolloLink.split(
+    ({ query }) => {
+      const definition = getMainDefinition(query)
+
+      return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
+    },
+    wsLink,
+    httpLink
+  )
 
   // Инициализация инстанса клиента Apollo
   return new ApolloClient({
@@ -111,7 +131,7 @@ function makeClient() {
       },
     }),
     connectToDevTools: true,
-    link: authLink.concat(httpLink),
+    link: authLink.concat(splitLink),
   })
 }
 

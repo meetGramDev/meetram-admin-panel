@@ -74,5 +74,9 @@
     "Subscription": "Subscription",
     "Date added": "Date added",
     "Payment method": "Payment Method"
+  },
+  "text": {
+    "Show more": "Show more",
+    "Hide": "Hide"
   }
 }

@@ -74,6 +74,11 @@
     "Subscription": "Тип Передплати",
     "Date added": "Дата додавання",
     "Payment method": "Спосiб Оплати"
+  },
+  "text": {
+    "Show more": "Показати",
+    "Hide": "Приховати"
   }
 }
+
 
