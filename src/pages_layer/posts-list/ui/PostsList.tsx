@@ -38,8 +38,8 @@ export const PostsList = ({ searchQuery }: { searchQuery?: string }) => {
           const newPost = subscriptionData.data.getPosts?.items?.[0]
 
           return Object.assign({}, prev, {
-            posts: {
-              comments: [newPost, ...prev.getPosts.items],
+            getPosts: {
+              items: [newPost, ...prev.getPosts.items],
             },
           })
         },
