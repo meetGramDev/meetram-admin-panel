@@ -1,7 +1,5 @@
 import { BACKEND_GraphQL_BASE_URL } from '@/src/shared/config'
-import { ApolloLink, HttpLink } from '@apollo/client'
-import { WebSocketLink } from '@apollo/client/link/ws'
-import { getMainDefinition } from '@apollo/client/utilities'
+import { HttpLink } from '@apollo/client'
 import {
   ApolloClient,
   InMemoryCache,
@@ -21,32 +19,12 @@ const httpLink = new HttpLink({
   uri: BACKEND_GraphQL_BASE_URL,
 })
 
-const httpUri = 'https://inctagram.work/api/v1/graphql'
-const wsUri = 'ws://inctagram.work/api/v1/graphql'
-
-const wsLink = new WebSocketLink({
-  options: {
-    reconnect: true,
-  },
-  uri: wsUri,
-})
-
-const splitLink = ApolloLink.split(
-  ({ query }) => {
-    const definition = getMainDefinition(query)
-
-    return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
-  },
-  wsLink,
-  new HttpLink({ uri: httpUri })
-)
-
 /**
  * Создаёт инстанс Apollo Client`а для использования в RSC и SSR
  */
 export const { PreloadQuery, getClient, query } = registerApolloClient(() => {
   return new ApolloClient({
     cache: new InMemoryCache(),
-    link: authLink.concat(splitLink),
+    link: authLink.concat(httpLink),
   })
 })
