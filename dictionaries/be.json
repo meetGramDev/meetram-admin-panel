@@ -73,10 +73,17 @@
     "Username": "Імя карыстальніка",
     "Subscription": "Тып падпiскi",
     "Date added": "Дата дадання",
-    "Payment method": "Спосаб Аплаты"
+    "Payment method": "Спосаб Аплаты",
+    "1 day": "1 дзень",
+    "7 days": "7 дзён",
+    "1 month": "1 месяц"
   },
   "text": {
     "Show more": "Паказаць",
     "Hide": "Схаваць"
+  },
+    "pagination": {
+    "Show": "Паказаць",
+    "on page": "на старонцы"
   }
 }
