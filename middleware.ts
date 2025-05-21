@@ -1,26 +1,11 @@
-import { i18nConfig } from '@/src/app/i18n'
-import { match as matchLocale } from '@formatjs/intl-localematcher'
-import Negotiator from 'negotiator'
+import { i18nConfig } from '@/src/app_layer/i18n'
+import { SIGN_IN, USERS_LIST } from '@/src/shared/routes'
 import { NextRequest, NextResponse } from 'next/server'
-
-function getLocale(request: NextRequest): string | undefined {
-  // Negotiator expects plain object so we need to transform headers
-  const negotiatorHeaders: Record<string, string> = {}
-
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
-
-  // @ts-ignore locales are readonly
-  const locales: string[] = i18nConfig.locales
-
-  const languages = new Negotiator({ headers: negotiatorHeaders }).languages(locales)
-
-  const locale = matchLocale(languages, locales, i18nConfig.defaultLocale)
-
-  return locale
-}
+import createMiddleware from 'next-intl/middleware'
 
 export function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname
+  const isLogged = req.cookies.get('logged')?.value
 
   // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
   // If you have one
@@ -38,28 +23,29 @@ export function middleware(req: NextRequest) {
     return
   }
 
-  // Check if there is any supported locale in the pathname
-  const pathnameIsMissingLocale = i18nConfig.locales.every(
-    locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  )
+  // Matches all paths that start with a locale like '/en'
+  const pathnameHasLocale = new RegExp(`^/(${i18nConfig.locales.join('|')})(/.*)?$`).test(pathname)
 
-  // Redirect if there is no locale
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(req)
+  if (!pathnameHasLocale) {
+    const i18nMiddleware = createMiddleware(i18nConfig)
 
-    // e.g. incoming request is /products
-    // The new URL is now /en-US/products
-    return NextResponse.redirect(
-      new URL(`/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`, req.url)
-    )
+    return i18nMiddleware(req)
   }
+
+  if (!isLogged && !pathname.includes(SIGN_IN)) {
+    return NextResponse.redirect(new URL(SIGN_IN, req.url))
+  }
+
+  if (isLogged && pathname.includes(SIGN_IN)) {
+    return NextResponse.redirect(new URL(USERS_LIST, req.url))
+  }
+
+  return NextResponse.next()
 }
 
 export const config = {
-  matcher: [
-    // Skip all internal paths (_next)
-    '/((?!_next).*)',
-    // Optional: only run on root (/) URL
-    // '/'
-  ],
+  // Skip all internal paths (_next)
+  matcher: ['/((?!_next).*)', '/:locale(sign-in)'],
+  // Optional: only run on root (/) URL
+  // '/'
 }

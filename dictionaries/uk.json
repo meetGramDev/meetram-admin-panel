@@ -1,1 +1,84 @@
-{}
+{
+  "home": {
+    "Get started by editing": "Почніть редагувати",
+    "Save and see your changes instantly": "Збережіть і Ваші зміни відразу ж відобразяться",
+    "Deploy now": "Задеплоїти",
+    "Read our docs": "Прочитати документацію",
+    "Learn": "Вивчивши",
+    "Examples": "Приклад",
+    "Go to": "Перейти на"
+  },
+  "all-posts": {
+    "All posts will be here!": "Тут будуть всі пости!"
+  },
+  "profile": {
+    "User's profile will be here!!": "Тут буде профіль користувача!!"
+  },
+  "buttons": {
+    "Back": "Назад",
+    "Yes": "Так",
+    "No": "Ні"
+  },
+  "auth": {
+    "Sign In": "Увійти",
+    "Email": "Електронна пошта",
+    "Password": "Пароль"
+  },
+  "dialogs": {
+    "delete": {
+      "Delete user": "Видалити користувача",
+      "Are you sure to delete user": "Ви впевнені, що хочете видалити користувача"
+    },
+    "ban": {
+      "Ban user": "Заблокувати користувача",
+      "Ban in the system": "Заблокувати у системі",
+      "Are you sure to ban this user": "Ви впевнені, що хочете заблокувати користувача",
+      "Unban user": "Розблокувати користувача",
+      "Unban in the system": "Розблокувати у системі",
+      "Are you sure to unban this user": "Ви впевнені, що хочете розблокувати користувача",
+      "reasons": {
+        "Bad behavior": "Погана поведінка",
+        "Advertising placemen": "Розміщення реклами",
+        "Another reason": "Інша причина",
+        "Description": "Опис"
+      }
+    }
+  },
+  "info-messages": {
+    "Nothing found": "Нічого не знайдено",
+    "Try again": "Оновити"
+  },
+  "error-messages": {
+    "Incorrect email or password": "Невірний логін або пароль"
+  },
+  "sidebar-items": {
+    "Users list": "Список користувачів",
+    "Statistics": "Статистика",
+    "Payments list": "Список платежів",
+    "Posts list": "Список дописів"
+  },
+  "user-list-items-table-header": {
+    "User ID": "ID користувача",
+    "Username": "Ім'я користувача",
+    "Profile link": "Посилання на профіль",
+    "Date created": "Дата створення"
+  },
+  "ban-selector": {
+    "Not selected": "Не вибрано",
+    "Blocked": "Заблоковано",
+    "Not blocked": "Не заблокований"
+  },
+  "payment-list-items-table-header": {
+    "Amount": "Сума, $",
+    "Username": "Ім'я користувача",
+    "Subscription": "Тип Передплати",
+    "Date added": "Дата додавання",
+    "Payment method": "Спосiб Оплати"
+  },
+  "text": {
+    "Show more": "Показати",
+    "Hide": "Приховати"
+  }
+}
+
+

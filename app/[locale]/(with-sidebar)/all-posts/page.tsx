@@ -1,9 +1,26 @@
-import { type Locale, getDictionary } from '@/src/app/i18n'
-import { AllPosts } from '@/src/pages_layer/all-posts'
+import { Suspense } from 'react'
 
-export default async function Index({ params }: { params: Promise<{ locale: Locale }> }) {
-  const { locale } = await params
-  const dict = await getDictionary(locale)
+import { AllPosts } from '@/src/pages_layer/posts-list/ui/AllPosts'
+import { PostsList } from '@/src/pages_layer/posts-list/ui/PostsList'
+import { ErrorBoundary } from '@/src/shared/ui'
+import { Loader } from '@meetgram/ui-kit'
 
-  return <AllPosts dict={dict} />
+export default function Page() {
+  return (
+    <div>
+      <ErrorBoundary
+        fallback={<p className={'text-center text-h1 text-danger-500'}>Something went wrong</p>}
+      >
+        <Suspense
+          fallback={
+            <div className={'flex justify-center'}>
+              <Loader />
+            </div>
+          }
+        >
+          <AllPosts />
+        </Suspense>
+      </ErrorBoundary>
+    </div>
+  )
 }

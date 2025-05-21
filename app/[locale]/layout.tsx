@@ -1,13 +1,18 @@
 import type { Metadata } from 'next'
 
-import { type ReactNode } from 'react'
+import { type ReactNode, Suspense } from 'react'
 
-import { type Locale, LocaleProvider, i18nConfig } from '@/src/app/i18n'
+import { type Locale, i18nConfig } from '@/src/app_layer/i18n'
+import { ApolloWrapper } from '@/src/app_layer/providers'
 import { Header } from '@/src/widgets/header'
+import { ProgressBar } from '@/src/widgets/progress-bar'
 import { Inter } from 'next/font/google'
+import { notFound } from 'next/navigation'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages, setRequestLocale } from 'next-intl/server'
 
-import '@/src/app/styles/globals.scss'
 import '@meetgram/ui-kit/styles.css'
+import '@/src/app_layer/styles/globals.scss'
 
 const interFont = Inter({
   subsets: ['latin', 'cyrillic'],
@@ -20,26 +25,40 @@ export const metadata: Metadata = {
 }
 
 export async function generateStaticParams() {
-  return i18nConfig.locales.map(locale => ({ lang: locale }))
+  return i18nConfig.locales.map(locale => ({ locale }))
 }
 
 export default async function RootLayout({
   children,
-  params,
+  params: { locale },
 }: Readonly<{
   children: ReactNode
-  params: Promise<{ locale: Locale }>
+  params: { locale: Locale }
 }>) {
-  const lang = (await params).locale
+  // Ensure that the incoming `locale` is valid
+  if (!i18nConfig.locales.includes(locale as Locale)) {
+    notFound()
+  }
+
+  // Enable static rendering
+  setRequestLocale(locale)
+
+  // Providing all dictionaries (aka messages) to the client side
+  const dictionaries = await getMessages()
 
   return (
-    <html lang={lang}>
-      <LocaleProvider langParam={lang}>
-        <body className={`${interFont.variable} relative antialiased`}>
-          <Header />
-          {children}
-        </body>
-      </LocaleProvider>
+    <html lang={locale}>
+      <NextIntlClientProvider locale={locale} messages={dictionaries}>
+        <ApolloWrapper>
+          <body className={`${interFont.variable} relative antialiased`}>
+            <Suspense fallback={null}>
+              <ProgressBar />
+            </Suspense>
+            <Header />
+            {children}
+          </body>
+        </ApolloWrapper>
+      </NextIntlClientProvider>
     </html>
   )
 }

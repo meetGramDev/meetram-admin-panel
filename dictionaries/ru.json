@@ -1,7 +1,7 @@
 {
   "home": {
     "Get started by editing": "Начните редактировать",
-    "Save and see your changes instantly.": "Сохраните и ваши изменения сразу же отобразятся.",
+    "Save and see your changes instantly": "Сохраните и ваши изменения сразу же отобразятся",
     "Deploy now": "Задеплоить",
     "Read our docs": "Прочитать документацию",
     "Learn": "Изучить",
@@ -10,5 +10,73 @@
   },
   "all-posts": {
     "All posts will be here!": "Тут будут все посты!"
+  },
+  "profile": {
+    "User's profile will be here!!": "Здесь будет профиль пользователя!!"
+  },
+  "buttons": {
+    "Back": "Назад",
+    "Yes": "Да",
+    "No": "Нет"
+  },
+  "auth": {
+    "Sign In": "Войти",
+    "Email": "Электронная почта",
+    "Password": "Пароль"
+  },
+  "dialogs": {
+    "delete": {
+      "Delete user": "Удалить пользователя",
+      "Are you sure to delete user": "Вы уверены, что хотите удалить пользователя"
+    },
+    "ban" : {
+      "Ban user": "Заблокировать пользователя",
+      "Ban in the system": "Заблокировать в системе",
+      "Are you sure to ban this user": "Вы уверены, что хотите заблокировать пользователя",
+      "Unban user": "Разблокировать пользователя",
+      "Unban in the system": "Разблокировать в системе",
+      "Are you sure to unban this user": "Вы уверены, что хотите разблокировать пользователя",
+      "reasons": {
+        "Bad behavior": "Плохое поведение",
+        "Advertising placemen": "Размещение рекламы",
+        "Another reason": "Другая причина",
+        "Description": "Описание"
+      }
+    }
+  },
+  "info-messages": {
+    "Nothing found": "Ничего не найдено",
+    "Try again": "Обновить"
+  },
+  "error-messages": {
+    "Incorrect email or password": "Неверный логин или пароль"
+  },
+  "sidebar-items": {
+    "Users list": "Список пользователей",
+    "Statistics": "Статистика",
+    "Payments list": "Список платежей",
+    "Posts list": "Список постов"
+  },
+  "user-list-items-table-header": {
+    "User ID": "ID пользователя",
+    "Username": "Имя пользователя",
+    "Profile link": "Ссылка на профиль",
+    "Date created": "Дата создания"
+  },
+  "ban-selector": {
+    "Not selected": "Не выбрано",
+    "Blocked": "Заблокированные",
+    "Not blocked": "Не заблокированные"
+  },
+  "payment-list-items-table-header": {
+    "Amount": "Сумма, $",
+    "Username": "Имя пользователя",
+    "Subscription": "Тип подписки",
+    "Date added": "Дата добавления",
+    "Payment method": "Способ оплаты"
+  },
+  "text": {
+    "Show more": "Показать",
+    "Hide": "Скрыть"
   }
 }

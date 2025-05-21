@@ -1,0 +1,38 @@
+query GetUsersList(
+  $pageSize: Int = 10
+  $pageNumber: Int = 1
+  $sortBy: String = "createdAt"
+  $sortDirection: SortDirection = desc
+  $searchTerm: String
+  $statusFilter: UserBlockStatus = ALL
+) {
+  getUsers(
+    pageSize: $pageSize
+    pageNumber: $pageNumber
+    sortBy: $sortBy
+    sortDirection: $sortDirection
+    searchTerm: $searchTerm
+    statusFilter: $statusFilter
+  ) {
+    users {
+      id
+      userName
+      profile {
+        firstName
+        lastName
+      }
+      userBan {
+        reason
+        createdAt
+      }
+      createdAt
+    }
+    pagination {
+      page
+      pageSize
+      pagesCount
+      totalCount
+    }
+  }
+}
+

@@ -1,7 +1,7 @@
 {
   "home": {
     "Get started by editing": "Get started by editing",
-    "Save and see your changes instantly.": "Save and see your changes instantly.",
+    "Save and see your changes instantly": "Save and see your changes instantly.",
     "Deploy now": "Deploy now",
     "Read our docs": "Read our docs",
     "Learn": "Learn",
@@ -10,5 +10,73 @@
   },
   "all-posts": {
     "All posts will be here!": "All posts will be here!"
+  },
+  "profile": {
+    "User's profile will be here!!": "User's profile will be here!!"
+  },
+  "buttons": {
+    "Back": "Back",
+    "Yes": "Yes",
+    "No": "No"
+  },
+  "auth": {
+    "Sign In": "Sign In",
+    "Email": "Email",
+    "Password": "Password"
+  },
+  "dialogs": {
+    "delete": {
+      "Delete user": "Delete user",
+      "Are you sure to delete user": "Are you sure to delete user"
+    },
+    "ban" : {
+      "Ban user": "Ban user",
+      "Ban in the system": "Ban in the system",
+      "Are you sure to ban this user": "Are you sure to ban user",
+      "Unban user": "Unban user",
+      "Unban in the system": "Unban in the system",
+      "Are you sure to unban this user": "Are you sure to unban user",
+      "reasons": {
+        "Bad behavior": "Bad behavior",
+        "Advertising placemen": "Advertising placemen",
+        "Another reason": "Another reason",
+        "Description": "Description"
+      }
+    }
+  },
+  "info-messages": {
+    "Nothing found": "Nothing found",
+    "Try again": "Try again"
+  },
+  "error-messages": {
+    "Incorrect email or password": "Incorrect email or password"
+  },
+  "sidebar-items": {
+    "Users list": "Users list",
+    "Statistics": "Statistics",
+    "Payments list": "Payments list",
+    "Posts list": "Posts list"
+  },
+  "user-list-items-table-header": {
+    "User ID": "User ID",
+    "Username": "Username",
+    "Profile link": "Profile link",
+    "Date created": "Date created"
+  },
+  "ban-selector": {
+    "Not selected": "Not selected",
+    "Blocked": "Blocked",
+    "Not blocked": "Not blocked"
+  },
+  "payment-list-items-table-header": {
+    "Amount": "Amount, $",
+    "Username": "Username",
+    "Subscription": "Subscription",
+    "Date added": "Date added",
+    "Payment method": "Payment Method"
+  },
+  "text": {
+    "Show more": "Show more",
+    "Hide": "Hide"
   }
 }

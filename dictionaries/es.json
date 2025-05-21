@@ -1,3 +1,82 @@
 {
-  
+  "home": {
+    "Get started by editing": "Comience editando",
+    "Save and see your changes instantly": "Guarde y vea sus cambios al instante.",
+    "Deploy now": "Despliegue ahora",
+    "Read our docs": "Lea nuestros documentos",
+    "Learn": "Aprende",
+    "Examples": "Ejemplos",
+    "Go to": "Ir a"
+  },
+  "all-posts": {
+    "All posts will be here!": "¡Todas las publicaciones estarán aquí!"
+  },
+  "profile": {
+    "User's profile will be here!!": "¡El perfil del usuario estará aquí!!"
+  },
+  "buttons": {
+    "Back": "Volver",
+    "Yes": "Sí",
+    "No": "No"
+  },
+  "auth": {
+    "Sign In": "Iniciar sesión",
+    "Email": "Email",
+    "Password": "Contraseña"
+  },
+  "dialogs": {
+    "delete": {
+      "Delete user": "Eliminar usuario",
+      "Are you sure to delete user": "¿Estás seguro de eliminar el usuario"
+    },
+    "ban" : {
+      "Ban user": "Bloquear usuario",
+      "Ban in the system": "Bloqueo en el sistema",
+      "Are you sure to ban this user": "¿Estás seguro que deseas bloquear al usuario?",
+      "Unban user": "Desbloquear usuario",
+      "Unban in the system": "Desbloquear en el sistema",
+      "Are you sure to unban this user": "¿Estás seguro de que deseas desbloquear al usuario?",
+      "reasons": {
+        "Bad behavior": "Mal comportamiento",
+        "Advertising placemen": "Colocación de publicidad",
+        "Another reason": "Otra razón",
+        "Description": "Descripción"
+      }
+    }
+  },
+  "info-messages": {
+    "Nothing found": "No se encontró nada",
+    "Try again": "Intentar otra vez"
+  },
+  "error-messages": {
+    "Incorrect email or password": "Correo electrónico o contraseña incorrectos"
+  },
+  "sidebar-items": {
+    "Users list": "Lista de usuarios",
+    "Statistics": "Estadística",
+    "Payments list": "Lista de pagos",
+    "Posts list": "Lista de publicaciones"
+  },
+  "user-list-items-table-header": {
+    "User ID": "ID de usuario",
+    "Username": "Nombre de usuario",
+    "Profile link": "Enlace de perfil",
+    "Date created": "Fecha de creación"
+  },
+  "ban-selector": {
+    "Not selected": "No seleccionado",
+    "Blocked": "Obstruido",
+    "Not blocked": "No bloqueado"
+  },
+  "payment-list-items-table-header": {
+    "Amount": "Suma, $",
+    "Username": "Nombre de usuario",
+    "Subscription": "Tipo de Suscripción",
+    "Date added": "Fecha de incorporación",
+    "Payment method": "Forma de pago"
+  },
+  "text": {
+    "Show more": "Espectáculo",
+    "Hide": "Esconder"
+  }
 }

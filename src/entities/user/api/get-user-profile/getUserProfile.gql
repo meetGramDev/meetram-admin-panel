@@ -1,0 +1,15 @@
+query GET_USER_PROFILE($userId: Int!) {
+  getUser(userId: $userId) {
+    id
+    userName
+    createdAt
+    profile {
+      id
+      firstName
+      lastName
+      avatars {
+        url
+      }
+    }
+  }
+}
