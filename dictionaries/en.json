@@ -78,5 +78,13 @@
   "text": {
     "Show more": "Show more",
     "Hide": "Hide"
+  },
+  "user-profile": {
+    "User ID": "User ID",
+    "Profile Creation Date": "Profile Creation Date",
+    "Uploaded Photos": "Uploaded photos",
+    "Payments": "Payments",
+    "Followers": "Followers",
+    "Following": "Following"
   }
 }
