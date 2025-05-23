@@ -17,7 +17,7 @@ export default async function UserLayout({
   tabs: ReactNode
 }) {
   const { id, locale } = params
-  const t = await getTranslations('buttons')
+  const t = await getTranslations({ locale })
 
   const { data, error } = await getUserProfileRSC(+id)
   let content
@@ -56,8 +56,8 @@ export default async function UserLayout({
           </div>
         </div>
         <div className={'grid grid-cols-[120px_120px] gap-y-2 sm:grid-cols-[180px_180px]'}>
-          <p className={'text-light-900'}>UserID</p>
-          <p className={'text-light-900'}>Profile Creation Date</p>
+          <p className={'text-light-900'}>{t('user-profile.User ID')}</p>
+          <p className={'text-light-900'}>{t('user-profile.Profile Creation Date')}</p>
           <p className={'text-light-100'}>{data.id}</p>
           <p className={'text-light-100'}>{dateFormatting(data.createdAt, { locale })}</p>
         </div>
@@ -69,7 +69,7 @@ export default async function UserLayout({
     <>
       <div>
         <BackButton whereTo={'/' + USERS_LIST}>
-          <span>{t('Back')}</span>
+          <span>{t('buttons.Back')}</span>
         </BackButton>
         {content}
       </div>

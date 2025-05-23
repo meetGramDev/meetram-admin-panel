@@ -78,7 +78,15 @@
   "text": {
     "Show more": "Показати",
     "Hide": "Приховати"
-  }
+  },
+   "user-profile": {
+    "User ID": "Ідентифікатор Користувача",
+    "Profile Creation Date": "Дата Створення Профілю",
+    "Uploaded Photos": "Завантажені фотографії",
+    "Payments": "Платежі",
+    "Followers": "Послідовників",
+    "Following": "Падпіскі"
+}
 }
 
 

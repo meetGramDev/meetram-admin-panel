@@ -8,7 +8,7 @@ import { Loader } from '@meetgram/ui-kit'
 import { useInfiniteScroll } from '@meetgram/utils'
 import { useLocale } from 'next-intl'
 
-import { OnNewPostDocument } from '../api/newPost.generated'
+import { OnNewPostDocument, type OnNewPostSubscription } from '../api/newPost.generated'
 import { useGetPostsListsQuery } from '../api/posts.generated'
 import { PostContainer } from './PostContainer'
 
@@ -29,13 +29,13 @@ export const PostsList = ({ searchQuery }: { searchQuery?: string }) => {
 
   useEffect(() => {
     if (data) {
-      const unsubscribe = subscribeToMore({
+      const unsubscribe = subscribeToMore<OnNewPostSubscription>({
         document: OnNewPostDocument,
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) {
             return prev
           }
-          const newPost = subscriptionData.data.getPosts?.items?.[0]
+          const newPost = subscriptionData.data.postAdded
 
           return Object.assign({}, prev, {
             items: [newPost, ...prev.getPosts.items],

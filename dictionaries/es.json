@@ -78,5 +78,13 @@
   "text": {
     "Show more": "Espectáculo",
     "Hide": "Esconder"
+  },
+   "user-profile": {
+    "User ID": "ID De Usuario",
+    "Profile Creation Date": "Fecha de Creación del Perfil",
+    "Uploaded Photos": "Fotos subidas",
+    "Payments": "Pagos",
+    "Followers": "Suscriptores",
+    "Following": "Suscripciones"
   }
 }

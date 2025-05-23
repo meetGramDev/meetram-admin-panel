@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:production": "env-cmd -f .env.production npm run build",
+    "build:production": "npm run build",
     "start": "next start",
     "format": "prettier src app --write",
     "lint": "eslint \"**/*.{ts,tsx}\"",
