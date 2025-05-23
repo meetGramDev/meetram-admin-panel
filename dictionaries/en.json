@@ -85,5 +85,13 @@
     "pagination": {
     "Show": "Show",
     "on page": "on page"
+    },
+  "user-profile": {
+    "User ID": "User ID",
+    "Profile Creation Date": "Profile Creation Date",
+    "Uploaded Photos": "Uploaded photos",
+    "Payments": "Payments",
+    "Followers": "Followers",
+    "Following": "Following"
   }
 }

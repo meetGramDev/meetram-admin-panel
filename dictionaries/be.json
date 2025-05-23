@@ -85,5 +85,14 @@
     "pagination": {
     "Show": "Паказаць",
     "on page": "на старонцы"
+   },
+   "user-profile": {
+    "User ID": "ID карыстальніка",
+    "Profile Creation Date": "Дата Стварэння Профілю",
+    "Uploaded Photos": "Загружаныя фатаграфіі",
+    "Payments": "Плацяжы",
+    "Followers": "Паслядоўнікі",
+    "Following": "Підписано"
   }
+  
 }

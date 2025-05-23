@@ -85,5 +85,13 @@
     "pagination": {
     "Show": "Mostrar",
     "on page": "en la página"
+    },
+   "user-profile": {
+    "User ID": "ID De Usuario",
+    "Profile Creation Date": "Fecha de Creación del Perfil",
+    "Uploaded Photos": "Fotos subidas",
+    "Payments": "Pagos",
+    "Followers": "Suscriptores",
+    "Following": "Suscripciones"
   }
 }
