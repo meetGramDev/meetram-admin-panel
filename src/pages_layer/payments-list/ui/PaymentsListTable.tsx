@@ -9,7 +9,6 @@ import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
 
 import { paymentMethodFunction } from '../lib/paymentMethodFunction'
-import { subTypeFunction } from '../lib/subTypeFunction'
 import { usePaymentsTable } from '../lib/usePaymentsListTable'
 import noImg from './../../../shared/assets/img/no-image-placeholder.webp'
 
@@ -23,7 +22,7 @@ const PaymentsPaginationOptions = ['6', '10', '15', '20']
 
 export const PaymentsListTable = (props: PaymentsListTableProps) => {
   const locale = useLocale()
-  const t = useTranslations('payment-list-items-table-header')
+  const t = useTranslations()
 
   const {
     currentPage,
@@ -46,7 +45,7 @@ export const PaymentsListTable = (props: PaymentsListTableProps) => {
     {
       id: 1,
       key: 'userName',
-      label: t('Username'),
+      label: t('payment-list-items-table-header.Username'),
       render: user => (
         <div className={'flex items-center'}>
           <Image
@@ -65,25 +64,31 @@ export const PaymentsListTable = (props: PaymentsListTableProps) => {
     {
       id: 2,
       key: 'createdAt',
-      label: t('Date added'),
+      label: t('payment-list-items-table-header.Date added'),
       render: user => dateFormatting(user.createdAt, { locale }),
     },
     {
       id: 3,
       key: 'amount',
-      label: t('Amount'),
+      label: t('payment-list-items-table-header.Amount'),
       render: user => <div>{`${user.amount}$`}</div>,
     },
     {
       id: 4,
       key: 'type',
-      label: t('Subscription'),
-      render: user => <div>{subTypeFunction(user.type)}</div>,
+      label: t('payment-list-items-table-header.Subscription'),
+      render: user => (
+        <div>
+          {user.type === 'DAY' && t('payment-list-items-table-header.1 day')}
+          {user.type === 'MONTHLY' && t('payment-list-items-table-header.1 month')}
+          {user.type === 'WEEKLY' && t('payment-list-items-table-header.7 days')}
+        </div>
+      ),
     },
     {
       id: 5,
       key: 'paymentMethod',
-      label: t('Payment method'),
+      label: t('payment-list-items-table-header.Payment method'),
       render: user => <div>{paymentMethodFunction(user.paymentMethod)}</div>,
     },
   ]
@@ -102,6 +107,7 @@ export const PaymentsListTable = (props: PaymentsListTableProps) => {
         currentPage: data?.getPayments.page ?? currentPage,
         pageCount: data?.getPayments.pagesCount ?? 0,
         perPage: String(data?.getPayments.pageSize) ?? itemsPerPage,
+        text: { onPage: t('pagination.on page'), show: t('pagination.Show') },
       }}
       paginationOptions={PaymentsPaginationOptions}
       onPageChange={handleOnPageChange}

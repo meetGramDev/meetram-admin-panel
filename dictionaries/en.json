@@ -73,10 +73,25 @@
     "Username": "Username",
     "Subscription": "Subscription",
     "Date added": "Date added",
-    "Payment method": "Payment Method"
+    "Payment method": "Payment Method",
+    "1 day": "1 day",
+    "7 days": "7 days",
+    "1 month": "1 month"
   },
   "text": {
     "Show more": "Show more",
     "Hide": "Hide"
+  },
+    "pagination": {
+    "Show": "Show",
+    "on page": "on page"
+    },
+  "user-profile": {
+    "User ID": "User ID",
+    "Profile Creation Date": "Profile Creation Date",
+    "Uploaded Photos": "Uploaded photos",
+    "Payments": "Payments",
+    "Followers": "Followers",
+    "Following": "Following"
   }
 }
